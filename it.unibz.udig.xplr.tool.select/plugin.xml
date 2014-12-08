@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="net.refractions.udig.project.ui.tool">
+      <modalTool
+            categoryId="it.unibz.udig.xplr.tool.edit.grammarcategory"
+            class="it.unibz.udig.xplr.tool.select.XplrBBoxSelection"
+            icon="icons/etool16/selection_mode.gif"
+            id="it.unibz.udig.xplr.tool.select.selectfeatures"
+            name="Select feature set"
+            onToolbar="true"
+            toolCursorId="bboxCursor">
+         <cursor
+               hotspotX="10"
+               hotspotY="10"
+               id="bbox_cursor"
+               image="icons/pointers/select_source.png">
+         </cursor>
+         <enablement>
+            <property
+                  expectedValue="SELECT"
+                  propertyId="InteractionProperty">
+            </property>
+         </enablement>
+      </modalTool>
+      <toolCursor
+            hotspotX="10"
+            hotspotY="10"
+            id="bboxCursor"
+            image="icons/pointers/select_source.png">
+      </toolCursor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="it.unibz.udig.xplr.tool.select.XpLRViewPart"
+            icon="icons/eview16/select_view.gif"
+            id="it.unibz.udig.xplr.tool.select.xplrView"
+            name="grammar view"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
