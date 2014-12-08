@@ -7,6 +7,7 @@ import it.unibz.udig.xplr.grammar.generated.XpgLexer;
 import it.unibz.udig.xplr.grammar.generated.XpgParser;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -39,17 +40,7 @@ public class XpLRParser
 		theStack = new ArrayList<Object>();
 
 		// the grammar
-		InputStream is = new FileInputStream(inputfile);
-		ANTLRInputStream input = new ANTLRInputStream(is);
-		XpgLexer lexer = new XpgLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		XpgParser parser = new XpgParser(tokens);
-		parser.setBuildParseTree(true);
-		ParseTree tree = parser.xpgfile(); // start
-		ParseTreeWalker walker = new ParseTreeWalker();
-
-		loader = new XpgLoader(inputfile);
-		walker.walk(loader, tree); // walk parse tree
+		buildGrammar(inputfile);
 
 		// the parsing table
 		ParsingTableConstructor constructor = new ParsingTableConstructor(loader);
@@ -59,6 +50,21 @@ public class XpLRParser
 		// ParsingTableConstructor.outTable( parsingtable );
 
 		theAlg();
+	}
+
+	private void buildGrammar(String inputfile) throws FileNotFoundException, IOException
+	{
+		InputStream is = new FileInputStream(inputfile);
+		ANTLRInputStream input = new ANTLRInputStream(is);
+		XpgLexer lexer = new XpgLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		XpgParser parser = new XpgParser(tokens);
+		parser.setBuildParseTree(true);
+		ParseTree tree = parser.xpgfile(); // start
+		ParseTreeWalker walker = new ParseTreeWalker();
+
+		loader = new XpgLoader();
+		walker.walk(loader, tree); // walk parse tree
 	}
 
 	public Dictionary getDictionary()

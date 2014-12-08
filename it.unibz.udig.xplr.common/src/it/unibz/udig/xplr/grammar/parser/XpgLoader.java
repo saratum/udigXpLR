@@ -32,7 +32,7 @@ public class XpgLoader extends XpgBaseListener
 
 	private ArrayList<String> layers;
 
-	public XpgLoader(String inputFile)
+	public XpgLoader()
 	{
 		this.items = new ArrayList<XpgItem>();
 		this.combinedItems = new ArrayList<XpgItem>();
@@ -226,15 +226,6 @@ public class XpgLoader extends XpgBaseListener
 	public void enterLayer(LayerContext ctx)
 	{
 		super.enterLayer(ctx);
-		
-//		StringBuilder sb = new StringBuilder();
-//		for (int i = 0; i < ctx.getChildCount(); i++)
-//		{
-//			sb.append(ctx.getChild(i));
-//		}
-//
-//		if (!layers.contains(sb.toString())) layers.add(sb.toString());
-
 	}
 
 	private XpgTerminal buildTerminal(TerminalContext ctx)

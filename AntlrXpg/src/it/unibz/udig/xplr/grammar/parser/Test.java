@@ -6,7 +6,6 @@ public class Test
 {
 
 	final String filename = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
-	XpgLoader loader = new XpgLoader(filename);
 
 	public static void main(String[] args)
 	{
