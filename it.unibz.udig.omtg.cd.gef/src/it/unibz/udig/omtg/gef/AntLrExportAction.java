@@ -197,7 +197,7 @@ public class AntLrExportAction extends Action implements IWorkbenchAction
 			BufferedWriter out = null;
 			try
 			{
-				fstream = new FileWriter( "/Users/sara/Desktop/lamp.xpg" );
+				fstream = new FileWriter( "/Users/sara/git/udigXpLR/regole/lamp.xpg" );
 				out = new BufferedWriter( fstream );
 
 				out.append( "LAYERS(" );
