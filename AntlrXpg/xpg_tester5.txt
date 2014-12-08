@@ -1,0 +1,4 @@
+LAYERS()
+
+a -> A <1_1> b <11_1,2_2> B <11_1> D;
+b -> E <2_2> F DELTA: ("b1 = E1", "b2 = F2") GAMMA: {(D; true; "D1 = E1")};

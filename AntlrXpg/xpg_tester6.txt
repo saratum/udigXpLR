@@ -1,0 +1,12 @@
+LAYERS(
+)
+
+graph -> NODEI;
+graph -> NODEIF;
+graph -> graph<1_1, 1_2u> EDGE <2_1> node;
+graph -> graph<1_1, 1_2> EDGE;
+graph -> graph<1_2, 1_1u> EDGE <1_1> node;
+graph -> graph<any>PLACEHOLD;
+node -> NODEG;
+node -> NODEF;
+node -> PLACEHOLD;

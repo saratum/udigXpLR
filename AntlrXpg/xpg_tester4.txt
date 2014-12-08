@@ -1,0 +1,7 @@
+LAYERS()
+
+s -> A<right_to>b<right_to>s<right_to>C DELTA: ("s_head = A_head", "s_tail = C_tail");
+s -> A<right_to>b<right_to>C DELTA: ("s_head = A_head", "s_tail = C_tail");
+b -> B<right_to>C DELTA: ("b_head = B_head","b_tail = B_tail") GAMMA: {(C'; true; "C'_head = C_head", "C'_tail = C_tail")};
+b -> A<right_to>b DELTA: ("b_head = A_head","b_tail = A_tail") GAMMA: {(A'; true; "A'_head = b'_head", "A'_tail = b'_tail")};
+b -> B<right_to>B DELTA: ("b_head = B_head","b_tail = B_tail") GAMMA: {(B''; true; "B''_head = B'_head", "B''_tail = B'_tail" )};

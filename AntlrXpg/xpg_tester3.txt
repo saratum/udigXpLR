@@ -1,0 +1,14 @@
+LAYERS(
+)
+
+start -> municipal <contains> healthDistricts;
+healthDistricts -> healthDistricts <touches> healthDistricts DELTA:("healthDistricts_bound = healthDistrict_bound + healthDistricts_bound");
+healthDistricts -> healthDistricts DELTA:("healthDistricts_bound = DISTRICT_bound");
+healthDistrict -> DISTRICT <contains> families DELTA: ("healthDistrict_bound = DISTRICT_bound");
+families -> family <sibling> families' DELTA: ("families_bound = families'_bound + family_bound");
+families -> family DELTA: ("families_bound = family_bound");
+family -> FAMILY DELTA: ("family_bound = FAMILY_bound");
+family -> FAMILY <equals> visitSite DELTA: ("family_bound = FAMILY_bound");
+visitSite -> SITE <touches> LINE <touches> SITE' DELTA: ("visitSite_bound = SITE_bound") GAMMA: {(SITE'';"|SITE'_bound|>1"; "SITE''_bound = SITE'_bound")};
+
+cross -> ROAD <touches> ROAD' SEMANTICRULE:{"cross.left = ROAD; cross.right = ROAD’;if (ROAD.dir == ROAD’.dir) then Cross.dir = ROAD.dir;else Cross.dir = in/out;"};

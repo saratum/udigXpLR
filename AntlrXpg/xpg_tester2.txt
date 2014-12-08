@@ -1,0 +1,18 @@
+LAYERS(
+)
+
+s' -> graph;
+graph -> NODEI <contains> nlabel;
+graph -> NODEIF<contains> nlabel;
+graph -> graph'<1_1, 1_2u> edge <2_1> node;
+graph -> graph'<1_1, 1_2> edge;
+graph -> graph'<1_2, 1_1u> edge <1_1> node;
+graph -> graph'<any>PLACEHOLD;
+node -> NODEG<contains>nlabel;
+node -> NODEF<contains>nlabel;
+node -> PLACEHOLD;
+edge -> EDGE<edge_labelling>elabel;
+nlabel -> DIGIT;
+nlabel -> nlabel'<right_to>DIGIT;
+elabel -> A;
+elabel -> B;
