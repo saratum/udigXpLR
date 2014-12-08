@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/it.unibz.udig.omtg.cd.model/src"
+    editDirectory="/it.unibz.udig.omtg.cd.model.edit/src" editorDirectory="/it.unibz.udig.omtg.cd.model.editor/src"
+    modelPluginID="it.unibz.udig.omtg.cd.model" modelName="OMTClassDiagram" editPluginClass="it.unibz.udig.omtg.cd.model.provider.OMTClassDiagramEditPlugin"
+    editorPluginClass="it.unibz.udig.omtg.cd.model.presentation.OMTClassDiagramEditorPlugin"
+    testSuiteClass="it.unibz.udig.omtg.cd.model.tests.OMTClassDiagramAllTests" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="it.unibz.udig.omtg.cd.model.edit"
+    editorPluginID="it.unibz.udig.omtg.cd.model.editor">
+  <foreignModel>omtclassdiagram.ecore</foreignModel>
+  <genPackages prefix="CD" basePackage="it.unibz.udig.omtg" disposableProviderFactory="true"
+      interfacePackageSuffix="model" metaDataPackageSuffix="model" classPackageSuffix="model.impl"
+      utilityPackageSuffix="model.util" providerPackageSuffix="model.provider" presentationPackageSuffix="model.presentation"
+      testsPackageSuffix="model.tests" ecorePackage="omtclassdiagram.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omtclassdiagram.ecore#//Multiplicity">
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//Multiplicity/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//Multiplicity/ZERO_MORE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//Multiplicity/ONE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//Multiplicity/ONE_MORE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//Multiplicity/ZERO_ONE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omtclassdiagram.ecore#//OMTGeoFieldClassKind">
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoFieldClassKind/TRIANGULAR_IRREGULAR_NETWORK"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoFieldClassKind/ISOLINE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoFieldClassKind/PLANAR_SUBDIVISION"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoFieldClassKind/TESSELATION"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoFieldClassKind/SAMPLING"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omtclassdiagram.ecore#//OMTGeoObjectGeometryClassKind">
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoObjectGeometryClassKind/POINT"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoObjectGeometryClassKind/LINE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoObjectGeometryClassKind/POLYGON"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omtclassdiagram.ecore#//OMTGeoObjectTopologyClassKind">
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoObjectTopologyClassKind/UNIDIRECTIONAL_LINE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoObjectTopologyClassKind/BIDIRECTIONAL_LINE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTGeoObjectTopologyClassKind/NODE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omtclassdiagram.ecore#//OMTRelationshipType">
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTRelationshipType/SIMPLE_ASSOCIATION"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTRelationshipType/SPATIAL"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTRelationshipType/ARC_NODE_NETWORK"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//OMTRelationshipType/ARC_ARC_NETWORK"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omtclassdiagram.ecore#//SpatialIntegrityRule">
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/TOUCH"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/IN"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/CROSS"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/OVERLAP"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/DISJOINT"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/ADJACENT_TO"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/COINCIDE"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/CONTAIN"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//SpatialIntegrityRule/NEAR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omtclassdiagram.ecore#//GeneralizationKind">
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//GeneralizationKind/DISJOINT"/>
+      <genEnumLiterals ecoreEnumLiteral="omtclassdiagram.ecore#//GeneralizationKind/OVERLAP"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="omtclassdiagram.ecore#//Rectangle"/>
+    <genDataTypes ecoreDataType="omtclassdiagram.ecore#//Point"/>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//ClassOperation">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//ClassOperation/omtclass"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTGeneralization">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTGeneralization/kind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTGeneralization/total"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTGeoFieldClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTGeoFieldClass/representation"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTGeoObjectGeometryClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTGeoObjectGeometryClass/representation"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTGeoObjectTopologyClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTGeoObjectTopologyClass/representation"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTAggregation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTAggregation/spatial"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTRelationship">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTRelationship/diagram"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTRelationship/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTRelationship/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTRelationship/bendpoints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTRelationship/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTRelationship/rule"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTRelationship/label"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//ClassElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//ClassElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//ClassElement/type"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//ClassAttribute">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//ClassAttribute/omtclass"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTClassDiagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTClassDiagram/classes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTClassDiagram/relations"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTClass">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTClass/diagram"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTClass/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTClass/constraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTClass/incomingRelations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTClass/outgoingRelations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTClass/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference omtclassdiagram.ecore#//OMTClass/operations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omtclassdiagram.ecore#//OMTClass/multiplicity"/>
+    </genClasses>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTConventionalClass"/>
+    <genClasses ecoreClass="omtclassdiagram.ecore#//OMTGeoreferencedClass"/>
+  </genPackages>
+</genmodel:GenModel>
