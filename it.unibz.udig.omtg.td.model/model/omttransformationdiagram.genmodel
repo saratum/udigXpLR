@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/it.unibz.udig.omtg.td.model/src"
+    editorDirectory="/it.unibz.udig.omtg.td.model.editor/src" modelPluginID="it.unibz.udig.omtg.td.model"
+    modelName="OMTTransformationDiagram" editPluginClass="it.unibz.udig.omtg.td.model.provider.OMTTransformationDiagramEditPlugin"
+    editorPluginClass="it.unibz.udig.omtg.td.model.presentation.OMTTransformationDiagramEditorPlugin"
+    testSuiteClass="it.unibz.udig.omtg.td.model.tests.OMTTransformationDiagramAllTests"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    editPluginID="it.unibz.udig.omtg.td.model.edit" editorPluginID="it.unibz.udig.omtg.td.model.editor">
+  <foreignModel>omttransformationdiagram.ecore</foreignModel>
+  <genPackages prefix="TD" basePackage="it.unibz.udig.omtg" disposableProviderFactory="true"
+      interfacePackageSuffix="model" metaDataPackageSuffix="model" classPackageSuffix="model.impl"
+      utilityPackageSuffix="model.util" providerPackageSuffix="model.provider" presentationPackageSuffix="model.presentation"
+      testsPackageSuffix="model.tests" fileExtensions="td" ecorePackage="omttransformationdiagram.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omttransformationdiagram.ecore#//OMTGeoFieldClassKind">
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoFieldClassKind/TRIANGULAR_IRREGULAR_NETWORK"/>
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoFieldClassKind/ISOLINE"/>
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoFieldClassKind/PLANAR_SUBDIVISION"/>
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoFieldClassKind/TESSELATION"/>
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoFieldClassKind/SAMPLING"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omttransformationdiagram.ecore#//OMTGeoObjectGeometryClassKind">
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoObjectGeometryClassKind/POINT"/>
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoObjectGeometryClassKind/LINE"/>
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoObjectGeometryClassKind/POLYGON"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="omttransformationdiagram.ecore#//OMTGeoObjectTopologyClassKind">
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoObjectTopologyClassKind/UNIDIRECTIONAL_LINE"/>
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoObjectTopologyClassKind/BIDIRECTIONAL_LINE"/>
+      <genEnumLiterals ecoreEnumLiteral="omttransformationdiagram.ecore#//OMTGeoObjectTopologyClassKind/NODE"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="omttransformationdiagram.ecore#//Rectangle"/>
+    <genDataTypes ecoreDataType="omttransformationdiagram.ecore#//Point"/>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTTransformationDiagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTTransformationDiagram/classes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTTransformationDiagram/relations"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTClass">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTClass/diagram"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTClass/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTClass/constraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTClass/incomingRelations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTClass/outgoingRelations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTClass/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTClass/operations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTClass/materialized"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTConventionalClass"/>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTGeoreferencedClass"/>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTGeoFieldClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTGeoFieldClass/representation"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTGeoObjectGeometryClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTGeoObjectGeometryClass/representation"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTGeoObjectTopologyClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTGeoObjectTopologyClass/representation"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTOperation">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTOperation/diagram"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTOperation/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTOperation/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTOperation/bendpoints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTOperation/operator"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//ClassElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//ClassElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//ClassElement/type"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//ClassAttribute">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//ClassAttribute/omtclass"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//ClassOperation">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//ClassOperation/omtclass"/>
+    </genClasses>
+    <genClasses ecoreClass="omttransformationdiagram.ecore#//OMTTROperation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTTROperation/diagram"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTTROperation/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference omttransformationdiagram.ecore#//OMTTROperation/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTTROperation/bendpoints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute omttransformationdiagram.ecore#//OMTTROperation/operator"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

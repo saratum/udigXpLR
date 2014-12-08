@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OMT Transformation Diagram Editor
+Bundle-SymbolicName: it.unibz.udig.omtg.td.gef;singleton:=true
+Bundle-Version: 0.1
+Bundle-Activator: it.unibz.udig.omtg.gef.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.gef;bundle-version="3.7.2",
+ org.eclipse.core.resources;bundle-version="3.7.101",
+ org.eclipse.emf.edit.ui;bundle-version="2.7.0",
+ org.eclipse.ui.ide;bundle-version="3.7.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
+ it.unibz.udig.omtg.td.model.edit;bundle-version="1.0.0",
+ it.unibz.udig.omtg.td.model.editor;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -12,3 +12,9 @@
 hs_err_pid*
 
 */bin/*
+/it.unibz.udig.omtg.cd.model.edit/
+/it.unibz.udig.omtg.cd.model.editor/
+/it.unibz.udig.omtg.pd.model.edit/
+/it.unibz.udig.omtg.pd.model.editor/
+/it.unibz.udig.omtg.td.model.edit/
+/it.unibz.udig.omtg.td.model.editor/
