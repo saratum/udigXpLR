@@ -125,7 +125,7 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 		try
 		{
 
-			String inputfile = "/Users/sara/git/mymasterthesis/regole/lamp.xpg";
+			String inputfile = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
 			
 			XpLRParser par = new XpLRParser(inputfile);
 

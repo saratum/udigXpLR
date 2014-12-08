@@ -14,4 +14,16 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src</name>
+			<type>2</type>
+			<location>/Users/sara/git/udigXpLR/AntlrXpg/src</location>
+		</link>
+		<link>
+			<name>src_ext</name>
+			<type>2</type>
+			<location>/Users/sara/git/udigXpLR/it.unibz.udig.xplr.common/src</location>
+		</link>
+	</linkedResources>
 </projectDescription>

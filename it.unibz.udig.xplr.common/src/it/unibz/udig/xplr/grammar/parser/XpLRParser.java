@@ -19,7 +19,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class XpLRParser
 {
-
+	
 	private Dictionary dp;
 	private ArrayList<XpgParsingTableRow> parsingtable;
 	private ArrayList<Object> theStack;
@@ -54,8 +54,11 @@ public class XpLRParser
 		ParseTreeWalker walker = new ParseTreeWalker();
 
 		walker.walk(loader, tree); // walk parse tree
-		layers = loader.getLayers();
+		
+		
 
+		layers = loader.getLayers();
+		
 		// the stack
 		theStack = new ArrayList<Object>();
 
@@ -64,7 +67,7 @@ public class XpLRParser
 		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items = ItemConstructor.items(loader);
 
 		parsingtable = constructor.createTable(items);
-		// ParsingTableConstructor.outTable( parsingtable );
+		 //ParsingTableConstructor.outTable( parsingtable );
 
 		theAlg();
 	}

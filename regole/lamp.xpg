@@ -1,4 +1,6 @@
 LAYERS(
+cart_castel_class5;
+lamp_castel;
 )
 
 s -> municipality

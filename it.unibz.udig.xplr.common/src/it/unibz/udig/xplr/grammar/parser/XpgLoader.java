@@ -7,6 +7,7 @@ import it.unibz.udig.xplr.grammar.entities.XpgTerminal;
 import it.unibz.udig.xplr.grammar.generated.XpgBaseListener;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.IdrelationContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.LayerContext;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.LayernameContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.LayersContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.NonterminalContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.ProductionContext;
@@ -208,9 +209,9 @@ public class XpgLoader extends XpgBaseListener
 		super.enterLayers(ctx);
 
 	}
-
+	
 	@Override
-	public void enterLayer(LayerContext ctx)
+	public void enterLayername(LayernameContext ctx)
 	{
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < ctx.getChildCount(); i++)
@@ -219,6 +220,20 @@ public class XpgLoader extends XpgBaseListener
 		}
 
 		if (!layers.contains(sb.toString())) layers.add(sb.toString());
+	}
+
+	@Override
+	public void enterLayer(LayerContext ctx)
+	{
+		super.enterLayer(ctx);
+		
+//		StringBuilder sb = new StringBuilder();
+//		for (int i = 0; i < ctx.getChildCount(); i++)
+//		{
+//			sb.append(ctx.getChild(i));
+//		}
+//
+//		if (!layers.contains(sb.toString())) layers.add(sb.toString());
 
 	}
 

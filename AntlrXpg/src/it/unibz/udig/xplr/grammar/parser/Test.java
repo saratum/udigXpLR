@@ -1,9 +1,10 @@
-package it.unibz.udig.visuallangparser.grammar.parser;
+package it.unibz.udig.xplr.grammar.parser;
 
 public class Test
 {
 
-	XpgLoader loader = new XpgLoader();
+	final String filename = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
+	XpgLoader loader = new XpgLoader(filename);
 
 	public static void main(String[] args) throws Exception
 	{
@@ -15,9 +16,6 @@ public class Test
 	{
 		try
 		{
-			 String filename
-			 ="/Users/sara/git/mymasterthesis/regole/lamp.xpg"; 
-			 //= "/Users/sara/git/mymasterthesis/AntlrXpg/xpg_tester2.txt";
 			new XpLRParser(filename);
 		}
 
