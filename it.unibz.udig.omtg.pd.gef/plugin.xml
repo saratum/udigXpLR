@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="it.unibz.udig.omtg.gef.editor.OMTPresentationDiagramEditor"
+            contributorClass="it.unibz.udig.omtg.gef.OMTGraphicalEditorActionBarContributor"
+            default="false"
+            extensions="pd"
+            id="it.unibz.udig.omtg.pd.gef.editorID"
+            name="OMT Presentation Diagram Editor">
+      </editor>
+   </extension>
+
+</plugin>

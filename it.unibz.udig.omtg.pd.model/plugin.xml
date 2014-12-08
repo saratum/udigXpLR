@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="it.unibz.udig/omt/pd"
+            class="it.unibz.udig.omtg.pd.model.PDPackage"/>
+   </extension>
+
+</plugin>
