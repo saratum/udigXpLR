@@ -131,7 +131,7 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 
 			ArrayList<String> layerList = new ArrayList<String>();
 
-			for (String s : par.layers)
+			for (String s : par.getLoader().getLayers())
 			{
 				layerList.add(s);
 			}
@@ -194,23 +194,23 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 
 			}
 
-			Dictionary d = par.getDictionary();
-			for (Object o : d.getEntries())
-			{
-				if (o instanceof DictionaryEntry)
-				{
-					DictionaryEntry feature = (DictionaryEntry) o;
-					System.out.println(feature.getName());
-					if (feature.getAttributes() != null)
-					{
-						for (Attribute a : feature.getAttributes())
-						{
-							System.out.println(a.toString());
-						}
-					}
-
-				}
-			}
+//			Dictionary d = par.getDictionary();
+//			for (Object o : d.getEntries())
+//			{
+//				if (o instanceof DictionaryEntry)
+//				{
+//					DictionaryEntry feature = (DictionaryEntry) o;
+//					System.out.println(feature.getName());
+//					if (feature.getAttributes() != null)
+//					{
+//						for (Attribute a : feature.getAttributes())
+//						{
+//							System.out.println(a.toString());
+//						}
+//					}
+//
+//				}
+//			}
 
 			for (XpLRParser.ResultObject o : par.getResult())
 			{

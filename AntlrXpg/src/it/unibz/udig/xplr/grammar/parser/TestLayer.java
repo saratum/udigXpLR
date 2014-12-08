@@ -11,7 +11,6 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class TestLayer
 {
-	
 
 	public static void main(String[] args)
 	{
@@ -21,38 +20,17 @@ public class TestLayer
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	public TestLayer() throws IOException
 	{
-		
-		try
+		final String filename = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
+		XpLRParser p = new XpLRParser(filename);
+		for (String s : p.getLoader().getLayers())
 		{
-			final String filename = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
-			//XpgLoader loader = new XpgLoader(filename);
-
-			XpLRParser p = new XpLRParser(filename);
-			
-			
-			
-			for (String s : p.layers)
-			{
-				System.out.println("LAYER:" + s);
-			}
+			System.out.println("LAYER:" + s);
 		}
-
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
-
 	}
-
 }

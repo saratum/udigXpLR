@@ -19,13 +19,12 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class XpLRParser
 {
-	
+
 	private Dictionary dp;
 	private ArrayList<XpgParsingTableRow> parsingtable;
 	private ArrayList<Object> theStack;
 	private ArrayList<ResultObject> result;
-
-	public ArrayList<String> layers;
+	private XpgLoader loader;
 
 	public XpLRParser(String inputfile) throws IOException
 	{
@@ -33,41 +32,31 @@ public class XpLRParser
 		result = new ArrayList<>();
 		result.add(new ResultObject("Starting...", 0));
 
+		// the dictionary
 		dp = new Dictionary();
 
-		XpgLoader loader = new XpgLoader(inputfile);
-
-		InputStream is;
-		ANTLRInputStream input;
-
-		is = new FileInputStream(inputfile);
-		input = new ANTLRInputStream(is);
-
-		XpgLexer lexer = new XpgLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-		XpgParser parser = new XpgParser(tokens);
-		parser.setBuildParseTree(true);
-
-		ParseTree tree = parser.xpgfile(); // start
-
-		ParseTreeWalker walker = new ParseTreeWalker();
-
-		walker.walk(loader, tree); // walk parse tree
-		
-		
-
-		layers = loader.getLayers();
-		
 		// the stack
 		theStack = new ArrayList<Object>();
+
+		// the grammar
+		InputStream is = new FileInputStream(inputfile);
+		ANTLRInputStream input = new ANTLRInputStream(is);
+		XpgLexer lexer = new XpgLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		XpgParser parser = new XpgParser(tokens);
+		parser.setBuildParseTree(true);
+		ParseTree tree = parser.xpgfile(); // start
+		ParseTreeWalker walker = new ParseTreeWalker();
+
+		loader = new XpgLoader(inputfile);
+		walker.walk(loader, tree); // walk parse tree
 
 		// the parsing table
 		ParsingTableConstructor constructor = new ParsingTableConstructor(loader);
 		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items = ItemConstructor.items(loader);
 
 		parsingtable = constructor.createTable(items);
-		 //ParsingTableConstructor.outTable( parsingtable );
+		// ParsingTableConstructor.outTable( parsingtable );
 
 		theAlg();
 	}
@@ -80,6 +69,11 @@ public class XpLRParser
 	public ArrayList<ResultObject> getResult()
 	{
 		return result;
+	}
+
+	public XpgLoader getLoader()
+	{
+		return loader;
 	}
 
 	private Integer fetchVSymbol(XpgNextEntry e) throws Exception
