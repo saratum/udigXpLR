@@ -7,16 +7,22 @@ public class DictionaryEntry
 
 	String name;
 	ArrayList<Attribute> attributes;
+	ArrayList<Object> counter;
+	boolean visited;
 
 	public DictionaryEntry()
 	{
 		this.attributes = new ArrayList<Attribute>();
+		this.counter = new ArrayList<Object>();
+		visited = false;
 	}
 
 	public DictionaryEntry(String n, ArrayList<Attribute> t)
 	{
 		this.attributes = t;
 		this.name = n;
+		this.counter = new ArrayList<Object>();
+		visited = false;
 	}
 
 	public ArrayList<Attribute> getAttributes()
@@ -32,6 +38,6 @@ public class DictionaryEntry
 	@Override
 	public String toString()
 	{
-		return getName();
+		return getName() + "(" + counter.size() + ")" + " - " + visited;
 	}
 }
