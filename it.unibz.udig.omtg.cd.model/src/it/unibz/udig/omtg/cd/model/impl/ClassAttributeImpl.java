@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link it.unibz.udig.omtg.cd.model.impl.ClassAttributeImpl#getOmtclass <em>Omtclass</em>}</li>
  *   <li>{@link it.unibz.udig.omtg.cd.model.impl.ClassAttributeImpl#isKey <em>Key</em>}</li>
  *   <li>{@link it.unibz.udig.omtg.cd.model.impl.ClassAttributeImpl#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link it.unibz.udig.omtg.cd.model.impl.ClassAttributeImpl#getColumnDefinition <em>Column Definition</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,6 +73,25 @@ public class ClassAttributeImpl extends ClassElementImpl implements ClassAttribu
 	 * @ordered
 	 */
 	protected String				defaultValue			= DEFAULT_VALUE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getColumnDefinition() <em>Column Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getColumnDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String COLUMN_DEFINITION_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getColumnDefinition() <em>Column Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getColumnDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected String columnDefinition = COLUMN_DEFINITION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -190,6 +210,29 @@ public class ClassAttributeImpl extends ClassElementImpl implements ClassAttribu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getColumnDefinition()
+	{
+		return columnDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setColumnDefinition(String newColumnDefinition)
+	{
+		String oldColumnDefinition = columnDefinition;
+		columnDefinition = newColumnDefinition;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CDPackage.CLASS_ATTRIBUTE__COLUMN_DEFINITION, oldColumnDefinition, columnDefinition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd( InternalEObject otherEnd, int featureID, NotificationChain msgs )
 	{
@@ -251,6 +294,8 @@ public class ClassAttributeImpl extends ClassElementImpl implements ClassAttribu
 				return isKey();
 			case CDPackage.CLASS_ATTRIBUTE__DEFAULT_VALUE:
 				return getDefaultValue();
+			case CDPackage.CLASS_ATTRIBUTE__COLUMN_DEFINITION:
+				return getColumnDefinition();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -273,6 +318,9 @@ public class ClassAttributeImpl extends ClassElementImpl implements ClassAttribu
 				return;
 			case CDPackage.CLASS_ATTRIBUTE__DEFAULT_VALUE:
 				setDefaultValue((String)newValue);
+				return;
+			case CDPackage.CLASS_ATTRIBUTE__COLUMN_DEFINITION:
+				setColumnDefinition((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -297,6 +345,9 @@ public class ClassAttributeImpl extends ClassElementImpl implements ClassAttribu
 			case CDPackage.CLASS_ATTRIBUTE__DEFAULT_VALUE:
 				setDefaultValue(DEFAULT_VALUE_EDEFAULT);
 				return;
+			case CDPackage.CLASS_ATTRIBUTE__COLUMN_DEFINITION:
+				setColumnDefinition(COLUMN_DEFINITION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -317,6 +368,8 @@ public class ClassAttributeImpl extends ClassElementImpl implements ClassAttribu
 				return key != KEY_EDEFAULT;
 			case CDPackage.CLASS_ATTRIBUTE__DEFAULT_VALUE:
 				return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
+			case CDPackage.CLASS_ATTRIBUTE__COLUMN_DEFINITION:
+				return COLUMN_DEFINITION_EDEFAULT == null ? columnDefinition != null : !COLUMN_DEFINITION_EDEFAULT.equals(columnDefinition);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -336,6 +389,8 @@ public class ClassAttributeImpl extends ClassElementImpl implements ClassAttribu
 		result.append(key);
 		result.append(", defaultValue: ");
 		result.append(defaultValue);
+		result.append(", columnDefinition: ");
+		result.append(columnDefinition);
 		result.append(')');
 		return result.toString();
 	}

@@ -17,6 +17,7 @@ package it.unibz.udig.omtg.cd.model;
  *   <li>{@link it.unibz.udig.omtg.cd.model.ClassAttribute#getOmtclass <em>Omtclass</em>}</li>
  *   <li>{@link it.unibz.udig.omtg.cd.model.ClassAttribute#isKey <em>Key</em>}</li>
  *   <li>{@link it.unibz.udig.omtg.cd.model.ClassAttribute#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link it.unibz.udig.omtg.cd.model.ClassAttribute#getColumnDefinition <em>Column Definition</em>}</li>
  * </ul>
  * </p>
  *
@@ -106,5 +107,31 @@ public interface ClassAttribute extends ClassElement
 	 * @generated
 	 */
 	void setDefaultValue( String value );
+
+	/**
+	 * Returns the value of the '<em><b>Column Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Column Definition</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Column Definition</em>' attribute.
+	 * @see #setColumnDefinition(String)
+	 * @see it.unibz.udig.omtg.cd.model.CDPackage#getClassAttribute_ColumnDefinition()
+	 * @model
+	 * @generated
+	 */
+	String getColumnDefinition();
+
+	/**
+	 * Sets the value of the '{@link it.unibz.udig.omtg.cd.model.ClassAttribute#getColumnDefinition <em>Column Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Column Definition</em>' attribute.
+	 * @see #getColumnDefinition()
+	 * @generated
+	 */
+	void setColumnDefinition(String value);
 
 } // ClassAttribute

@@ -38,6 +38,7 @@
         eOpposite="#//OMTClass/attributes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnDefinition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OMTConventionalClass" eSuperTypes="#//OMTClass"/>
   <eClassifiers xsi:type="ecore:EClass" name="OMTGeoreferencedClass" eSuperTypes="#//OMTClass"/>

@@ -33,27 +33,10 @@ public class XpLRParser
 		result = new ArrayList<>();
 		result.add(new ResultObject("Starting...", 0));
 
-		// the dictionary
-		dp = new Dictionary();
-
 		// the stack
 		theStack = new ArrayList<Object>();
 
 		// the grammar
-		buildGrammar(inputfile);
-
-		// the parsing table
-		ParsingTableConstructor constructor = new ParsingTableConstructor(loader);
-		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items = ItemConstructor.items(loader);
-
-		parsingtable = constructor.createTable(items);
-		// ParsingTableConstructor.outTable( parsingtable );
-
-		theAlg();
-	}
-
-	private void buildGrammar(String inputfile) throws FileNotFoundException, IOException
-	{
 		InputStream is = new FileInputStream(inputfile);
 		ANTLRInputStream input = new ANTLRInputStream(is);
 		XpgLexer lexer = new XpgLexer(input);
@@ -65,7 +48,20 @@ public class XpLRParser
 
 		loader = new XpgLoader();
 		walker.walk(loader, tree); // walk parse tree
+
+		// the parsing table
+		ParsingTableConstructor constructor = new ParsingTableConstructor(loader);
+		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items = ItemConstructor.items(loader);
+//		ItemConstructor.outItems(items);
+		
+		
+		parsingtable = constructor.createTable(items);
+		//ParsingTableConstructor.outTable( parsingtable );
+
+		theAlg();
 	}
+
+	
 
 	public Dictionary getDictionary()
 	{

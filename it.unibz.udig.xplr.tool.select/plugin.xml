@@ -4,7 +4,7 @@
    <extension
          point="net.refractions.udig.project.ui.tool">
       <modalTool
-            categoryId="it.unibz.udig.xplr.tool.edit.grammarcategory"
+            categoryId="it.unibz.udig.xplr.tool.select.grammar"
             class="it.unibz.udig.xplr.tool.select.XplrBBoxSelection"
             icon="icons/etool16/selection_mode.gif"
             id="it.unibz.udig.xplr.tool.select.selectfeatures"
@@ -30,6 +30,10 @@
             id="bboxCursor"
             image="icons/pointers/select_source.png">
       </toolCursor>
+      <category
+            id="it.unibz.udig.xplr.tool.select.grammar"
+            name="Grammar">
+      </category>
    </extension>
    <extension
          point="org.eclipse.ui.views">

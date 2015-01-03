@@ -550,6 +550,16 @@ public class CDPackageImpl extends EPackageImpl implements CDPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getClassAttribute_ColumnDefinition()
+	{
+		return (EAttribute)classAttributeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOMTClassDiagram( )
 	{
 		return omtClassDiagramEClass;
@@ -830,6 +840,7 @@ public class CDPackageImpl extends EPackageImpl implements CDPackage
 		createEReference(classAttributeEClass, CLASS_ATTRIBUTE__OMTCLASS);
 		createEAttribute(classAttributeEClass, CLASS_ATTRIBUTE__KEY);
 		createEAttribute(classAttributeEClass, CLASS_ATTRIBUTE__DEFAULT_VALUE);
+		createEAttribute(classAttributeEClass, CLASS_ATTRIBUTE__COLUMN_DEFINITION);
 
 		omtConventionalClassEClass = createEClass(OMT_CONVENTIONAL_CLASS);
 
@@ -939,6 +950,7 @@ public class CDPackageImpl extends EPackageImpl implements CDPackage
 		initEReference(getClassAttribute_Omtclass(), this.getOMTClass(), this.getOMTClass_Attributes(), "omtclass", null, 0, 1, ClassAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassAttribute_Key(), ecorePackage.getEBoolean(), "key", null, 0, 1, ClassAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassAttribute_DefaultValue(), ecorePackage.getEString(), "defaultValue", null, 0, 1, ClassAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getClassAttribute_ColumnDefinition(), ecorePackage.getEString(), "columnDefinition", null, 0, 1, ClassAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(omtConventionalClassEClass, OMTConventionalClass.class, "OMTConventionalClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

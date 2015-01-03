@@ -390,13 +390,22 @@ public interface CDPackage extends EPackage
 	int			CLASS_ATTRIBUTE__DEFAULT_VALUE						= CLASS_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Column Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_ATTRIBUTE__COLUMN_DEFINITION = CLASS_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Class Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int			CLASS_ATTRIBUTE_FEATURE_COUNT						= CLASS_ELEMENT_FEATURE_COUNT + 3;
+	int			CLASS_ATTRIBUTE_FEATURE_COUNT						= CLASS_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link it.unibz.udig.omtg.cd.model.impl.OMTConventionalClassImpl <em>OMT Conventional Class</em>}' class.
@@ -1483,6 +1492,17 @@ public interface CDPackage extends EPackage
 	EAttribute getClassAttribute_DefaultValue( );
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.unibz.udig.omtg.cd.model.ClassAttribute#getColumnDefinition <em>Column Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Column Definition</em>'.
+	 * @see it.unibz.udig.omtg.cd.model.ClassAttribute#getColumnDefinition()
+	 * @see #getClassAttribute()
+	 * @generated
+	 */
+	EAttribute getClassAttribute_ColumnDefinition();
+
+	/**
 	 * Returns the meta object for class '{@link it.unibz.udig.omtg.cd.model.OMTClassDiagram <em>OMT Class Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1989,6 +2009,14 @@ public interface CDPackage extends EPackage
 		 * @generated
 		 */
 		EAttribute	CLASS_ATTRIBUTE__DEFAULT_VALUE					= eINSTANCE.getClassAttribute_DefaultValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Column Definition</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLASS_ATTRIBUTE__COLUMN_DEFINITION = eINSTANCE.getClassAttribute_ColumnDefinition();
 
 		/**
 		 * The meta object literal for the '{@link it.unibz.udig.omtg.cd.model.impl.OMTClassDiagramImpl <em>OMT Class Diagram</em>}' class.
