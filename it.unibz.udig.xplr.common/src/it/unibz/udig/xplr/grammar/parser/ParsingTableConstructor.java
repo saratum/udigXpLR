@@ -218,7 +218,7 @@ public class ParsingTableConstructor
 								XpgActionContent ac = new XpgActionContent(XpgActionContent.Value.REDUCE);
 								ac.setState(itemsSet.indexOf(it));
 								item.setDot(0);
-								int idx = loader.getItems().indexOf(item);
+								int idx = loader.getAugmentedItems().indexOf(item); //loader.getItems().indexOf(item);
 								ac.setProduction(item);
 								ac.setReduceTo(idx);
 

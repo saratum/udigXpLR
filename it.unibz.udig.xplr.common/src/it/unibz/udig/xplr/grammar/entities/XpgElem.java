@@ -39,4 +39,10 @@ public class XpgElem
 			return false;
 	}
 
+	@Override
+	public int hashCode()
+	{
+		return this.content.hashCode();
+	}
+
 }

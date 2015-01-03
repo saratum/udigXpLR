@@ -1,6 +1,8 @@
 package it.unibz.udig.xplr.grammar.entities;
 
-public class XpgGotoEntry
+import java.io.Serializable;
+
+public class XpgGotoEntry implements Serializable
 {
 	XpgElem testerRelation;
 	Integer state;
@@ -51,11 +53,12 @@ public class XpgGotoEntry
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (obj.getClass().isAssignableFrom(this.getClass()))
+		//if (obj.getClass().isAssignableFrom(this.getClass()))
+		if(obj instanceof XpgGotoEntry)
 		{
 			XpgGotoEntry elem = (XpgGotoEntry) obj;
 
-			return ((elem.getState() == this.state) && (elem.getTesterRelation().equals(this.testerRelation)));
+			return ((elem.getState() == this.state) && (elem.getTesterRelation().equals(this.testerRelation))&& (elem.getState() == this.getState()));
 		}
 		else
 			return false;
@@ -64,6 +67,7 @@ public class XpgGotoEntry
 	@Override
 	public int hashCode()
 	{
-		return this.state.hashCode() + this.testerRelation.hashCode();
+		return this.state.hashCode() + this.testerRelation.hashCode() + this.state.hashCode();
 	}
+
 }
