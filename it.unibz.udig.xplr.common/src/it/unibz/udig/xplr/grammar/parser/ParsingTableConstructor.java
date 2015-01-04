@@ -38,7 +38,8 @@ public class ParsingTableConstructor
 		table = new ArrayList<XpgParsingTableRow>();
 	}
 
-	public ArrayList<XpgParsingTableRow> createTable(CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items)
+	public ArrayList<XpgParsingTableRow> createTable(CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items,
+			ArrayList<ResultObject> result)
 	{
 		try
 		{
@@ -46,15 +47,18 @@ public class ParsingTableConstructor
 			ArrayList<XpgParsingTableRow> p = buildParsingTable(augmentedGrammar.get(0), items);
 
 			setTable(p);
+			result.add(new ResultObject("Parsing table ready", ResultObject.LEVEL_INFO));
 		}
 		catch (BadItemException e)
 		{
-			e.printStackTrace();
+			// e.printStackTrace();
+			if (result != null) result.add(new ResultObject(e.getMessage(), ResultObject.LEVEL_ERROR));
 		}
 		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			if (result != null) result.add(new ResultObject(e.getMessage(), ResultObject.LEVEL_ERROR));
 		}
 
 		return getTable();
@@ -218,7 +222,7 @@ public class ParsingTableConstructor
 								XpgActionContent ac = new XpgActionContent(XpgActionContent.Value.REDUCE);
 								ac.setState(itemsSet.indexOf(it));
 								item.setDot(0);
-								int idx = loader.getAugmentedItems().indexOf(item); //loader.getItems().indexOf(item);
+								int idx = loader.getAugmentedItems().indexOf(item); // loader.getItems().indexOf(item);
 								ac.setProduction(item);
 								ac.setReduceTo(idx);
 

@@ -10,9 +10,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ItemConstructor
 {
+	private static ArrayList<ResultObject> result;
 
-	public static CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items(XpgLoader loader)
+	public static CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items(XpgLoader loader, ArrayList<ResultObject> r)
 	{
+		result = r;
 
 		CopyOnWriteArrayList<XpgItem> start = new CopyOnWriteArrayList<XpgItem>();
 		start.add(loader.getAugmentedItems().get(0));
@@ -46,7 +48,8 @@ public class ItemConstructor
 					}
 					catch (Exception e)
 					{
-						// e.printStackTrace();
+						//e.printStackTrace();
+						//if (result != null) result.add(new ResultObject(e.getMessage(), 1));
 					}
 
 					if (elem != null)
@@ -94,7 +97,7 @@ public class ItemConstructor
 			}
 			catch (Exception e)
 			{
-				// e.printStackTrace();
+				if (result != null) result.add(new ResultObject(e.getMessage(), ResultObject.LEVEL_ERROR));
 			}
 
 			if (elem != null && x.equals(elem))
@@ -119,7 +122,8 @@ public class ItemConstructor
 					}
 					else
 					{
-						System.err.println("else");
+						if (result != null) result.add(new ResultObject("else", ResultObject.LEVEL_WARNING));
+						
 					}
 				}
 				else
@@ -179,6 +183,7 @@ public class ItemConstructor
 			catch (Exception e)
 			{
 				e.printStackTrace();
+				if (result != null) result.add(new ResultObject(e.getMessage(), ResultObject.LEVEL_ERROR));
 			}
 		}
 
@@ -205,6 +210,8 @@ public class ItemConstructor
 					}
 					catch (Exception e)
 					{
+					//	e.printStackTrace();
+					//	if (result != null) result.add(new ResultObject(e.getMessage(), 1));
 					}
 
 				}

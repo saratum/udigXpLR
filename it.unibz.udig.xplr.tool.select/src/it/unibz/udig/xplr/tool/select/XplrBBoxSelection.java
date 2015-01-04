@@ -3,6 +3,7 @@ package it.unibz.udig.xplr.tool.select;
 import it.unibz.udig.xplr.grammar.parser.Attribute;
 import it.unibz.udig.xplr.grammar.parser.Dictionary;
 import it.unibz.udig.xplr.grammar.parser.DictionaryEntry;
+import it.unibz.udig.xplr.grammar.parser.ResultObject;
 import it.unibz.udig.xplr.grammar.parser.XpLRParser;
 
 import java.awt.Point;
@@ -16,16 +17,23 @@ import java.util.List;
 import java.util.Set;
 
 import net.refractions.udig.project.ILayer;
-import net.refractions.udig.project.ui.ApplicationGIS;
 import net.refractions.udig.project.ui.commands.SelectionBoxCommand;
 import net.refractions.udig.project.ui.render.displayAdapter.MapMouseEvent;
 import net.refractions.udig.project.ui.tool.ModalTool;
 import net.refractions.udig.project.ui.tool.SimpleTool;
 
-import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleConstants;
+import org.eclipse.ui.console.IConsoleView;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.FeatureIterator;
 import org.geotools.geometry.jts.ReferencedEnvelope;
@@ -34,13 +42,11 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 
 import com.vividsolutions.jts.geom.Coordinate;
-
 import com.vividsolutions.jts.geom.Envelope;
 
 public class XplrBBoxSelection extends SimpleTool implements ModalTool
 {
 
-	
 	public static final String ID = "it.unibz.udig.xplr.tool.select.selectfeatures"; //$NON-NLS-1$
 
 	private Point start;
@@ -121,14 +127,16 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 	 */
 	protected void sendSelectionCommand(MapMouseEvent e, final ReferencedEnvelope bounds)
 	{
-		StringBuilder b = new StringBuilder();
+		// StringBuilder b = new StringBuilder();
 		XplrBBoxSelectionCommand command = null;
+		XpLRParser par = null;
+
 		try
 		{
 
 			String inputfile = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
-			
-			XpLRParser par = new XpLRParser(inputfile);
+
+			par = new XpLRParser(inputfile);
 			Dictionary dict = new Dictionary();
 
 			ArrayList<String> layerList = new ArrayList<String>();
@@ -197,29 +205,13 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 			}
 
 			par.setDp(dict);
-//			Dictionary d = par.getDictionary();
-//			for (Object o : d.getEntries())
-//			{
-//				if (o instanceof DictionaryEntry)
-//				{
-//					DictionaryEntry feature = (DictionaryEntry) o;
-//					System.out.println(feature.getName());
-//					if (feature.getAttributes() != null)
-//					{
-//						for (Attribute a : feature.getAttributes())
-//						{
-//							System.out.println(a.toString());
-//						}
-//					}
-//
-//				}
-//			}
+			par.theAlg();
 
-			for (XpLRParser.ResultObject o : par.getResult())
-			{
-				b.append(o.getMessage());
-				if (o.getLevel() > 0) System.err.println(o.getMessage());
-			}
+			// for (ResultObject o : par.getResult())
+			// {
+			// b.append(o.getMessage());
+			// if (o.getLevel() > 0) System.err.println(o.getMessage());
+			// }
 
 		}
 		catch (IOException ex)
@@ -229,7 +221,8 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 		finally
 		{
 
-			outputText = b.toString();
+			final ArrayList<ResultObject> res = par.getResult();
+
 			if (command != null)
 			{
 				getContext().sendASyncCommand(command);
@@ -244,16 +237,66 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 
 				public void run()
 				{
-					XpLRViewPart vp = (XpLRViewPart) ApplicationGIS.getView(true, XpLRViewPart.VIEW_ID);
-					if (vp != null)
-						if (vp.getSite().getSelectionProvider() != null) vp.getSite().getSelectionProvider().setSelection(new StructuredSelection());
-
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					if (!page.isPartVisible(vp)) page.bringToTop(vp);
+					IConsoleView consoleView;
+					try
+					{
+						consoleView = (IConsoleView) page.showView(IConsoleConstants.ID_CONSOLE_VIEW);
+						MessageConsole myConsole = new MessageConsole("CLI", null);
+						ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[]
+							{ myConsole });
+						consoleView.display(myConsole);
 
-					vp = (XpLRViewPart) ApplicationGIS.getView(true, XpLRViewPart.VIEW_ID);
-					vp.setOutputText(outputText);
-					
+						MessageConsoleStream stream = myConsole.newMessageStream();
+
+						for (ResultObject ro : res)
+						{
+
+							switch (ro.getLevel())
+							{
+							case 0:
+								stream.println("INFO: ".concat(ro.getMessage()));
+								break;
+							case 1:
+								stream.println("ERROR: ".concat(ro.getMessage()));
+								break;
+							default:
+								stream.println("INFO: ".concat(ro.getMessage()));
+								break;
+							}
+							stream.flush();
+						}
+
+					}
+					catch (PartInitException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					// XpLRViewPart vp = (XpLRViewPart)
+					// ApplicationGIS.getView(true, XpLRViewPart.VIEW_ID);
+					// if (vp != null)
+					// if (vp.getSite().getSelectionProvider() != null)
+					// vp.getSite().getSelectionProvider().setSelection(new
+					// StructuredSelection());
+					//
+					// IWorkbenchPage page =
+					// PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					// if (!page.isPartVisible(vp)) page.bringToTop(vp);
+					//
+					// vp = (XpLRViewPart) ApplicationGIS.getView(true,
+					// XpLRViewPart.VIEW_ID);
+					// if (res != null)
+					// {
+					// vp.setOutputText(t);
+					// }
+
 				}
 			});
 

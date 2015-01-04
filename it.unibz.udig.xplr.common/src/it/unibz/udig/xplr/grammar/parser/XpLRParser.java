@@ -47,27 +47,35 @@ public class XpLRParser
 		ParseTreeWalker walker = new ParseTreeWalker();
 
 		loader = new XpgLoader();
-		walker.walk(loader, tree); // walk parse tree
+		try
+		{
+			walker.walk(loader, tree); // walk parse tree
+			result.add(new ResultObject("walked the tree - loader ready", 0));
+		}
+		catch (Exception ex)
+		{
+			result.add(new ResultObject("walked the tree - error ".concat(ex.getMessage()), 1));
+			return;
+		}
 
 		// the parsing table
 		ParsingTableConstructor constructor = new ParsingTableConstructor(loader);
-		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items = ItemConstructor.items(loader);
-//		ItemConstructor.outItems(items);
-		
-		
-		parsingtable = constructor.createTable(items);
-		//ParsingTableConstructor.outTable( parsingtable );
+		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items = ItemConstructor.items(loader, result);
 
-		theAlg();
+		
+		// ItemConstructor.outItems(items);
+
+		parsingtable = constructor.createTable(items, result);
+		
+		// ParsingTableConstructor.outTable( parsingtable );
+
 	}
-
-	
 
 	public Dictionary getDictionary()
 	{
 		return dp;
 	}
-	
+
 	public void setDp(Dictionary dp)
 	{
 		this.dp = dp;
@@ -168,30 +176,14 @@ public class XpLRParser
 	{
 	}
 
-	private void theAlg()
+	public void theAlg()
 	{
-	}
-
-	public class ResultObject
-	{
-
-		String message;
-		Integer level;
-
-		public ResultObject(String msg, Integer l)
+		if (getDictionary() != null)
+			result.add(new ResultObject("Dictionary ready", 0));
+		else
 		{
-			this.message = msg;
-			this.level = l;
-		}
-
-		public Integer getLevel()
-		{
-			return level;
-		}
-
-		public String getMessage()
-		{
-			return message;
+			result.add(new ResultObject("Dictionary is null, can go any further", 1));
+			return;
 		}
 
 	}

@@ -1,6 +1,8 @@
 package it.unibz.udig.xplr.tool.select;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
@@ -15,6 +17,10 @@ public class XpLRViewPart extends ViewPart
 	public void createPartControl(Composite parent)
 	{
 		text = new Text(parent, SWT.BORDER);
+		FontData errFont = new FontData();
+		
+		
+		
 	}
 
 	@Override
