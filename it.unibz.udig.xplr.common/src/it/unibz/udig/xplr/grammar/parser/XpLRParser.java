@@ -67,6 +67,11 @@ public class XpLRParser
 	{
 		return dp;
 	}
+	
+	public void setDp(Dictionary dp)
+	{
+		this.dp = dp;
+	}
 
 	public ArrayList<ResultObject> getResult()
 	{

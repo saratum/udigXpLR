@@ -40,6 +40,7 @@ import com.vividsolutions.jts.geom.Envelope;
 public class XplrBBoxSelection extends SimpleTool implements ModalTool
 {
 
+	
 	public static final String ID = "it.unibz.udig.xplr.tool.select.selectfeatures"; //$NON-NLS-1$
 
 	private Point start;
@@ -128,6 +129,7 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 			String inputfile = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
 			
 			XpLRParser par = new XpLRParser(inputfile);
+			Dictionary dict = new Dictionary();
 
 			ArrayList<String> layerList = new ArrayList<String>();
 
@@ -187,13 +189,14 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 					}
 
 					DictionaryEntry de = new DictionaryEntry(feature.getID(), attributes);
-					par.getDictionary().getEntries().add(de);
+					dict.getEntries().add(de);
 				}
 
 				fIt.close();
 
 			}
 
+			par.setDp(dict);
 //			Dictionary d = par.getDictionary();
 //			for (Object o : d.getEntries())
 //			{
@@ -226,6 +229,7 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 		finally
 		{
 
+			outputText = b.toString();
 			if (command != null)
 			{
 				getContext().sendASyncCommand(command);
@@ -248,7 +252,8 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 					if (!page.isPartVisible(vp)) page.bringToTop(vp);
 
 					vp = (XpLRViewPart) ApplicationGIS.getView(true, XpLRViewPart.VIEW_ID);
-					vp.output.setText(outputText);
+					vp.setOutputText(outputText);
+					
 				}
 			});
 
