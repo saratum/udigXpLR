@@ -15,7 +15,6 @@ public class XpLRViewPart extends ViewPart
 	public void createPartControl(Composite parent)
 	{
 		text = new Text(parent, SWT.BORDER);
-
 	}
 
 	@Override
