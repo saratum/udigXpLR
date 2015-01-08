@@ -127,10 +127,6 @@ public class XpLRParser
 				return 0;
 			}
 		}
-		else if (e == null)
-		{
-			return null;
-		}
 		else
 			return null;
 
