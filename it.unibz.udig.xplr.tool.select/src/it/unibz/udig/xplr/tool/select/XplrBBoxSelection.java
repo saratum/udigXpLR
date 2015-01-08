@@ -1,5 +1,6 @@
 package it.unibz.udig.xplr.tool.select;
 
+import it.unibz.udig.xplr.grammar.exceptions.SyntaxErrorException;
 import it.unibz.udig.xplr.grammar.parser.Attribute;
 import it.unibz.udig.xplr.grammar.parser.Dictionary;
 import it.unibz.udig.xplr.grammar.parser.DictionaryEntry;
@@ -135,9 +136,7 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 		{
 
 			String inputfile = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
-
 			par = new XpLRParser(inputfile);
-			Dictionary dict = new Dictionary();
 
 			ArrayList<String> layerList = new ArrayList<String>();
 
@@ -175,8 +174,12 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 				command = new XplrBBoxSelectionCommand(layers, bounds, XplrBBoxSelectionCommand.NONE);
 			}
 
+			// Lexical analyzer
+			Dictionary dict = new Dictionary();
+
 			for (ILayer layer : layers)
 			{
+
 				FeatureCollection<SimpleFeatureType, SimpleFeature> features = getContext().getFeaturesInBbox(layer, bounds);
 
 				FeatureIterator<SimpleFeature> fIt = features.features();
@@ -204,8 +207,15 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 
 			}
 
-			par.setDp(dict);
-			par.theAlg();
+			try
+			{
+				par.theAlg(dict);
+			}
+			catch (SyntaxErrorException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			// for (ResultObject o : par.getResult())
 			// {

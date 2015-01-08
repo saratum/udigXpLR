@@ -1,8 +1,12 @@
 package it.unibz.udig.xplr.grammar.parser;
 
+import it.unibz.udig.xplr.grammar.entities.XpgActionEntry;
+import it.unibz.udig.xplr.grammar.entities.XpgElem;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
 import it.unibz.udig.xplr.grammar.entities.XpgNextEntry;
 import it.unibz.udig.xplr.grammar.entities.XpgParsingTableRow;
+import it.unibz.udig.xplr.grammar.entities.XpgParsingTableState;
+import it.unibz.udig.xplr.grammar.exceptions.SyntaxErrorException;
 import it.unibz.udig.xplr.grammar.generated.XpgLexer;
 import it.unibz.udig.xplr.grammar.generated.XpgParser;
 
@@ -11,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -21,9 +26,9 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class XpLRParser
 {
 
-	private Dictionary dp;
+	private Dictionary dict;
 	private ArrayList<XpgParsingTableRow> parsingtable;
-	private ArrayList<Object> theStack;
+	private CopyOnWriteArrayList<Object> theStack;
 	private ArrayList<ResultObject> result;
 	private XpgLoader loader;
 
@@ -34,7 +39,8 @@ public class XpLRParser
 		result.add(new ResultObject("Starting...", 0));
 
 		// the stack
-		theStack = new ArrayList<Object>();
+		theStack = new CopyOnWriteArrayList<>();
+		theStack.add(0); // state 0 della parsing table
 
 		// the grammar
 		InputStream is = new FileInputStream(inputfile);
@@ -62,23 +68,32 @@ public class XpLRParser
 		ParsingTableConstructor constructor = new ParsingTableConstructor(loader);
 		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<XpgItem>>> items = ItemConstructor.items(loader, result);
 
-		
 		// ItemConstructor.outItems(items);
 
-		parsingtable = constructor.createTable(items, result);
-		
+		setParsingtable(constructor.createTable(items, result));
+
 		// ParsingTableConstructor.outTable( parsingtable );
 
 	}
 
-	public Dictionary getDictionary()
+	public ArrayList<XpgParsingTableRow> getParsingtable()
 	{
-		return dp;
+		return parsingtable;
 	}
 
-	public void setDp(Dictionary dp)
+	public void setParsingtable(ArrayList<XpgParsingTableRow> p)
 	{
-		this.dp = dp;
+		this.parsingtable = p;
+	}
+
+	public Dictionary getDictionary()
+	{
+		return dict;
+	}
+
+	public void setDictionary(Dictionary dp)
+	{
+		this.dict = dp;
 	}
 
 	public ArrayList<ResultObject> getResult()
@@ -91,8 +106,34 @@ public class XpLRParser
 		return loader;
 	}
 
-	private Integer fetchVSymbol(XpgNextEntry e) throws Exception
+	private Integer fetchVSymbol(XpgNextEntry e)
 	{
+		if (e.getDriverRelation().toString() == "start")
+		{
+			for (DictionaryEntry entry : getDictionary().getEntries())
+			{
+				if (!entry.visited) return getDictionary().getEntries().indexOf(entry);
+			}
+		}
+		else if (e.getDriverRelation().toString() == "EOI")
+		{
+			for (DictionaryEntry entry : getDictionary().getEntries())
+			{
+				if (!entry.isVisited())
+				{
+					return null;
+				}
+
+				return 0;
+			}
+		}
+		else if (e == null)
+		{
+			return null;
+		}
+		else
+			return null;
+
 		// XpgNextEntry start = new XpgNextEntry( );
 		// start.setX( new XpgElem( "S" ) );
 		// start.setDriverRelation( new XpgElem( "start" ) );
@@ -101,10 +142,7 @@ public class XpLRParser
 		// end.setX( new XpgElem( "EOI" ) );
 		// end.setDriverRelation( new XpgElem( "end" ) );
 		//
-		// if ( e == null )
-		// {
-		// return null;
-		// }
+
 		// else if ( e.equals( start ) )
 		// {
 		// return dp.getTheObjects( ).size( );
@@ -176,15 +214,50 @@ public class XpLRParser
 	{
 	}
 
-	public void theAlg()
+	public void theAlg(Dictionary dict) throws SyntaxErrorException
 	{
-		if (getDictionary() != null)
+		if (dict != null)
+		{
+			setDictionary(dict);
 			result.add(new ResultObject("Dictionary ready", 0));
+		}
 		else
 		{
 			result.add(new ResultObject("Dictionary is null, can go any further", 1));
 			return;
 		}
+
+		// repeat forever
+		// let s be the state of the stack top
+
+		for (int i = theStack.size(); i < 0; i--)
+		{
+			Object s = theStack.get(i);
+
+			if (s instanceof Integer)
+			{
+				XpgParsingTableRow row = getParsingtable().get((Integer) s);
+				for (XpgParsingTableState substate : row.getSubstates())
+				{
+					XpgNextEntry next = substate.getNextEntry();
+					Object o = fetchVSymbol(next);
+					if (o != null)
+					{
+
+					}
+					else if (next == null)
+					{
+
+					}
+					else
+						throw new SyntaxErrorException();
+				}
+
+			}
+
+		}
+
+		// Object ip = fetchVSymbol(s.g);
 
 	}
 

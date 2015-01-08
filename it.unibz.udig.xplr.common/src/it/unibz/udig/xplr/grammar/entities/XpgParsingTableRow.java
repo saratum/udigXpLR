@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class XpgParsingTableRow
 {
-	Integer state;
+	Integer stateIdx;
 	ArrayList<XpgParsingTableState> substates;
 
 	public XpgParsingTableRow()
@@ -12,9 +12,9 @@ public class XpgParsingTableRow
 		substates = new ArrayList<XpgParsingTableState>();
 	}
 
-	public Integer getState()
+	public Integer getStateIdx()
 	{
-		return state;
+		return stateIdx;
 	}
 
 	public ArrayList<XpgParsingTableState> getSubstates()
@@ -24,7 +24,7 @@ public class XpgParsingTableRow
 
 	public void setState(Integer state)
 	{
-		this.state = state;
+		this.stateIdx = state;
 	}
 
 	public void setSubstates(ArrayList<XpgParsingTableState> substates)

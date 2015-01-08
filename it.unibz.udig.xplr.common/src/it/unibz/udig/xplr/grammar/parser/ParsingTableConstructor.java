@@ -310,7 +310,7 @@ public class ParsingTableConstructor
 	{
 		for (XpgParsingTableRow tablerow : rv)
 		{
-			System.out.println(tablerow.getState());
+			System.out.println(tablerow.getStateIdx());
 
 			for (XpgParsingTableState substate : tablerow.getSubstates())
 			{
