@@ -207,15 +207,7 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 
 			}
 
-			try
-			{
-				par.theAlg(dict);
-			}
-			catch (SyntaxErrorException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			par.theAlg(dict);
 
 			// for (ResultObject o : par.getResult())
 			// {
