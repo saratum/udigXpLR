@@ -1,6 +1,5 @@
-package it.unibz.udig.xplr.grammar.generated;
-
 // Generated from /Users/sara/Dropbox/tesi/tex/08-codice/Xpg.g4 by ANTLR 4.1
+package it.unibz.udig.xplr.grammar.generated;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -57,6 +56,19 @@ public class XpgBaseListener implements XpgListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterDeltarule(@NotNull XpgParser.DeltaruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitDeltarule(@NotNull XpgParser.DeltaruleContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterSemanticrule(@NotNull XpgParser.SemanticruleContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -96,19 +108,6 @@ public class XpgBaseListener implements XpgListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterLayername(@NotNull XpgParser.LayernameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitLayername(@NotNull XpgParser.LayernameContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterRules(@NotNull XpgParser.RulesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -142,19 +141,6 @@ public class XpgBaseListener implements XpgListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitXpgfile(@NotNull XpgParser.XpgfileContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterLayer(@NotNull XpgParser.LayerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitLayer(@NotNull XpgParser.LayerContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -239,32 +225,6 @@ public class XpgBaseListener implements XpgListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterMyrule(@NotNull XpgParser.MyruleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitMyrule(@NotNull XpgParser.MyruleContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterLayers(@NotNull XpgParser.LayersContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitLayers(@NotNull XpgParser.LayersContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterIdrelation(@NotNull XpgParser.IdrelationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -272,6 +232,19 @@ public class XpgBaseListener implements XpgListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitIdrelation(@NotNull XpgParser.IdrelationContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterDeltarules(@NotNull XpgParser.DeltarulesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitDeltarules(@NotNull XpgParser.DeltarulesContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,5 +1,5 @@
-package it.unibz.udig.xplr.grammar.generated;
 // Generated from /Users/sara/Dropbox/tesi/tex/08-codice/Xpg.g4 by ANTLR 4.1
+package it.unibz.udig.xplr.grammar.generated;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -42,6 +42,14 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
+	@Override public T visitDeltarule(@NotNull XpgParser.DeltaruleContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
 	@Override public T visitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -66,14 +74,6 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitLayername(@NotNull XpgParser.LayernameContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitRules(@NotNull XpgParser.RulesContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -91,14 +91,6 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitXpgfile(@NotNull XpgParser.XpgfileContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitLayer(@NotNull XpgParser.LayerContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -154,23 +146,15 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitMyrule(@NotNull XpgParser.MyruleContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitLayers(@NotNull XpgParser.LayersContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitIdrelation(@NotNull XpgParser.IdrelationContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitDeltarules(@NotNull XpgParser.DeltarulesContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

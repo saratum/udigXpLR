@@ -1,0 +1,64 @@
+LAYERS(
+cart_castel_class5;
+lamp_castel;
+)
+
+s -> municipality
+;
+lamp -> LAMP
+DELTA: (
+"lamp_bound=LAMP_bound",
+"type=integer",
+"lightning=string",
+"power=string",
+"poleheight=float",
+"poleplacement=SpatialCoordinates",
+)
+SEMANTICRULE: {"
+void onCreate(){
+}
+"};
+road -> ROAD
+DELTA: (
+"road_bound=ROAD_bound",
+"type=string",
+)
+SEMANTICRULE: {"
+void onCreate(){
+}
+"};
+municipality -> MUNICIPALITY <contains> pip
+;
+municipality -> MUNICIPALITY
+DELTA: (
+"municipality_bound=MUNICIPALITY_bound",
+)
+;
+municipality -> MUNICIPALITY <contains> road network
+;
+pip -> lamps
+;
+lamps -> lamp
+DELTA: (
+"lamps_bound=lamp_bound",
+)
+;
+lamps -> lamp<touches>lamps
+DELTA: (
+"lamps_bound=lamp'_bound+lamps_bound",
+)
+;
+road network -> roads
+;
+roads -> road
+DELTA: (
+"roads_bound=road_bound",
+)
+;
+roads -> road<touches>roads
+DELTA: (
+"roads_bound=road'_bound+roads_bound",
+)
+;
+road -> ROAD <contains> pip
+;

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class DictionaryEntry
 {
 
-	String name;
-	ArrayList<Attribute> attributes;
-	ArrayList<Object> counter;
-	boolean visited;
+	private String name;
+	private ArrayList<Attribute> attributes;
+	private ArrayList<Object> counter;
+	private boolean visited;
 
 	public DictionaryEntry()
 	{

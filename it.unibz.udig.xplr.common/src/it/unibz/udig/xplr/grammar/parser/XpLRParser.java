@@ -61,6 +61,7 @@ public class XpLRParser
 		}
 		catch ( Exception ex )
 		{
+			ex.printStackTrace( );
 			result.add( new ResultObject( "walked the tree - error ".concat( ex.getMessage( ) ), 1 ) );
 			return;
 		}
@@ -73,7 +74,7 @@ public class XpLRParser
 
 		setParsingtable( constructor.createTable( items, result ) );
 
-//	 ParsingTableConstructor.outTable( parsingtable );
+		//ParsingTableConstructor.outTable( parsingtable );
 
 	}
 
@@ -109,17 +110,16 @@ public class XpLRParser
 
 	private Integer fetchVSymbol(XpgNextEntry next) throws UnparsedInputException
 	{
-		if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ))
+		if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
 		{
-//			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
-//			{
-//
-//				if ( ! entry.visited )
-//					if ( entry.equals( next.getX( ) ) )
-//						return getDictionary( ).getEntries( ).indexOf( entry );
-//			}
+			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
+			{
+				if ( ! entry.isVisited( ) )
+					if ( entry.equals( next.getX( ) ) )
+						return getDictionary( ).getEntries( ).indexOf( entry );
+			}
 		}
-		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ))
+		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
 		{
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
@@ -131,11 +131,6 @@ public class XpLRParser
 				return 0;
 			}
 		}
-		else
-			return null;
-
-		
-
 		return null;
 
 	}
@@ -149,11 +144,19 @@ public class XpLRParser
 		if ( dict != null )
 		{
 			setDictionary( dict );
-			result.add( new ResultObject( "Dictionary ready", 0 ) );
+			result.add( new ResultObject( "Dictionary ready, here the entries:", ResultObject.LEVEL_INFO ) );
+
+			for ( DictionaryEntry e : getDictionary( ).getEntries( ) )
+			{
+				result.add( new ResultObject( e.toString( ), ResultObject.LEVEL_INFO ) );
+				if ( e.getAttributes( ) != null )
+					for ( Attribute attr : e.getAttributes( ) )
+						result.add( new ResultObject( attr.toString( ), ResultObject.LEVEL_INFO ) );
+			}
 		}
 		else
 		{
-			result.add( new ResultObject( "Dictionary is null, can go any further", 1 ) );
+			result.add( new ResultObject( "Dictionary is null, can go any further", ResultObject.LEVEL_ERROR ) );
 			return;
 		}
 

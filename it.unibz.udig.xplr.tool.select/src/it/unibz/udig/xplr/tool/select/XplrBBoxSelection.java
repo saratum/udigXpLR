@@ -12,9 +12,11 @@ import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import net.refractions.udig.project.ILayer;
@@ -48,20 +50,20 @@ import com.vividsolutions.jts.geom.Envelope;
 public class XplrBBoxSelection extends SimpleTool implements ModalTool
 {
 
-	public static final String ID = "it.unibz.udig.xplr.tool.select.selectfeatures"; //$NON-NLS-1$
+	public static final String										ID				= "it.unibz.udig.xplr.tool.select.selectfeatures";	//$NON-NLS-1$
 
-	private Point start;
+	private Point													start;
 
-	private boolean selecting;
+	private boolean													selecting;
 
-	net.refractions.udig.project.ui.commands.SelectionBoxCommand shapeCommand;
+	net.refractions.udig.project.ui.commands.SelectionBoxCommand	shapeCommand;
 
-	Set<String> selectedFids = new HashSet<String>();
-	String outputText = "";
+	Set< String >													selectedFids	= new HashSet< String >( );
+	String															outputText		= "";
 
 	public XplrBBoxSelection()
 	{
-		super(MOUSE | MOTION);
+		super( MOUSE | MOTION );
 	}
 
 	/**
@@ -69,11 +71,11 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 	 */
 	protected void onMouseDragged(MapMouseEvent e)
 	{
-		Point end = e.getPoint();
-		if (start == null) return;
-		shapeCommand
-				.setShape(new Rectangle(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.abs(start.x - end.x), Math.abs(start.y - end.y)));
-		context.getViewportPane().repaint();
+		Point end = e.getPoint( );
+		if ( start == null )
+			return;
+		shapeCommand.setShape( new Rectangle( Math.min( start.x, end.x ), Math.min( start.y, end.y ), Math.abs( start.x - end.x ), Math.abs( start.y - end.y ) ) );
+		context.getViewportPane( ).repaint( );
 	}
 
 	/**
@@ -81,16 +83,16 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 	 */
 	public void onMousePressed(MapMouseEvent e)
 	{
-		shapeCommand = new SelectionBoxCommand();
+		shapeCommand = new SelectionBoxCommand( );
 
-		if (((e.button & MapMouseEvent.BUTTON1) != 0))
+		if ( ( ( e.button & MapMouseEvent.BUTTON1 ) != 0 ) )
 		{
 			selecting = true;
 
-			start = e.getPoint();
-			shapeCommand.setValid(true);
-			shapeCommand.setShape(new Rectangle(start.x, start.y, 0, 0));
-			context.sendASyncCommand(shapeCommand);
+			start = e.getPoint( );
+			shapeCommand.setValid( true );
+			shapeCommand.setShape( new Rectangle( start.x, start.y, 0, 0 ) );
+			context.sendASyncCommand( shapeCommand );
 		}
 	}
 
@@ -99,25 +101,25 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 	 */
 	public void onMouseReleased(MapMouseEvent e)
 	{
-		if (selecting)
+		if ( selecting )
 		{
-			Point end = e.getPoint();
-			if (start == null || start.equals(end))
+			Point end = e.getPoint( );
+			if ( start == null || start.equals( end ) )
 			{
 
-				ReferencedEnvelope bounds = getContext().getBoundingBox(e.getPoint(), 3);
-				sendSelectionCommand(e, bounds);
+				ReferencedEnvelope bounds = getContext( ).getBoundingBox( e.getPoint( ), 3 );
+				sendSelectionCommand( e, bounds );
 			}
 			else
 			{
-				Coordinate c1 = context.getMap().getViewportModel().pixelToWorld(start.x, start.y);
-				Coordinate c2 = context.getMap().getViewportModel().pixelToWorld(end.x, end.y);
+				Coordinate c1 = context.getMap( ).getViewportModel( ).pixelToWorld( start.x, start.y );
+				Coordinate c2 = context.getMap( ).getViewportModel( ).pixelToWorld( end.x, end.y );
 
-				Envelope env = new Envelope(c1, c2);
-				ReferencedEnvelope bounds = new ReferencedEnvelope();
-				bounds.init(env);
+				Envelope env = new Envelope( c1, c2 );
+				ReferencedEnvelope bounds = new ReferencedEnvelope( );
+				bounds.init( env );
 
-				sendSelectionCommand(e, bounds);
+				sendSelectionCommand( e, bounds );
 			}
 		}
 	}
@@ -136,151 +138,150 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 		{
 
 			String inputfile = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
-			par = new XpLRParser(inputfile);
+			par = new XpLRParser( inputfile );
 
-			ArrayList<String> layerList = new ArrayList<String>();
+//			ArrayList< String > layerList = new ArrayList< String >( );
+//
+//			for ( String s :  )
+//			{
+//				layerList.add( s );
+//			}
 
-			for (String s : par.getLoader().getLayers())
+			List< ILayer > layers = new ArrayList< ILayer >( );
+			if ( par.getLoader( ).getLayers( ).isEmpty( ) )
 			{
-				layerList.add(s);
-			}
-
-			List<ILayer> layers = new ArrayList<ILayer>();
-			if (layerList.isEmpty())
-			{
-				layers.addAll(getContext().getMapLayers());
+				layers.addAll( getContext( ).getMapLayers( ) );
 			}
 			else
 			{
-				for (ILayer l : getContext().getMapLayers())
+				for ( ILayer l : getContext( ).getMapLayers( ) )
 				{
-					if (layerList.contains(l.getName()))
+					if ( par.getLoader( ).getLayers( ).contains( l.getName( ) ) )
 					{
-						layers.add(l);
+						layers.add( l );
 					}
 				}
 			}
 
-			if (e.isModifierDown(MapMouseEvent.MOD2_DOWN_MASK))
+			if ( e.isModifierDown( MapMouseEvent.MOD2_DOWN_MASK ) )
 			{
-				command = new XplrBBoxSelectionCommand(layers, bounds, XplrBBoxSelectionCommand.ADD);
+				command = new XplrBBoxSelectionCommand( layers, bounds, XplrBBoxSelectionCommand.ADD );
 			}
-			else if (e.isModifierDown(MapMouseEvent.MOD1_DOWN_MASK))
+			else if ( e.isModifierDown( MapMouseEvent.MOD1_DOWN_MASK ) )
 			{
-				command = new XplrBBoxSelectionCommand(layers, bounds, XplrBBoxSelectionCommand.SUBTRACT);
+				command = new XplrBBoxSelectionCommand( layers, bounds, XplrBBoxSelectionCommand.SUBTRACT );
 			}
 			else
 			{
-				command = new XplrBBoxSelectionCommand(layers, bounds, XplrBBoxSelectionCommand.NONE);
+				command = new XplrBBoxSelectionCommand( layers, bounds, XplrBBoxSelectionCommand.NONE );
 			}
 
 			// Lexical analyzer
-			Dictionary dict = new Dictionary();
-
-			for (ILayer layer : layers)
+			Dictionary dict = new Dictionary( );
+			HashMap< String, String > dbMappings =  par.getLoader( ).getDbMapping( );
+			
+			Set<Entry<String,String>> entryset = dbMappings.entrySet( );
+			Iterator <Entry<String,String>> eit = entryset.iterator( );
+			ArrayList<String> dbColumns = new ArrayList< String >();
+			while (eit.hasNext( ))
+			{
+				Entry<String,String> entry = eit.next( );
+				dbColumns.add( entry.getValue( ));
+			}
+			
+			for ( ILayer layer : layers )
 			{
 
-				FeatureCollection<SimpleFeatureType, SimpleFeature> features = getContext().getFeaturesInBbox(layer, bounds);
+				FeatureCollection< SimpleFeatureType, SimpleFeature > features = getContext( ).getFeaturesInBbox( layer, bounds );
 
-				FeatureIterator<SimpleFeature> fIt = features.features();
-				while (fIt.hasNext())
+				FeatureIterator< SimpleFeature > fIt = features.features( );
+				while ( fIt.hasNext( ) )
 				{
-					SimpleFeature feature = fIt.next();
+					SimpleFeature feature = fIt.next( );
 
-					ArrayList<Attribute> attributes = new ArrayList<Attribute>();
+					ArrayList< Attribute > attributes = new ArrayList< Attribute >( );
+					attributes.add( new Attribute( "layer", "", layer.getName( ) ) );
 
-					Collection<Property> props = feature.getProperties();
-					Iterator<Property> it = props.iterator();
-					while (it.hasNext())
+					Collection< Property > props = feature.getProperties( );
+					Iterator< Property > pit = props.iterator( );
+					while ( pit.hasNext( ) )
 					{
-						Property p = it.next();
+						Property p = pit.next( );
 
-						attributes.add(new Attribute(p.getName().toString(), p.getType().getBinding().getName(), p.getValue()));
+						if (dbColumns.contains( p.getName( ).toString( ) ))
+							attributes.add( new Attribute( p.getName( ).toString( ), p.getType( ).getBinding( ).getName( ), p.getValue( ) ) );
 
 					}
 
-					DictionaryEntry de = new DictionaryEntry(feature.getID(), attributes);
-					dict.getEntries().add(de);
+					DictionaryEntry de = new DictionaryEntry( feature.getID( ), attributes );
+					dict.getEntries( ).add( de );
 				}
 
-				fIt.close();
-
+				fIt.close( );
 			}
-
-			par.theAlg(dict);
-
-			// for (ResultObject o : par.getResult())
-			// {
-			// b.append(o.getMessage());
-			// if (o.getLevel() > 0) System.err.println(o.getMessage());
-			// }
-
+			
+			par.theAlg( dict );
 		}
-		catch (IOException ex)
+		catch ( IOException ex )
 		{
-			ex.printStackTrace();
+			ex.printStackTrace( );
 		}
 		finally
 		{
 
-			final ArrayList<ResultObject> res = par.getResult();
+			final ArrayList< ResultObject > res = par.getResult( );
 
-			if (command != null)
+			if ( command != null )
 			{
-				getContext().sendASyncCommand(command);
+				getContext( ).sendASyncCommand( command );
 			}
 
 			selecting = false;
-			shapeCommand.setValid(false);
-			getContext().getViewportPane().repaint();
+			shapeCommand.setValid( false );
+			getContext( ).getViewportPane( ).repaint( );
 
-			Display.getDefault().asyncExec(new Runnable()
+			Display.getDefault( ).asyncExec( new Runnable( )
 			{
 
 				public void run()
 				{
-					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					IWorkbenchPage page = PlatformUI.getWorkbench( ).getActiveWorkbenchWindow( ).getActivePage( );
 					IConsoleView consoleView;
 					try
 					{
-						consoleView = (IConsoleView) page.showView(IConsoleConstants.ID_CONSOLE_VIEW);
-						MessageConsole myConsole = new MessageConsole("CLI", null);
-						ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[]
-							{ myConsole });
-						consoleView.display(myConsole);
+						consoleView = ( IConsoleView ) page.showView( IConsoleConstants.ID_CONSOLE_VIEW );
+						MessageConsole myConsole = new MessageConsole( "CLI", null );
+						ConsolePlugin.getDefault( ).getConsoleManager( ).addConsoles( new IConsole[ ]
+						{ myConsole } );
+						consoleView.display( myConsole );
 
-						MessageConsoleStream stream = myConsole.newMessageStream();
+						MessageConsoleStream stream = myConsole.newMessageStream( );
 
-						for (ResultObject ro : res)
+						for ( ResultObject ro : res )
 						{
 
-							switch (ro.getLevel())
+							switch ( ro.getLevel( ) )
 							{
-							case 0:
-								stream.println("INFO: ".concat(ro.getMessage()));
-								break;
-							case 1:
-								stream.println("ERROR: ".concat(ro.getMessage()));
-								break;
-							default:
-								stream.println("INFO: ".concat(ro.getMessage()));
-								break;
+								case 1:
+									stream.println( "WARNING: ".concat( ro.getMessage( ) ) );
+									break;
+								case 2:
+									stream.println( "ERROR: ".concat( ro.getMessage( ) ) );
+									break;
+								case 0:
+								default:
+									stream.println( "INFO: ".concat( ro.getMessage( ) ) );
+									break;
 							}
-							stream.flush();
+							stream.flush( );
 						}
 
 					}
-					catch (PartInitException e)
+					catch ( PartInitException | IOException e )
 					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					catch (IOException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 
+						e.printStackTrace( );
+					}
 					// XpLRViewPart vp = (XpLRViewPart)
 					// ApplicationGIS.getView(true, XpLRViewPart.VIEW_ID);
 					// if (vp != null)
@@ -300,7 +301,7 @@ public class XplrBBoxSelection extends SimpleTool implements ModalTool
 					// }
 
 				}
-			});
+			} );
 
 		}
 	}

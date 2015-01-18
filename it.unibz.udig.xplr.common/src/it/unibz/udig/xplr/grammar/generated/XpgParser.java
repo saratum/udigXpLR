@@ -1,5 +1,5 @@
-package it.unibz.udig.xplr.grammar.generated;
 // Generated from /Users/sara/Dropbox/tesi/tex/08-codice/Xpg.g4 by ANTLR 4.1
+package it.unibz.udig.xplr.grammar.generated;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -15,27 +15,26 @@ public class XpgParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		DELTA=1, GAMMA=2, SEMANTICRULE=3, LAYERS=4, TRUE=5, FALSE=6, ARROW=7, 
-		LT=8, GT=9, LPAREN=10, RPAREN=11, LGPAREN=12, RGPAREN=13, SEMICOLON=14, 
-		COMMA=15, COLON=16, APICE=17, UNDERSCORE=18, UPPER=19, LOWER=20, DIGITS=21, 
-		ENDOFLINE=22, STRING=23, WS=24;
+		DELTA=1, GAMMA=2, SEMANTICRULE=3, TRUE=4, FALSE=5, ARROW=6, LT=7, GT=8, 
+		LPAREN=9, RPAREN=10, LGPAREN=11, RGPAREN=12, SEMICOLON=13, COMMA=14, COLON=15, 
+		APICE=16, UNDERSCORE=17, EQUALS=18, UPPER=19, LOWER=20, DIGITS=21, ENDOFLINE=22, 
+		STRING=23, WS=24;
 	public static final String[] tokenNames = {
-		"<INVALID>", "DELTA", "GAMMA", "SEMANTICRULE", "'LAYERS'", "'true'", "'false'", 
-		"'->'", "'<'", "'>'", "'('", "')'", "'{'", "'}'", "';'", "','", "':'", 
-		"'''", "'_'", "UPPER", "LOWER", "DIGITS", "';\n'", "STRING", "WS"
+		"<INVALID>", "DELTA", "GAMMA", "SEMANTICRULE", "'true'", "'false'", "'->'", 
+		"'<'", "'>'", "'('", "')'", "'{'", "'}'", "';'", "','", "':'", "'''", 
+		"'_'", "'='", "UPPER", "LOWER", "DIGITS", "';\n'", "STRING", "WS"
 	};
 	public static final int
-		RULE_xpgfile = 0, RULE_layers = 1, RULE_layer = 2, RULE_layername = 3, 
-		RULE_productions = 4, RULE_production = 5, RULE_linearRepresentation = 6, 
-		RULE_relations = 7, RULE_rules = 8, RULE_triples = 9, RULE_semanticrules = 10, 
-		RULE_relation = 11, RULE_triple = 12, RULE_condition = 13, RULE_driver = 14, 
-		RULE_tester = 15, RULE_myrule = 16, RULE_idrel = 17, RULE_semanticrule = 18, 
-		RULE_idrelation = 19, RULE_nonterminal = 20, RULE_terminal = 21;
+		RULE_xpgfile = 0, RULE_productions = 1, RULE_production = 2, RULE_linearRepresentation = 3, 
+		RULE_relations = 4, RULE_deltarules = 5, RULE_triples = 6, RULE_semanticrules = 7, 
+		RULE_relation = 8, RULE_triple = 9, RULE_condition = 10, RULE_driver = 11, 
+		RULE_tester = 12, RULE_rules = 13, RULE_deltarule = 14, RULE_idrel = 15, 
+		RULE_semanticrule = 16, RULE_idrelation = 17, RULE_nonterminal = 18, RULE_terminal = 19;
 	public static final String[] ruleNames = {
-		"xpgfile", "layers", "layer", "layername", "productions", "production", 
-		"linearRepresentation", "relations", "rules", "triples", "semanticrules", 
-		"relation", "triple", "condition", "driver", "tester", "myrule", "idrel", 
-		"semanticrule", "idrelation", "nonterminal", "terminal"
+		"xpgfile", "productions", "production", "linearRepresentation", "relations", 
+		"deltarules", "triples", "semanticrules", "relation", "triple", "condition", 
+		"driver", "tester", "rules", "deltarule", "idrel", "semanticrule", "idrelation", 
+		"nonterminal", "terminal"
 	};
 
 	@Override
@@ -57,9 +56,6 @@ public class XpgParser extends Parser {
 	public static class XpgfileContext extends ParserRuleContext {
 		public ProductionsContext productions() {
 			return getRuleContext(ProductionsContext.class,0);
-		}
-		public LayersContext layers() {
-			return getRuleContext(LayersContext.class,0);
 		}
 		public XpgfileContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -86,198 +82,7 @@ public class XpgParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44); layers();
-			setState(45); productions();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class LayersContext extends ParserRuleContext {
-		public TerminalNode LPAREN() { return getToken(XpgParser.LPAREN, 0); }
-		public LayerContext layer(int i) {
-			return getRuleContext(LayerContext.class,i);
-		}
-		public TerminalNode RPAREN() { return getToken(XpgParser.RPAREN, 0); }
-		public TerminalNode LAYERS() { return getToken(XpgParser.LAYERS, 0); }
-		public List<LayerContext> layer() {
-			return getRuleContexts(LayerContext.class);
-		}
-		public LayersContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_layers; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).enterLayers(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).exitLayers(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof XpgVisitor ) return ((XpgVisitor<? extends T>)visitor).visitLayers(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final LayersContext layers() throws RecognitionException {
-		LayersContext _localctx = new LayersContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_layers);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(47); match(LAYERS);
-			setState(48); match(LPAREN);
-			setState(52);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) {
-				{
-				{
-				setState(49); layer();
-				}
-				}
-				setState(54);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(55); match(RPAREN);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class LayerContext extends ParserRuleContext {
-		public TerminalNode ENDOFLINE() { return getToken(XpgParser.ENDOFLINE, 0); }
-		public LayernameContext layername() {
-			return getRuleContext(LayernameContext.class,0);
-		}
-		public LayerContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_layer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).enterLayer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).exitLayer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof XpgVisitor ) return ((XpgVisitor<? extends T>)visitor).visitLayer(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final LayerContext layer() throws RecognitionException {
-		LayerContext _localctx = new LayerContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_layer);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(57); layername();
-			setState(58); match(ENDOFLINE);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class LayernameContext extends ParserRuleContext {
-		public List<TerminalNode> UPPER() { return getTokens(XpgParser.UPPER); }
-		public TerminalNode LOWER(int i) {
-			return getToken(XpgParser.LOWER, i);
-		}
-		public TerminalNode DIGITS(int i) {
-			return getToken(XpgParser.DIGITS, i);
-		}
-		public List<TerminalNode> UNDERSCORE() { return getTokens(XpgParser.UNDERSCORE); }
-		public TerminalNode UPPER(int i) {
-			return getToken(XpgParser.UPPER, i);
-		}
-		public List<TerminalNode> LOWER() { return getTokens(XpgParser.LOWER); }
-		public List<TerminalNode> DIGITS() { return getTokens(XpgParser.DIGITS); }
-		public TerminalNode UNDERSCORE(int i) {
-			return getToken(XpgParser.UNDERSCORE, i);
-		}
-		public LayernameContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_layername; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).enterLayername(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).exitLayername(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof XpgVisitor ) return ((XpgVisitor<? extends T>)visitor).visitLayername(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final LayernameContext layername() throws RecognitionException {
-		LayernameContext _localctx = new LayernameContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_layername);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(60);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			consume();
-			setState(64);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) {
-				{
-				{
-				setState(61);
-				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) ) {
-				_errHandler.recoverInline(this);
-				}
-				consume();
-				}
-				}
-				setState(66);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
+			setState(40); productions();
 			}
 		}
 		catch (RecognitionException re) {
@@ -319,21 +124,21 @@ public class XpgParser extends Parser {
 
 	public final ProductionsContext productions() throws RecognitionException {
 		ProductionsContext _localctx = new ProductionsContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_productions);
+		enterRule(_localctx, 2, RULE_productions);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(68); 
+			setState(43); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(67); production();
+				setState(42); production();
 				}
 				}
-				setState(70); 
+				setState(45); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==LOWER );
@@ -380,14 +185,14 @@ public class XpgParser extends Parser {
 
 	public final ProductionContext production() throws RecognitionException {
 		ProductionContext _localctx = new ProductionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_production);
+		enterRule(_localctx, 4, RULE_production);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(72); nonterminal();
-			setState(73); match(ARROW);
-			setState(74); linearRepresentation();
-			setState(75); match(ENDOFLINE);
+			setState(47); nonterminal();
+			setState(48); match(ARROW);
+			setState(49); linearRepresentation();
+			setState(50); match(ENDOFLINE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -411,8 +216,8 @@ public class XpgParser extends Parser {
 		public List<RelationsContext> relations() {
 			return getRuleContexts(RelationsContext.class);
 		}
-		public RulesContext rules() {
-			return getRuleContext(RulesContext.class,0);
+		public DeltarulesContext deltarules() {
+			return getRuleContext(DeltarulesContext.class,0);
 		}
 		public TriplesContext triples() {
 			return getRuleContext(TriplesContext.class,0);
@@ -444,63 +249,63 @@ public class XpgParser extends Parser {
 
 	public final LinearRepresentationContext linearRepresentation() throws RecognitionException {
 		LinearRepresentationContext _localctx = new LinearRepresentationContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_linearRepresentation);
+		enterRule(_localctx, 6, RULE_linearRepresentation);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(79);
+			setState(54);
 			switch (_input.LA(1)) {
 			case LOWER:
 				{
-				setState(77); nonterminal();
+				setState(52); nonterminal();
 				}
 				break;
 			case UPPER:
 				{
-				setState(78); terminal();
+				setState(53); terminal();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(84);
+			setState(59);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=1 && _alt!=-1 ) {
 				if ( _alt==1+1 ) {
 					{
 					{
-					setState(81); relations();
+					setState(56); relations();
 					}
 					} 
 				}
-				setState(86);
+				setState(61);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
-			setState(88);
+			setState(63);
 			_la = _input.LA(1);
 			if (_la==DELTA) {
 				{
-				setState(87); rules();
+				setState(62); deltarules();
 				}
 			}
 
-			setState(91);
+			setState(66);
 			_la = _input.LA(1);
 			if (_la==GAMMA) {
 				{
-				setState(90); triples();
+				setState(65); triples();
 				}
 			}
 
-			setState(94);
+			setState(69);
 			_la = _input.LA(1);
 			if (_la==SEMANTICRULE) {
 				{
-				setState(93); semanticrules();
+				setState(68); semanticrules();
 				}
 			}
 
@@ -548,22 +353,22 @@ public class XpgParser extends Parser {
 
 	public final RelationsContext relations() throws RecognitionException {
 		RelationsContext _localctx = new RelationsContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_relations);
+		enterRule(_localctx, 8, RULE_relations);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(96); relation();
-			setState(99);
+			setState(71); relation();
+			setState(74);
 			switch (_input.LA(1)) {
 			case LOWER:
 				{
-				setState(97); nonterminal();
+				setState(72); nonterminal();
 				}
 				break;
 			case UPPER:
 				{
-				setState(98); terminal();
+				setState(73); terminal();
 				}
 				break;
 			default:
@@ -583,58 +388,58 @@ public class XpgParser extends Parser {
 		return _localctx;
 	}
 
-	public static class RulesContext extends ParserRuleContext {
-		public TerminalNode LPAREN() { return getToken(XpgParser.LPAREN, 0); }
-		public List<MyruleContext> myrule() {
-			return getRuleContexts(MyruleContext.class);
+	public static class DeltarulesContext extends ParserRuleContext {
+		public RulesContext rules(int i) {
+			return getRuleContext(RulesContext.class,i);
 		}
-		public MyruleContext myrule(int i) {
-			return getRuleContext(MyruleContext.class,i);
+		public TerminalNode LPAREN() { return getToken(XpgParser.LPAREN, 0); }
+		public List<RulesContext> rules() {
+			return getRuleContexts(RulesContext.class);
 		}
 		public TerminalNode RPAREN() { return getToken(XpgParser.RPAREN, 0); }
 		public TerminalNode DELTA() { return getToken(XpgParser.DELTA, 0); }
-		public RulesContext(ParserRuleContext parent, int invokingState) {
+		public DeltarulesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_rules; }
+		@Override public int getRuleIndex() { return RULE_deltarules; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).enterRules(this);
+			if ( listener instanceof XpgListener ) ((XpgListener)listener).enterDeltarules(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).exitRules(this);
+			if ( listener instanceof XpgListener ) ((XpgListener)listener).exitDeltarules(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof XpgVisitor ) return ((XpgVisitor<? extends T>)visitor).visitRules(this);
+			if ( visitor instanceof XpgVisitor ) return ((XpgVisitor<? extends T>)visitor).visitDeltarules(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final RulesContext rules() throws RecognitionException {
-		RulesContext _localctx = new RulesContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_rules);
+	public final DeltarulesContext deltarules() throws RecognitionException {
+		DeltarulesContext _localctx = new DeltarulesContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_deltarules);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(101); match(DELTA);
-			setState(102); match(LPAREN);
-			setState(104); 
+			setState(76); match(DELTA);
+			setState(77); match(LPAREN);
+			setState(79); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(103); myrule();
+				setState(78); rules();
 				}
 				}
-				setState(106); 
+				setState(81); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( _la==STRING );
-			setState(108); match(RPAREN);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << EQUALS) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0) );
+			setState(83); match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -679,27 +484,27 @@ public class XpgParser extends Parser {
 
 	public final TriplesContext triples() throws RecognitionException {
 		TriplesContext _localctx = new TriplesContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_triples);
+		enterRule(_localctx, 12, RULE_triples);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110); match(GAMMA);
-			setState(111); match(LGPAREN);
-			setState(113); 
+			setState(85); match(GAMMA);
+			setState(86); match(LGPAREN);
+			setState(88); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(112); triple();
+				setState(87); triple();
 				}
 				}
-				setState(115); 
+				setState(90); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==LPAREN );
-			setState(117); match(RGPAREN);
+			setState(92); match(RGPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -741,14 +546,14 @@ public class XpgParser extends Parser {
 
 	public final SemanticrulesContext semanticrules() throws RecognitionException {
 		SemanticrulesContext _localctx = new SemanticrulesContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_semanticrules);
+		enterRule(_localctx, 14, RULE_semanticrules);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(119); match(SEMANTICRULE);
-			setState(120); match(LGPAREN);
-			setState(121); semanticrule();
-			setState(122); match(RGPAREN);
+			setState(94); match(SEMANTICRULE);
+			setState(95); match(LGPAREN);
+			setState(96); semanticrule();
+			setState(97); match(RGPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -793,30 +598,30 @@ public class XpgParser extends Parser {
 
 	public final RelationContext relation() throws RecognitionException {
 		RelationContext _localctx = new RelationContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_relation);
+		enterRule(_localctx, 16, RULE_relation);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(124); match(LT);
-			setState(125); driver();
-			setState(127);
+			setState(99); match(LT);
+			setState(100); driver();
+			setState(102);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(126); match(COMMA);
+				setState(101); match(COMMA);
 				}
 			}
 
-			setState(130);
+			setState(105);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) {
 				{
-				setState(129); tester();
+				setState(104); tester();
 				}
 			}
 
-			setState(132); match(GT);
+			setState(107); match(GT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -832,18 +637,18 @@ public class XpgParser extends Parser {
 
 	public static class TripleContext extends ParserRuleContext {
 		public List<TerminalNode> SEMICOLON() { return getTokens(XpgParser.SEMICOLON); }
+		public RulesContext rules(int i) {
+			return getRuleContext(RulesContext.class,i);
+		}
 		public TerminalNode LPAREN() { return getToken(XpgParser.LPAREN, 0); }
 		public TerminalContext terminal() {
 			return getRuleContext(TerminalContext.class,0);
 		}
-		public List<MyruleContext> myrule() {
-			return getRuleContexts(MyruleContext.class);
+		public List<RulesContext> rules() {
+			return getRuleContexts(RulesContext.class);
 		}
 		public TerminalNode SEMICOLON(int i) {
 			return getToken(XpgParser.SEMICOLON, i);
-		}
-		public MyruleContext myrule(int i) {
-			return getRuleContext(MyruleContext.class,i);
 		}
 		public TerminalNode RPAREN() { return getToken(XpgParser.RPAREN, 0); }
 		public ConditionContext condition() {
@@ -870,30 +675,30 @@ public class XpgParser extends Parser {
 
 	public final TripleContext triple() throws RecognitionException {
 		TripleContext _localctx = new TripleContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_triple);
+		enterRule(_localctx, 18, RULE_triple);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(134); match(LPAREN);
-			setState(135); terminal();
-			setState(136); match(SEMICOLON);
-			setState(137); condition();
-			setState(138); match(SEMICOLON);
-			setState(140); 
+			setState(109); match(LPAREN);
+			setState(110); terminal();
+			setState(111); match(SEMICOLON);
+			setState(112); condition();
+			setState(113); match(SEMICOLON);
+			setState(115); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(139); myrule();
+				setState(114); rules();
 				}
 				}
-				setState(142); 
+				setState(117); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( _la==STRING );
-			setState(144); match(RPAREN);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << EQUALS) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0) );
+			setState(119); match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -932,12 +737,12 @@ public class XpgParser extends Parser {
 
 	public final ConditionContext condition() throws RecognitionException {
 		ConditionContext _localctx = new ConditionContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_condition);
+		enterRule(_localctx, 20, RULE_condition);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(146);
+			setState(121);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TRUE) | (1L << FALSE) | (1L << STRING))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -981,11 +786,11 @@ public class XpgParser extends Parser {
 
 	public final DriverContext driver() throws RecognitionException {
 		DriverContext _localctx = new DriverContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_driver);
+		enterRule(_localctx, 22, RULE_driver);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(148); idrelation();
+			setState(123); idrelation();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1024,11 +829,11 @@ public class XpgParser extends Parser {
 
 	public final TesterContext tester() throws RecognitionException {
 		TesterContext _localctx = new TesterContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_tester);
+		enterRule(_localctx, 24, RULE_tester);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(150); idrelation();
+			setState(125); idrelation();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1042,44 +847,143 @@ public class XpgParser extends Parser {
 		return _localctx;
 	}
 
-	public static class MyruleContext extends ParserRuleContext {
+	public static class RulesContext extends ParserRuleContext {
+		public DeltaruleContext deltarule() {
+			return getRuleContext(DeltaruleContext.class,0);
+		}
 		public TerminalNode COMMA() { return getToken(XpgParser.COMMA, 0); }
-		public TerminalNode STRING() { return getToken(XpgParser.STRING, 0); }
-		public MyruleContext(ParserRuleContext parent, int invokingState) {
+		public RulesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_myrule; }
+		@Override public int getRuleIndex() { return RULE_rules; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).enterMyrule(this);
+			if ( listener instanceof XpgListener ) ((XpgListener)listener).enterRules(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof XpgListener ) ((XpgListener)listener).exitMyrule(this);
+			if ( listener instanceof XpgListener ) ((XpgListener)listener).exitRules(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof XpgVisitor ) return ((XpgVisitor<? extends T>)visitor).visitMyrule(this);
+			if ( visitor instanceof XpgVisitor ) return ((XpgVisitor<? extends T>)visitor).visitRules(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final MyruleContext myrule() throws RecognitionException {
-		MyruleContext _localctx = new MyruleContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_myrule);
+	public final RulesContext rules() throws RecognitionException {
+		RulesContext _localctx = new RulesContext(_ctx, getState());
+		enterRule(_localctx, 26, RULE_rules);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(152); match(STRING);
-			setState(154);
+			setState(127); deltarule();
+			setState(129);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(153); match(COMMA);
+				setState(128); match(COMMA);
 				}
 			}
 
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class DeltaruleContext extends ParserRuleContext {
+		public TerminalNode EQUALS() { return getToken(XpgParser.EQUALS, 0); }
+		public List<TerminalNode> UPPER() { return getTokens(XpgParser.UPPER); }
+		public TerminalNode LOWER(int i) {
+			return getToken(XpgParser.LOWER, i);
+		}
+		public List<TerminalNode> UNDERSCORE() { return getTokens(XpgParser.UNDERSCORE); }
+		public TerminalNode DIGITS(int i) {
+			return getToken(XpgParser.DIGITS, i);
+		}
+		public TerminalNode UPPER(int i) {
+			return getToken(XpgParser.UPPER, i);
+		}
+		public List<TerminalNode> LOWER() { return getTokens(XpgParser.LOWER); }
+		public List<TerminalNode> DIGITS() { return getTokens(XpgParser.DIGITS); }
+		public TerminalNode UNDERSCORE(int i) {
+			return getToken(XpgParser.UNDERSCORE, i);
+		}
+		public DeltaruleContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_deltarule; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof XpgListener ) ((XpgListener)listener).enterDeltarule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof XpgListener ) ((XpgListener)listener).exitDeltarule(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof XpgVisitor ) return ((XpgVisitor<? extends T>)visitor).visitDeltarule(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final DeltaruleContext deltarule() throws RecognitionException {
+		DeltaruleContext _localctx = new DeltaruleContext(_ctx, getState());
+		enterRule(_localctx, 28, RULE_deltarule);
+		int _la;
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(134);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) {
+				{
+				{
+				setState(131);
+				_la = _input.LA(1);
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				consume();
+				}
+				}
+				setState(136);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(137); match(EQUALS);
+			setState(141);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+			while ( _alt!=2 && _alt!=-1 ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(138);
+					_la = _input.LA(1);
+					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) ) {
+					_errHandler.recoverInline(this);
+					}
+					consume();
+					}
+					} 
+				}
+				setState(143);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -1116,11 +1020,11 @@ public class XpgParser extends Parser {
 
 	public final IdrelContext idrel() throws RecognitionException {
 		IdrelContext _localctx = new IdrelContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_idrel);
+		enterRule(_localctx, 30, RULE_idrel);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(156); match(STRING);
+			setState(144); match(STRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1157,11 +1061,11 @@ public class XpgParser extends Parser {
 
 	public final SemanticruleContext semanticrule() throws RecognitionException {
 		SemanticruleContext _localctx = new SemanticruleContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_semanticrule);
+		enterRule(_localctx, 32, RULE_semanticrule);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(158); match(STRING);
+			setState(146); match(STRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1213,26 +1117,26 @@ public class XpgParser extends Parser {
 
 	public final IdrelationContext idrelation() throws RecognitionException {
 		IdrelationContext _localctx = new IdrelationContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_idrelation);
+		enterRule(_localctx, 34, RULE_idrelation);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(160);
+			setState(148);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			consume();
-			setState(164);
+			setState(152);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 			while ( _alt!=2 && _alt!=-1 ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(161);
+					setState(149);
 					_la = _input.LA(1);
 					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) ) {
 					_errHandler.recoverInline(this);
@@ -1241,7 +1145,7 @@ public class XpgParser extends Parser {
 					}
 					} 
 				}
-				setState(166);
+				setState(154);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 			}
@@ -1300,20 +1204,20 @@ public class XpgParser extends Parser {
 
 	public final NonterminalContext nonterminal() throws RecognitionException {
 		NonterminalContext _localctx = new NonterminalContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_nonterminal);
+		enterRule(_localctx, 36, RULE_nonterminal);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(167); match(LOWER);
-			setState(171);
+			setState(155); match(LOWER);
+			setState(159);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) {
 				{
 				{
-				setState(168);
+				setState(156);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNDERSCORE) | (1L << UPPER) | (1L << LOWER) | (1L << DIGITS))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -1321,22 +1225,22 @@ public class XpgParser extends Parser {
 				consume();
 				}
 				}
-				setState(173);
+				setState(161);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(177);
+			setState(165);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
 			while ( _alt!=1 && _alt!=-1 ) {
 				if ( _alt==1+1 ) {
 					{
 					{
-					setState(174); match(APICE);
+					setState(162); match(APICE);
 					}
 					} 
 				}
-				setState(179);
+				setState(167);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
 			}
@@ -1383,38 +1287,38 @@ public class XpgParser extends Parser {
 
 	public final TerminalContext terminal() throws RecognitionException {
 		TerminalContext _localctx = new TerminalContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_terminal);
+		enterRule(_localctx, 38, RULE_terminal);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(180); match(UPPER);
-			setState(184);
+			setState(168); match(UPPER);
+			setState(172);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==UPPER) {
 				{
 				{
-				setState(181); match(UPPER);
+				setState(169); match(UPPER);
 				}
 				}
-				setState(186);
+				setState(174);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(190);
+			setState(178);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 			while ( _alt!=1 && _alt!=-1 ) {
 				if ( _alt==1+1 ) {
 					{
 					{
-					setState(187); match(APICE);
+					setState(175); match(APICE);
 					}
 					} 
 				}
-				setState(192);
+				setState(180);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 			}
@@ -1432,64 +1336,60 @@ public class XpgParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\32\u00c4\4\2\t\2"+
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\32\u00b8\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\2\3\3\3\3"+
-		"\3\3\7\3\65\n\3\f\3\16\38\13\3\3\3\3\3\3\4\3\4\3\4\3\5\3\5\7\5A\n\5\f"+
-		"\5\16\5D\13\5\3\6\6\6G\n\6\r\6\16\6H\3\7\3\7\3\7\3\7\3\7\3\b\3\b\5\bR"+
-		"\n\b\3\b\7\bU\n\b\f\b\16\bX\13\b\3\b\5\b[\n\b\3\b\5\b^\n\b\3\b\5\ba\n"+
-		"\b\3\t\3\t\3\t\5\tf\n\t\3\n\3\n\3\n\6\nk\n\n\r\n\16\nl\3\n\3\n\3\13\3"+
-		"\13\3\13\6\13t\n\13\r\13\16\13u\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\r\3\r"+
-		"\3\r\5\r\u0082\n\r\3\r\5\r\u0085\n\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16"+
-		"\3\16\6\16\u008f\n\16\r\16\16\16\u0090\3\16\3\16\3\17\3\17\3\20\3\20\3"+
-		"\21\3\21\3\22\3\22\5\22\u009d\n\22\3\23\3\23\3\24\3\24\3\25\3\25\7\25"+
-		"\u00a5\n\25\f\25\16\25\u00a8\13\25\3\26\3\26\7\26\u00ac\n\26\f\26\16\26"+
-		"\u00af\13\26\3\26\7\26\u00b2\n\26\f\26\16\26\u00b5\13\26\3\27\3\27\7\27"+
-		"\u00b9\n\27\f\27\16\27\u00bc\13\27\3\27\7\27\u00bf\n\27\f\27\16\27\u00c2"+
-		"\13\27\3\27\5V\u00b3\u00c0\30\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 "+
-		"\"$&(*,\2\5\3\2\25\27\3\2\24\27\4\2\7\b\31\31\u00c1\2.\3\2\2\2\4\61\3"+
-		"\2\2\2\6;\3\2\2\2\b>\3\2\2\2\nF\3\2\2\2\fJ\3\2\2\2\16Q\3\2\2\2\20b\3\2"+
-		"\2\2\22g\3\2\2\2\24p\3\2\2\2\26y\3\2\2\2\30~\3\2\2\2\32\u0088\3\2\2\2"+
-		"\34\u0094\3\2\2\2\36\u0096\3\2\2\2 \u0098\3\2\2\2\"\u009a\3\2\2\2$\u009e"+
-		"\3\2\2\2&\u00a0\3\2\2\2(\u00a2\3\2\2\2*\u00a9\3\2\2\2,\u00b6\3\2\2\2."+
-		"/\5\4\3\2/\60\5\n\6\2\60\3\3\2\2\2\61\62\7\6\2\2\62\66\7\f\2\2\63\65\5"+
-		"\6\4\2\64\63\3\2\2\2\658\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\679\3\2\2"+
-		"\28\66\3\2\2\29:\7\r\2\2:\5\3\2\2\2;<\5\b\5\2<=\7\30\2\2=\7\3\2\2\2>B"+
-		"\t\2\2\2?A\t\3\2\2@?\3\2\2\2AD\3\2\2\2B@\3\2\2\2BC\3\2\2\2C\t\3\2\2\2"+
-		"DB\3\2\2\2EG\5\f\7\2FE\3\2\2\2GH\3\2\2\2HF\3\2\2\2HI\3\2\2\2I\13\3\2\2"+
-		"\2JK\5*\26\2KL\7\t\2\2LM\5\16\b\2MN\7\30\2\2N\r\3\2\2\2OR\5*\26\2PR\5"+
-		",\27\2QO\3\2\2\2QP\3\2\2\2RV\3\2\2\2SU\5\20\t\2TS\3\2\2\2UX\3\2\2\2VW"+
-		"\3\2\2\2VT\3\2\2\2WZ\3\2\2\2XV\3\2\2\2Y[\5\22\n\2ZY\3\2\2\2Z[\3\2\2\2"+
-		"[]\3\2\2\2\\^\5\24\13\2]\\\3\2\2\2]^\3\2\2\2^`\3\2\2\2_a\5\26\f\2`_\3"+
-		"\2\2\2`a\3\2\2\2a\17\3\2\2\2be\5\30\r\2cf\5*\26\2df\5,\27\2ec\3\2\2\2"+
-		"ed\3\2\2\2f\21\3\2\2\2gh\7\3\2\2hj\7\f\2\2ik\5\"\22\2ji\3\2\2\2kl\3\2"+
-		"\2\2lj\3\2\2\2lm\3\2\2\2mn\3\2\2\2no\7\r\2\2o\23\3\2\2\2pq\7\4\2\2qs\7"+
-		"\16\2\2rt\5\32\16\2sr\3\2\2\2tu\3\2\2\2us\3\2\2\2uv\3\2\2\2vw\3\2\2\2"+
-		"wx\7\17\2\2x\25\3\2\2\2yz\7\5\2\2z{\7\16\2\2{|\5&\24\2|}\7\17\2\2}\27"+
-		"\3\2\2\2~\177\7\n\2\2\177\u0081\5\36\20\2\u0080\u0082\7\21\2\2\u0081\u0080"+
-		"\3\2\2\2\u0081\u0082\3\2\2\2\u0082\u0084\3\2\2\2\u0083\u0085\5 \21\2\u0084"+
-		"\u0083\3\2\2\2\u0084\u0085\3\2\2\2\u0085\u0086\3\2\2\2\u0086\u0087\7\13"+
-		"\2\2\u0087\31\3\2\2\2\u0088\u0089\7\f\2\2\u0089\u008a\5,\27\2\u008a\u008b"+
-		"\7\20\2\2\u008b\u008c\5\34\17\2\u008c\u008e\7\20\2\2\u008d\u008f\5\"\22"+
-		"\2\u008e\u008d\3\2\2\2\u008f\u0090\3\2\2\2\u0090\u008e\3\2\2\2\u0090\u0091"+
-		"\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u0093\7\r\2\2\u0093\33\3\2\2\2\u0094"+
-		"\u0095\t\4\2\2\u0095\35\3\2\2\2\u0096\u0097\5(\25\2\u0097\37\3\2\2\2\u0098"+
-		"\u0099\5(\25\2\u0099!\3\2\2\2\u009a\u009c\7\31\2\2\u009b\u009d\7\21\2"+
-		"\2\u009c\u009b\3\2\2\2\u009c\u009d\3\2\2\2\u009d#\3\2\2\2\u009e\u009f"+
-		"\7\31\2\2\u009f%\3\2\2\2\u00a0\u00a1\7\31\2\2\u00a1\'\3\2\2\2\u00a2\u00a6"+
-		"\t\2\2\2\u00a3\u00a5\t\3\2\2\u00a4\u00a3\3\2\2\2\u00a5\u00a8\3\2\2\2\u00a6"+
-		"\u00a4\3\2\2\2\u00a6\u00a7\3\2\2\2\u00a7)\3\2\2\2\u00a8\u00a6\3\2\2\2"+
-		"\u00a9\u00ad\7\26\2\2\u00aa\u00ac\t\3\2\2\u00ab\u00aa\3\2\2\2\u00ac\u00af"+
-		"\3\2\2\2\u00ad\u00ab\3\2\2\2\u00ad\u00ae\3\2\2\2\u00ae\u00b3\3\2\2\2\u00af"+
-		"\u00ad\3\2\2\2\u00b0\u00b2\7\23\2\2\u00b1\u00b0\3\2\2\2\u00b2\u00b5\3"+
-		"\2\2\2\u00b3\u00b4\3\2\2\2\u00b3\u00b1\3\2\2\2\u00b4+\3\2\2\2\u00b5\u00b3"+
-		"\3\2\2\2\u00b6\u00ba\7\25\2\2\u00b7\u00b9\7\25\2\2\u00b8\u00b7\3\2\2\2"+
-		"\u00b9\u00bc\3\2\2\2\u00ba\u00b8\3\2\2\2\u00ba\u00bb\3\2\2\2\u00bb\u00c0"+
-		"\3\2\2\2\u00bc\u00ba\3\2\2\2\u00bd\u00bf\7\23\2\2\u00be\u00bd\3\2\2\2"+
-		"\u00bf\u00c2\3\2\2\2\u00c0\u00c1\3\2\2\2\u00c0\u00be\3\2\2\2\u00c1-\3"+
-		"\2\2\2\u00c2\u00c0\3\2\2\2\26\66BHQVZ]`elu\u0081\u0084\u0090\u009c\u00a6"+
-		"\u00ad\u00b3\u00ba\u00c0";
+		"\4\23\t\23\4\24\t\24\4\25\t\25\3\2\3\2\3\3\6\3.\n\3\r\3\16\3/\3\4\3\4"+
+		"\3\4\3\4\3\4\3\5\3\5\5\59\n\5\3\5\7\5<\n\5\f\5\16\5?\13\5\3\5\5\5B\n\5"+
+		"\3\5\5\5E\n\5\3\5\5\5H\n\5\3\6\3\6\3\6\5\6M\n\6\3\7\3\7\3\7\6\7R\n\7\r"+
+		"\7\16\7S\3\7\3\7\3\b\3\b\3\b\6\b[\n\b\r\b\16\b\\\3\b\3\b\3\t\3\t\3\t\3"+
+		"\t\3\t\3\n\3\n\3\n\5\ni\n\n\3\n\5\nl\n\n\3\n\3\n\3\13\3\13\3\13\3\13\3"+
+		"\13\3\13\6\13v\n\13\r\13\16\13w\3\13\3\13\3\f\3\f\3\r\3\r\3\16\3\16\3"+
+		"\17\3\17\5\17\u0084\n\17\3\20\7\20\u0087\n\20\f\20\16\20\u008a\13\20\3"+
+		"\20\3\20\7\20\u008e\n\20\f\20\16\20\u0091\13\20\3\21\3\21\3\22\3\22\3"+
+		"\23\3\23\7\23\u0099\n\23\f\23\16\23\u009c\13\23\3\24\3\24\7\24\u00a0\n"+
+		"\24\f\24\16\24\u00a3\13\24\3\24\7\24\u00a6\n\24\f\24\16\24\u00a9\13\24"+
+		"\3\25\3\25\7\25\u00ad\n\25\f\25\16\25\u00b0\13\25\3\25\7\25\u00b3\n\25"+
+		"\f\25\16\25\u00b6\13\25\3\25\5=\u00a7\u00b4\26\2\4\6\b\n\f\16\20\22\24"+
+		"\26\30\32\34\36 \"$&(\2\5\4\2\6\7\31\31\4\2\23\23\25\27\3\2\25\27\u00b7"+
+		"\2*\3\2\2\2\4-\3\2\2\2\6\61\3\2\2\2\b8\3\2\2\2\nI\3\2\2\2\fN\3\2\2\2\16"+
+		"W\3\2\2\2\20`\3\2\2\2\22e\3\2\2\2\24o\3\2\2\2\26{\3\2\2\2\30}\3\2\2\2"+
+		"\32\177\3\2\2\2\34\u0081\3\2\2\2\36\u0088\3\2\2\2 \u0092\3\2\2\2\"\u0094"+
+		"\3\2\2\2$\u0096\3\2\2\2&\u009d\3\2\2\2(\u00aa\3\2\2\2*+\5\4\3\2+\3\3\2"+
+		"\2\2,.\5\6\4\2-,\3\2\2\2./\3\2\2\2/-\3\2\2\2/\60\3\2\2\2\60\5\3\2\2\2"+
+		"\61\62\5&\24\2\62\63\7\b\2\2\63\64\5\b\5\2\64\65\7\30\2\2\65\7\3\2\2\2"+
+		"\669\5&\24\2\679\5(\25\28\66\3\2\2\28\67\3\2\2\29=\3\2\2\2:<\5\n\6\2;"+
+		":\3\2\2\2<?\3\2\2\2=>\3\2\2\2=;\3\2\2\2>A\3\2\2\2?=\3\2\2\2@B\5\f\7\2"+
+		"A@\3\2\2\2AB\3\2\2\2BD\3\2\2\2CE\5\16\b\2DC\3\2\2\2DE\3\2\2\2EG\3\2\2"+
+		"\2FH\5\20\t\2GF\3\2\2\2GH\3\2\2\2H\t\3\2\2\2IL\5\22\n\2JM\5&\24\2KM\5"+
+		"(\25\2LJ\3\2\2\2LK\3\2\2\2M\13\3\2\2\2NO\7\3\2\2OQ\7\13\2\2PR\5\34\17"+
+		"\2QP\3\2\2\2RS\3\2\2\2SQ\3\2\2\2ST\3\2\2\2TU\3\2\2\2UV\7\f\2\2V\r\3\2"+
+		"\2\2WX\7\4\2\2XZ\7\r\2\2Y[\5\24\13\2ZY\3\2\2\2[\\\3\2\2\2\\Z\3\2\2\2\\"+
+		"]\3\2\2\2]^\3\2\2\2^_\7\16\2\2_\17\3\2\2\2`a\7\5\2\2ab\7\r\2\2bc\5\"\22"+
+		"\2cd\7\16\2\2d\21\3\2\2\2ef\7\t\2\2fh\5\30\r\2gi\7\20\2\2hg\3\2\2\2hi"+
+		"\3\2\2\2ik\3\2\2\2jl\5\32\16\2kj\3\2\2\2kl\3\2\2\2lm\3\2\2\2mn\7\n\2\2"+
+		"n\23\3\2\2\2op\7\13\2\2pq\5(\25\2qr\7\17\2\2rs\5\26\f\2su\7\17\2\2tv\5"+
+		"\34\17\2ut\3\2\2\2vw\3\2\2\2wu\3\2\2\2wx\3\2\2\2xy\3\2\2\2yz\7\f\2\2z"+
+		"\25\3\2\2\2{|\t\2\2\2|\27\3\2\2\2}~\5$\23\2~\31\3\2\2\2\177\u0080\5$\23"+
+		"\2\u0080\33\3\2\2\2\u0081\u0083\5\36\20\2\u0082\u0084\7\20\2\2\u0083\u0082"+
+		"\3\2\2\2\u0083\u0084\3\2\2\2\u0084\35\3\2\2\2\u0085\u0087\t\3\2\2\u0086"+
+		"\u0085\3\2\2\2\u0087\u008a\3\2\2\2\u0088\u0086\3\2\2\2\u0088\u0089\3\2"+
+		"\2\2\u0089\u008b\3\2\2\2\u008a\u0088\3\2\2\2\u008b\u008f\7\24\2\2\u008c"+
+		"\u008e\t\3\2\2\u008d\u008c\3\2\2\2\u008e\u0091\3\2\2\2\u008f\u008d\3\2"+
+		"\2\2\u008f\u0090\3\2\2\2\u0090\37\3\2\2\2\u0091\u008f\3\2\2\2\u0092\u0093"+
+		"\7\31\2\2\u0093!\3\2\2\2\u0094\u0095\7\31\2\2\u0095#\3\2\2\2\u0096\u009a"+
+		"\t\4\2\2\u0097\u0099\t\3\2\2\u0098\u0097\3\2\2\2\u0099\u009c\3\2\2\2\u009a"+
+		"\u0098\3\2\2\2\u009a\u009b\3\2\2\2\u009b%\3\2\2\2\u009c\u009a\3\2\2\2"+
+		"\u009d\u00a1\7\26\2\2\u009e\u00a0\t\3\2\2\u009f\u009e\3\2\2\2\u00a0\u00a3"+
+		"\3\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\u00a7\3\2\2\2\u00a3"+
+		"\u00a1\3\2\2\2\u00a4\u00a6\7\22\2\2\u00a5\u00a4\3\2\2\2\u00a6\u00a9\3"+
+		"\2\2\2\u00a7\u00a8\3\2\2\2\u00a7\u00a5\3\2\2\2\u00a8\'\3\2\2\2\u00a9\u00a7"+
+		"\3\2\2\2\u00aa\u00ae\7\25\2\2\u00ab\u00ad\7\25\2\2\u00ac\u00ab\3\2\2\2"+
+		"\u00ad\u00b0\3\2\2\2\u00ae\u00ac\3\2\2\2\u00ae\u00af\3\2\2\2\u00af\u00b4"+
+		"\3\2\2\2\u00b0\u00ae\3\2\2\2\u00b1\u00b3\7\22\2\2\u00b2\u00b1\3\2\2\2"+
+		"\u00b3\u00b6\3\2\2\2\u00b4\u00b5\3\2\2\2\u00b4\u00b2\3\2\2\2\u00b5)\3"+
+		"\2\2\2\u00b6\u00b4\3\2\2\2\26/8=ADGLS\\hkw\u0083\u0088\u008f\u009a\u00a1"+
+		"\u00a7\u00ae\u00b4";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {
