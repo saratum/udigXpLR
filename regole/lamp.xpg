@@ -1,8 +1,10 @@
+LAYERS(
+lamp_castel=LAMP;
+)
+
 lamp -> LAMP
 DELTA: (
 layer=lamp_castel,
-type=typ,
-poleheight=hoebel,
 )
 SEMANTICRULE: {"
 void onCreate(){

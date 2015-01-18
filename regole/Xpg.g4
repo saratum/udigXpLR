@@ -1,6 +1,14 @@
 grammar Xpg;
 
-xpgfile: productions;
+xpgfile: layers productions;
+
+layers: LAYERS LPAREN layer* RPAREN;
+
+layer: layername EQUALS something ENDOFLINE;
+
+layername: (LOWER|UPPER|DIGITS) (LOWER|UPPER|UNDERSCORE|DIGITS)*;
+
+something: UPPER (UPPER)* APICE*?;
 
 productions: production+;
 
@@ -34,6 +42,7 @@ idrelation: (LOWER|UPPER|DIGITS) (LOWER|UPPER|UNDERSCORE|DIGITS)* ;
 nonterminal: LOWER (LOWER|UPPER|DIGITS|UNDERSCORE)* APICE*?;
 terminal: UPPER (UPPER)* APICE*?;
 
+LAYERS: 'LAYERS';
 DELTA: 'DELTA' COLON;
 GAMMA: 'GAMMA' COLON;
 SEMANTICRULE: 'SEMANTICRULE' COLON;

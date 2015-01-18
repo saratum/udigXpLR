@@ -1,12 +1,14 @@
 package it.unibz.udig.xplr.grammar.parser;
 
+import it.unibz.udig.xplr.grammar.entities.XpgTerminal;
+
 import java.util.ArrayList;
 
 public class DictionaryEntry
 {
 
 	private String name;
-	private String terminalName;
+	private XpgTerminal terminalName;
 	private ArrayList<Attribute> attributes;
 	private ArrayList<Object> counter;
 	private boolean visited;
@@ -27,13 +29,13 @@ public class DictionaryEntry
 	}
 	
 	
-	public String getTerminalName()
+	public XpgTerminal getTerminalName()
 	{
 		return terminalName;
 	}
 	
 	
-	public void setTerminalName(String terminalName)
+	public void setTerminalName(XpgTerminal terminalName)
 	{
 		this.terminalName = terminalName;
 	}

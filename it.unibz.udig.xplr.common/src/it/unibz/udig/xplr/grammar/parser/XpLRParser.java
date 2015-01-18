@@ -1,11 +1,14 @@
 package it.unibz.udig.xplr.grammar.parser;
 
+import it.unibz.udig.xplr.grammar.entities.XpgActionContent;
+import it.unibz.udig.xplr.grammar.entities.XpgActionContent.Value;
 import it.unibz.udig.xplr.grammar.entities.XpgActionEntry;
 import it.unibz.udig.xplr.grammar.entities.XpgElem;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
 import it.unibz.udig.xplr.grammar.entities.XpgNextEntry;
 import it.unibz.udig.xplr.grammar.entities.XpgParsingTableRow;
 import it.unibz.udig.xplr.grammar.entities.XpgParsingTableState;
+import it.unibz.udig.xplr.grammar.entities.XpgTerminal;
 import it.unibz.udig.xplr.grammar.exceptions.SyntaxErrorException;
 import it.unibz.udig.xplr.grammar.exceptions.UnparsedInputException;
 import it.unibz.udig.xplr.grammar.generated.XpgLexer;
@@ -74,15 +77,75 @@ public class XpLRParser
 
 		setParsingtable( constructor.createTable( items, result ) );
 
-		//ParsingTableConstructor.outTable( parsingtable );
+		ParsingTableConstructor.outTable( parsingtable );
 
 	}
 
 	public void theAlg(Dictionary dict)
 	{
-		if ( dict != null )
+		if ( completeLexicalAnalisys( dict ) )
 		{
-			setDictionary( dict );
+			try
+			{
+				for ( Object s : theStack )
+				{
+					if ( s instanceof Integer )
+					{
+						XpgParsingTableRow row = getParsingtable( ).get( ( Integer ) s );
+						for ( XpgParsingTableState substate : row.getSubstates( ) )
+						{
+							XpgNextEntry next = substate.getNextEntry( );
+							XpgActionEntry fetch = fetchVSymbol( substate );
+							if ( fetch != null )
+							{
+								ArrayList< XpgActionContent > c = fetch.getContent( );
+								for ( XpgActionContent xpgActionContent : c )
+								{
+									switch (xpgActionContent.getOperation( ))
+									{
+										case ACCEPT:
+											getResult( ).add( new ResultObject( "SUCCESS", ResultObject.LEVEL_INFO ) );
+											return;
+//											break;
+										case ERROR:
+											getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
+											break;
+										case REDUCE:
+											break;
+										case SHIFT:
+											
+											break;
+										default:
+											getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
+									}
+								}
+								
+							}
+							else if ( next == null )
+							{
+							}
+							else
+								throw new SyntaxErrorException( "Error by parsing substate" );
+						}
+					}
+				}
+			}
+			catch ( SyntaxErrorException e )
+			{
+				getResult( ).add( new ResultObject( e.getMessage( ), ResultObject.LEVEL_ERROR ) );
+			}
+			catch ( UnparsedInputException e )
+			{
+				getResult( ).add( new ResultObject( e.getMessage( ), ResultObject.LEVEL_ERROR ) );
+			}
+		}
+	}
+
+	private boolean completeLexicalAnalisys(Dictionary d)
+	{
+		if ( d != null )
+		{
+			setDictionary( d );
 			result.add( new ResultObject( "Dictionary ready, here the entries:", ResultObject.LEVEL_INFO ) );
 
 			for ( DictionaryEntry e : getDictionary( ).getEntries( ) )
@@ -93,15 +156,15 @@ public class XpLRParser
 					{
 						if ( attr.getName( ).equalsIgnoreCase( "layer" ) )
 						{
-							String terminal = getLoader( ).getLayersMapping( ).get( attr.getValue( ) );
-							e.setTerminalName( terminal );
+							String t = getLoader( ).getLayersMapping( ).get( attr.getValue( ) );
+							e.setTerminalName( new XpgTerminal( t ) );
 							break;
 						}
 					}
 				}
 
 				result.add( new ResultObject( e.toString( ), ResultObject.LEVEL_INFO ) );
-				
+
 				if ( e.getAttributes( ) != null )
 					for ( Attribute attr : e.getAttributes( ) )
 					{
@@ -112,65 +175,27 @@ public class XpLRParser
 		else
 		{
 			result.add( new ResultObject( "Dictionary is null, can't go any further", ResultObject.LEVEL_ERROR ) );
-			return;
+			return false;
 		}
 
-		try
-		{
-			// repeat forever
-			// let s be the state of the stack top
-
-			for ( Object s : theStack )
-			{
-
-				if ( s instanceof Integer )
-				{
-					XpgParsingTableRow row = getParsingtable( ).get( ( Integer ) s );
-					for ( XpgParsingTableState substate : row.getSubstates( ) )
-					{
-						XpgNextEntry next = substate.getNextEntry( );
-						Integer fetch = fetchVSymbol( next );
-						if ( fetch != null )
-						{
-							getResult( ).add( new ResultObject( String.valueOf( fetch ), ResultObject.LEVEL_INFO ) );
-						}
-						else if ( next == null )
-						{
-
-						}
-						else
-							throw new SyntaxErrorException( "Error by parsing substate" );
-
-					}
-
-				}
-
-			}
-
-		}
-		catch ( SyntaxErrorException e )
-		{
-			getResult( ).add( new ResultObject( e.getMessage( ), ResultObject.LEVEL_ERROR ) );
-		}
-		catch ( UnparsedInputException e )
-		{
-			getResult( ).add( new ResultObject( e.getMessage( ), ResultObject.LEVEL_ERROR ) );
-		}
+		return true;
 
 	}
 
-	private Integer fetchVSymbol(XpgNextEntry next) throws UnparsedInputException
+	private XpgActionEntry fetchVSymbol(XpgParsingTableState next) throws UnparsedInputException
 	{
-		if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
+		if ( next.getNextEntry( ).getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
 		{
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
 				if ( ! entry.isVisited( ) )
-					if ( entry.equals( next.getX( ) ) )
-						return getDictionary( ).getEntries( ).indexOf( entry );
+					if ( entry.getTerminalName( ) != null )
+						for ( HashMap< XpgElem, XpgActionEntry > e : next.getActionEntry( ) )
+							if ( e.get( entry.getTerminalName( ) ) != null )
+								return e.get( entry.getTerminalName( ) ); //getDictionary( ).getEntries( ).indexOf( entry );
 			}
 		}
-		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
+		else if ( next.getNextEntry( ).getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
 		{
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
@@ -179,7 +204,7 @@ public class XpLRParser
 					throw new UnparsedInputException( );
 				}
 
-				return 0;
+				return null;
 			}
 		}
 		return null;
