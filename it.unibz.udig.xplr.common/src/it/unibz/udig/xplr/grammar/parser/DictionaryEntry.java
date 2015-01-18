@@ -6,6 +6,7 @@ public class DictionaryEntry
 {
 
 	private String name;
+	private String terminalName;
 	private ArrayList<Attribute> attributes;
 	private ArrayList<Object> counter;
 	private boolean visited;
@@ -23,6 +24,18 @@ public class DictionaryEntry
 		this.name = n;
 		this.counter = new ArrayList<Object>();
 		visited = false;
+	}
+	
+	
+	public String getTerminalName()
+	{
+		return terminalName;
+	}
+	
+	
+	public void setTerminalName(String terminalName)
+	{
+		this.terminalName = terminalName;
 	}
 
 	public boolean isVisited()
@@ -48,6 +61,6 @@ public class DictionaryEntry
 	@Override
 	public String toString()
 	{
-		return getName() + "(" + counter.size() + ")" + " - " + visited;
+		return getName() + "(" + counter.size() + ")" + " - " + terminalName + " - " + visited;
 	}
 }

@@ -1,4 +1,4 @@
-// Generated from /Users/sara/Dropbox/tesi/tex/08-codice/Xpg.g4 by ANTLR 4.1
+// Generated from /Users/sara/git/udigXpLR/regole/Xpg.g4 by ANTLR 4.1
 package it.unibz.udig.xplr.grammar.generated;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -86,6 +86,17 @@ public interface XpgListener extends ParseTreeListener {
 	void exitIdrel(@NotNull XpgParser.IdrelContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link XpgParser#layername}.
+	 * @param ctx the parse tree
+	 */
+	void enterLayername(@NotNull XpgParser.LayernameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#layername}.
+	 * @param ctx the parse tree
+	 */
+	void exitLayername(@NotNull XpgParser.LayernameContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link XpgParser#rules}.
 	 * @param ctx the parse tree
 	 */
@@ -117,6 +128,28 @@ public interface XpgListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitXpgfile(@NotNull XpgParser.XpgfileContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#layer}.
+	 * @param ctx the parse tree
+	 */
+	void enterLayer(@NotNull XpgParser.LayerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#layer}.
+	 * @param ctx the parse tree
+	 */
+	void exitLayer(@NotNull XpgParser.LayerContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#something}.
+	 * @param ctx the parse tree
+	 */
+	void enterSomething(@NotNull XpgParser.SomethingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#something}.
+	 * @param ctx the parse tree
+	 */
+	void exitSomething(@NotNull XpgParser.SomethingContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link XpgParser#linearRepresentation}.
@@ -183,6 +216,17 @@ public interface XpgListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNonterminal(@NotNull XpgParser.NonterminalContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#layers}.
+	 * @param ctx the parse tree
+	 */
+	void enterLayers(@NotNull XpgParser.LayersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#layers}.
+	 * @param ctx the parse tree
+	 */
+	void exitLayers(@NotNull XpgParser.LayersContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link XpgParser#idrelation}.

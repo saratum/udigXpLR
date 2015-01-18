@@ -78,67 +78,6 @@ public class XpLRParser
 
 	}
 
-	public ArrayList< XpgParsingTableRow > getParsingtable()
-	{
-		return parsingtable;
-	}
-
-	public void setParsingtable(ArrayList< XpgParsingTableRow > p)
-	{
-		this.parsingtable = p;
-	}
-
-	public Dictionary getDictionary()
-	{
-		return dict;
-	}
-
-	public void setDictionary(Dictionary dp)
-	{
-		this.dict = dp;
-	}
-
-	public ArrayList< ResultObject > getResult()
-	{
-		return result;
-	}
-
-	public XpgLoader getLoader()
-	{
-		return loader;
-	}
-
-	private Integer fetchVSymbol(XpgNextEntry next) throws UnparsedInputException
-	{
-		if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
-		{
-			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
-			{
-				if ( ! entry.isVisited( ) )
-					if ( entry.equals( next.getX( ) ) )
-						return getDictionary( ).getEntries( ).indexOf( entry );
-			}
-		}
-		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
-		{
-			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
-			{
-				if ( ! entry.isVisited( ) )
-				{
-					throw new UnparsedInputException( );
-				}
-
-				return 0;
-			}
-		}
-		return null;
-
-	}
-
-	private void test()
-	{
-	}
-
 	public void theAlg(Dictionary dict)
 	{
 		if ( dict != null )
@@ -148,15 +87,31 @@ public class XpLRParser
 
 			for ( DictionaryEntry e : getDictionary( ).getEntries( ) )
 			{
+				if ( e.getAttributes( ) != null )
+				{
+					for ( Attribute attr : e.getAttributes( ) )
+					{
+						if ( attr.getName( ).equalsIgnoreCase( "layer" ) )
+						{
+							String terminal = getLoader( ).getLayersMapping( ).get( attr.getValue( ) );
+							e.setTerminalName( terminal );
+							break;
+						}
+					}
+				}
+
 				result.add( new ResultObject( e.toString( ), ResultObject.LEVEL_INFO ) );
+				
 				if ( e.getAttributes( ) != null )
 					for ( Attribute attr : e.getAttributes( ) )
+					{
 						result.add( new ResultObject( attr.toString( ), ResultObject.LEVEL_INFO ) );
+					}
 			}
 		}
 		else
 		{
-			result.add( new ResultObject( "Dictionary is null, can go any further", ResultObject.LEVEL_ERROR ) );
+			result.add( new ResultObject( "Dictionary is null, can't go any further", ResultObject.LEVEL_ERROR ) );
 			return;
 		}
 
@@ -202,6 +157,67 @@ public class XpLRParser
 			getResult( ).add( new ResultObject( e.getMessage( ), ResultObject.LEVEL_ERROR ) );
 		}
 
+	}
+
+	private Integer fetchVSymbol(XpgNextEntry next) throws UnparsedInputException
+	{
+		if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
+		{
+			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
+			{
+				if ( ! entry.isVisited( ) )
+					if ( entry.equals( next.getX( ) ) )
+						return getDictionary( ).getEntries( ).indexOf( entry );
+			}
+		}
+		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
+		{
+			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
+			{
+				if ( ! entry.isVisited( ) )
+				{
+					throw new UnparsedInputException( );
+				}
+
+				return 0;
+			}
+		}
+		return null;
+
+	}
+
+	private void test()
+	{
+	}
+
+	public ArrayList< XpgParsingTableRow > getParsingtable()
+	{
+		return parsingtable;
+	}
+
+	public void setParsingtable(ArrayList< XpgParsingTableRow > p)
+	{
+		this.parsingtable = p;
+	}
+
+	public Dictionary getDictionary()
+	{
+		return dict;
+	}
+
+	public void setDictionary(Dictionary dp)
+	{
+		this.dict = dp;
+	}
+
+	public ArrayList< ResultObject > getResult()
+	{
+		return result;
+	}
+
+	public XpgLoader getLoader()
+	{
+		return loader;
 	}
 
 }

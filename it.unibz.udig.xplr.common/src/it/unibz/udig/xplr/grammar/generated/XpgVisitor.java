@@ -1,4 +1,4 @@
-// Generated from /Users/sara/Dropbox/tesi/tex/08-codice/Xpg.g4 by ANTLR 4.1
+// Generated from /Users/sara/git/udigXpLR/regole/Xpg.g4 by ANTLR 4.1
 package it.unibz.udig.xplr.grammar.generated;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -61,6 +61,13 @@ public interface XpgVisitor<T> extends ParseTreeVisitor<T> {
 	T visitIdrel(@NotNull XpgParser.IdrelContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link XpgParser#layername}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLayername(@NotNull XpgParser.LayernameContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link XpgParser#rules}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -80,6 +87,20 @@ public interface XpgVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitXpgfile(@NotNull XpgParser.XpgfileContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#layer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLayer(@NotNull XpgParser.LayerContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#something}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSomething(@NotNull XpgParser.SomethingContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link XpgParser#linearRepresentation}.
@@ -122,6 +143,13 @@ public interface XpgVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNonterminal(@NotNull XpgParser.NonterminalContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#layers}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLayers(@NotNull XpgParser.LayersContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link XpgParser#idrelation}.

@@ -1,4 +1,4 @@
-// Generated from /Users/sara/Dropbox/tesi/tex/08-codice/Xpg.g4 by ANTLR 4.1
+// Generated from /Users/sara/git/udigXpLR/regole/Xpg.g4 by ANTLR 4.1
 package it.unibz.udig.xplr.grammar.generated;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -108,6 +108,19 @@ public class XpgBaseListener implements XpgListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterLayername(@NotNull XpgParser.LayernameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitLayername(@NotNull XpgParser.LayernameContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterRules(@NotNull XpgParser.RulesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -141,6 +154,32 @@ public class XpgBaseListener implements XpgListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitXpgfile(@NotNull XpgParser.XpgfileContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterLayer(@NotNull XpgParser.LayerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitLayer(@NotNull XpgParser.LayerContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterSomething(@NotNull XpgParser.SomethingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSomething(@NotNull XpgParser.SomethingContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -219,6 +258,19 @@ public class XpgBaseListener implements XpgListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitNonterminal(@NotNull XpgParser.NonterminalContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterLayers(@NotNull XpgParser.LayersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitLayers(@NotNull XpgParser.LayersContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

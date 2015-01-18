@@ -8,12 +8,16 @@ import it.unibz.udig.xplr.grammar.generated.XpgBaseListener;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.DeltaruleContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.DeltarulesContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.IdrelationContext;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.LayerContext;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.LayernameContext;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.LayersContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.NonterminalContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.ProductionContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.RelationContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.RelationsContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.RulesContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.SemanticrulesContext;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.SomethingContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TerminalContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TesterContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TriplesContext;
@@ -29,6 +33,7 @@ public class XpgLoader extends XpgBaseListener
 	private ArrayList< XpgItem >		combinedItems;
 	private ArrayList< XpgItem >		augmentedItems;
 	private ArrayList< String >			layers;
+	private HashMap< String, String >	layersMapping;
 	private HashMap< String, String >	dbMapping;
 
 	public XpgLoader()
@@ -38,8 +43,15 @@ public class XpgLoader extends XpgBaseListener
 		this.augmentedItems = new ArrayList< XpgItem >( );
 		this.layers = new ArrayList< String >( );
 		this.dbMapping = new HashMap< String, String >( );
+		this.layersMapping = new HashMap< String, String >( );
 	}
 
+	
+	public HashMap< String, String > getLayersMapping()
+	{
+		return layersMapping;
+	}
+	
 	public ArrayList< XpgItem > buildCombinations(XpgItem itemToBeCombined)
 	{
 		XpgItem combination;
@@ -215,30 +227,42 @@ public class XpgLoader extends XpgBaseListener
 		ctx.toString( );
 	}
 
-	//	@Override
-	//	public void enterLayers(LayersContext ctx)
-	//	{
-	//		super.enterLayers(ctx);
-	//
-	//	}
-	//	
+	@Override
+	public void enterLayers(LayersContext ctx)
+	{
+		for ( LayerContext layer : ctx.layer( ) )
+		{
+			layersMapping.put( layer.layername( ).getText( ), layer.something( ).getText( ) );
+		}
+		//super.enterLayers( ctx );
+	}
+
 	//	@Override
 	//	public void enterLayername(LayernameContext ctx)
 	//	{
-	//		StringBuilder sb = new StringBuilder();
-	//		for (int i = 0; i < ctx.getChildCount(); i++)
+	//		StringBuilder sb = new StringBuilder( );
+	//		for ( int i = 0; i < ctx.getChildCount( ); i ++ )
 	//		{
-	//			sb.append(ctx.getChild(i));
+	//			sb.append( ctx.getChild( i ) );
 	//		}
 	//
-	//		if (!layers.contains(sb.toString())) layers.add(sb.toString());
+	//		if ( ! layers.contains( sb.toString( ) ) )
+	//			layers.add( sb.toString( ) );
 	//	}
+
 	//
 	//	@Override
 	//	public void enterLayer(LayerContext ctx)
 	//	{
 	//		super.enterLayer(ctx);
 	//	}
+
+	@Override
+	public void enterSomething(SomethingContext ctx)
+	{
+		// TODO Auto-generated method stub
+		super.enterSomething( ctx );
+	}
 
 	@Override
 	public void enterDeltarule(DeltaruleContext ctx)
