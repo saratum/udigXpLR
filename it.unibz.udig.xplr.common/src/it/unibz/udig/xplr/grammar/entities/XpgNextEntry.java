@@ -2,13 +2,14 @@ package it.unibz.udig.xplr.grammar.entities;
 
 public class XpgNextEntry
 {
-	XpgElem driverRelation;
-	XpgElem x; // terminal or non terminal
+
+	XpgElem	driverRelation;
+	XpgElem	x;				// terminal or non terminal
 
 	public XpgNextEntry()
 	{
-		this.driverRelation = new XpgElem();
-		this.x = new XpgElem();
+		this.driverRelation = new XpgElem( );
+		this.x = new XpgElem( );
 	}
 
 	public XpgElem getDriverRelation()
@@ -34,11 +35,27 @@ public class XpgNextEntry
 	@Override
 	public String toString()
 	{
-		StringBuilder sb = new StringBuilder();
-		sb.append(this.driverRelation.toString());
-		sb.append(",");
-		sb.append(this.x);
+		StringBuilder sb = new StringBuilder( );
+		sb.append( this.driverRelation.toString( ) );
+		sb.append( "," );
+		sb.append( this.x );
 
-		return sb.toString();
+		return sb.toString( );
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if ( obj instanceof XpgNextEntry )
+
+			return this.toString( ).equals( ( ( XpgNextEntry ) obj ).toString( ) );
+		else
+			return false;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return this.toString( ).hashCode( );
 	}
 }

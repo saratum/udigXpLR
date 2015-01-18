@@ -11,7 +11,7 @@ public class XpgNonTerminal extends XpgElem
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (obj.getClass().isAssignableFrom(this.getClass()))
+		if (obj instanceof XpgNonTerminal)
 			return super.equals(obj);
 		else
 			return false;

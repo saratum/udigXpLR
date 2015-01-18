@@ -2,18 +2,19 @@ package it.unibz.udig.xplr.grammar.entities;
 
 public class XpgActionContent
 {
+
 	public static enum Value
 	{
 		SHIFT, REDUCE, ACCEPT, ERROR;
 	}
 
-	private Value operation;
-	private XpgElem relTester; // shift
-	private int shiftState; // shift
-	private XpgItem production; // reduce
-	private Integer reduceTo;
+	private Value	operation;
+	private XpgElem	relTester;	// shift
+	private int		shiftState; // shift
+	private XpgItem	production; // reduce
+	private Integer	reduceTo;
 
-	public XpgActionContent(int shiftState, XpgElem tester)
+	public XpgActionContent( int shiftState, XpgElem tester)
 	{
 		this.operation = Value.SHIFT;
 		this.shiftState = shiftState;
@@ -30,7 +31,7 @@ public class XpgActionContent
 		this.reduceTo = reduceTo;
 	}
 
-	public XpgActionContent(Value operation)
+	public XpgActionContent( Value operation)
 	{
 		this.operation = operation;
 	}
@@ -78,35 +79,50 @@ public class XpgActionContent
 	@Override
 	public String toString()
 	{
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder( );
 
-		switch (this.operation)
+		switch ( this.operation )
 		{
-		case SHIFT:
-			sb.append("action[");
-			sb.append((this.relTester == null) ? "T" : this.relTester.toString());
-			sb.append(":sh");
-			sb.append(this.shiftState);
-			sb.append("] ");
-			break;
-		case ACCEPT:
-			sb.append("ACC");
+			case SHIFT:
+				sb.append( "action[" );
+				sb.append( ( this.relTester == null ) ? "T" : this.relTester.toString( ) );
+				sb.append( ":sh" );
+				sb.append( this.shiftState );
+				sb.append( "] " );
+				break;
+			case ACCEPT:
+				sb.append( "ACC" );
 
-			break;
-		case ERROR:
-			break;
-		case REDUCE:
-			sb.append("action[r: ");
-			sb.append(this.reduceTo);
-			sb.append("] ");
+				break;
+			case ERROR:
+				break;
+			case REDUCE:
+				sb.append( "action[r: " );
+				sb.append( this.reduceTo );
+				sb.append( "] " );
 
-			break;
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 
-		return sb.toString();
+		return sb.toString( );
 
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if ( obj instanceof XpgActionContent )
+			return this.toString( ).equals( obj.toString( ) );
+		else
+			return false;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return this.toString( ).hashCode( );
 	}
 }

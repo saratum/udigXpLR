@@ -26,14 +26,13 @@ public class XpgElem
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
 		return this.content;
 	}
 
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (obj.getClass().isAssignableFrom(this.getClass()))
+		if (obj instanceof XpgElem)
 			return this.content.equals(((XpgElem) obj).getContent());
 		else
 			return false;

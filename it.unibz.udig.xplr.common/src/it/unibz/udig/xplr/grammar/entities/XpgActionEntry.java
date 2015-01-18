@@ -34,4 +34,19 @@ public class XpgActionEntry
 		return sb.toString();
 	}
 
+	@Override
+	public int hashCode()
+	{
+		return this.content.hashCode( );
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof XpgActionEntry)
+			return this.content.equals(((XpgActionEntry) obj).getContent());
+		else
+			return false;
+		
+	}
 }

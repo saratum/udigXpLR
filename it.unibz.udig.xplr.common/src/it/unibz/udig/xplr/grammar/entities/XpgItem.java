@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 public class XpgItem
 {
-	private XpgNonTerminal leftelem;
-	private ArrayList<Object> rightelem;
-	private Integer dot = 0;
-	private Integer gotoitem = 0;
+
+	private XpgNonTerminal		leftelem;
+	private ArrayList< Object >	rightelem;
+	private Integer				dot			= 0;
+	private Integer				gotoitem	= 0;
 
 	public XpgItem()
 	{
 
-		this.rightelem = new ArrayList<Object>();
+		this.rightelem = new ArrayList< Object >( );
 		this.leftelem = null;
 	}
 
-	public ArrayList<Object> getRightelem()
+	public ArrayList< Object > getRightelem()
 	{
 		return rightelem;
 	}
@@ -26,7 +27,7 @@ public class XpgItem
 		return leftelem;
 	}
 
-	public void setRightelem(ArrayList<Object> rightelem)
+	public void setRightelem(ArrayList< Object > rightelem)
 	{
 		this.rightelem = rightelem;
 	}
@@ -49,19 +50,21 @@ public class XpgItem
 	@Override
 	public String toString()
 	{
-		StringBuilder re = new StringBuilder();
+		StringBuilder re = new StringBuilder( );
 
-		for (int i = 0; i < this.rightelem.size(); i++)
+		for ( int i = 0; i < this.rightelem.size( ); i ++ )
 		{
-			if (this.dot == i) re.append(".");
+			if ( this.dot == i )
+				re.append( "." );
 
-			re.append(this.rightelem.get(i).toString());
+			re.append( this.rightelem.get( i ).toString( ) );
 
 		}
 
-		if (this.rightelem.size() == this.dot) re.append(".");
+		if ( this.rightelem.size( ) == this.dot )
+			re.append( "." );
 
-		return this.leftelem.getContent().concat("->").concat(re.toString());
+		return this.leftelem.getContent( ).concat( "->" ).concat( re.toString( ) );
 	}
 
 	public void setGotoitem(Integer gotoitem)
@@ -77,15 +80,19 @@ public class XpgItem
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (obj.getClass().isAssignableFrom(this.getClass()))
+		if ( obj.getClass( ).isAssignableFrom( this.getClass( ) ) )
 		{
-			XpgItem elem = (XpgItem) obj;
+			XpgItem elem = ( XpgItem ) obj;
 
-			return ((elem.getLeftelem().equals(this.leftelem)) && (elem.getRightelem().equals(this.rightelem)) && (elem.getDot().equals(this.dot)));
-
-			// return this.content.equals(((XpgElem) obj).getContent());
+			return ( ( elem.getLeftelem( ).equals( this.leftelem ) ) && ( elem.getRightelem( ).equals( this.rightelem ) ) && ( elem.getDot( ).equals( this.dot ) ) );
 		}
 		else
 			return false;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return this.leftelem.hashCode( ) + this.getRightelem( ).hashCode( ) + this.getDot( ).hashCode( );
 	}
 }

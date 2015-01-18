@@ -3,25 +3,25 @@ package it.unibz.udig.xplr.grammar.entities;
 public class XpgRelation
 {
 
-	private XpgElem driver;
-	private XpgElem tester;
+	private XpgElem	driver;
+	private XpgElem	tester;
 
 	public XpgRelation()
 	{
-		this.driver = new XpgElem("");
-		this.tester = new XpgElem("");
+		this.driver = new XpgElem( "" );
+		this.tester = new XpgElem( "" );
 	}
 
-	public XpgRelation(String driverContent)
+	public XpgRelation( String driverContent)
 	{
-		this.driver = new XpgElem(driverContent);
-		this.tester = new XpgElem("");
+		this.driver = new XpgElem( driverContent );
+		this.tester = new XpgElem( "" );
 	}
 
-	public XpgRelation(String driverContent, String testerContent)
+	public XpgRelation( String driverContent, String testerContent)
 	{
-		this.driver = new XpgElem(driverContent);
-		this.tester = new XpgElem(testerContent);
+		this.driver = new XpgElem( driverContent );
+		this.tester = new XpgElem( testerContent );
 	}
 
 	public XpgElem getDriver()
@@ -47,8 +47,8 @@ public class XpgRelation
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (obj.getClass().isAssignableFrom(this.getClass()))
-			return super.equals(obj);
+		if ( obj instanceof XpgRelation )
+			return this.toString( ).equals( ( ( XpgRelation ) obj ).toString( ) );
 		else
 			return false;
 	}
@@ -56,10 +56,16 @@ public class XpgRelation
 	@Override
 	public String toString()
 	{
-		String rv = "<".concat(this.driver.getContent());
-		if (!this.tester.getContent().isEmpty()) rv = rv.concat(",").concat(this.tester.getContent());
+		String rv = "<".concat( this.driver.getContent( ) );
+		if ( ! this.tester.getContent( ).isEmpty( ) )
+			rv = rv.concat( "," ).concat( this.tester.getContent( ) );
 
-		return rv.concat(">");
+		return rv.concat( ">" );
 	}
 
+	@Override
+	public int hashCode()
+	{
+		return this.toString( ).hashCode( );
+	}
 }
