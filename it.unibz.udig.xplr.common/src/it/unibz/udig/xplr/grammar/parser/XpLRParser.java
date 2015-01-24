@@ -77,7 +77,7 @@ public class XpLRParser
 
 		setParsingtable( constructor.createTable( items, result ) );
 
-		ParsingTableConstructor.outTable( parsingtable );
+		//ParsingTableConstructor.outTable( parsingtable );
 
 	}
 
@@ -87,56 +87,79 @@ public class XpLRParser
 		{
 			try
 			{
-				for ( Object s : theStack )
+				while ( theStack.size( ) > 0 )
 				{
+					Object s = theStack.get( theStack.size( ) - 1 );
 					if ( s instanceof Integer )
 					{
 						XpgParsingTableRow row = getParsingtable( ).get( ( Integer ) s );
 						for ( XpgParsingTableState substate : row.getSubstates( ) )
 						{
 							XpgNextEntry next = substate.getNextEntry( );
-							XpgActionEntry fetch = fetchVSymbol( substate );
-							if ( fetch != null )
+							if ( next == null  )
 							{
-								ArrayList< XpgActionContent > c = fetch.getContent( );
-								for ( XpgActionContent xpgActionContent : c )
-								{
-									switch (xpgActionContent.getOperation( ))
-									{
-										case ACCEPT:
-											getResult( ).add( new ResultObject( "SUCCESS", ResultObject.LEVEL_INFO ) );
-											return;
-//											break;
-										case ERROR:
-											getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
-											break;
-										case REDUCE:
-											break;
-										case SHIFT:
-											
-											break;
-										default:
-											getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
-									}
-								}
-								
-							}
-							else if ( next == null )
-							{
+								theStack.remove( theStack.size( )-1 );
 							}
 							else
-								throw new SyntaxErrorException( "Error by parsing substate" );
+							{
+								XpgActionEntry fetch = fetchVSymbol( substate );
+								if ( fetch != null )
+								{
+									ArrayList< XpgActionContent > c = fetch.getContent( );
+									for ( XpgActionContent action : c )
+									{
+										switch ( action.getOperation( ) )
+										{
+											case ACCEPT:
+												getResult( ).add( new ResultObject( "SUCCESS", ResultObject.LEVEL_INFO ) );
+												return;
+											case ERROR:
+												getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
+												return;
+												//case REDUCE:
+												//getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_INFO ) );
+												//return;
+											case SHIFT:
+												getResult( ).add( new ResultObject( action.toString( ), ResultObject.LEVEL_INFO ) );
+												XpgElem tester = action.getRelTester( );
+
+												if ( tester.getContent( ) == null || tester.getContent( ).equals( "T" ) )
+												{
+													theStack.add( next.getX( ) );
+													theStack.add( action.getState( ) );
+												}
+												else if ( test( null ) )
+												{
+													System.out.println( "WRONG OPINION OF ME" );
+													//												theStack.add( next.getX( ) );
+													//												theStack.add( action.getState( ) );
+													// TODO verificare se i miei tester sono sempre T o se va implementata anche questa parte
+												}
+												else
+												{
+													throw new SyntaxErrorException( "if ( tester.getContent( ) == null || tester.getContent( ).equals( \"T\" ) )" );
+												}
+
+												break;
+											default:
+												throw new SyntaxErrorException( "switch ( action.getOperation( ) )" );
+										}
+									}
+								}
+								else
+									throw new SyntaxErrorException( "Error by parsing substate" );
+							}
+
+													
 						}
 					}
+					else
+						getResult( ).add( new ResultObject( "if ( s instanceof Integer )", ResultObject.LEVEL_ERROR ) );
 				}
 			}
-			catch ( SyntaxErrorException e )
+			catch ( SyntaxErrorException | UnparsedInputException | NullPointerException e )
 			{
-				getResult( ).add( new ResultObject( e.getMessage( ), ResultObject.LEVEL_ERROR ) );
-			}
-			catch ( UnparsedInputException e )
-			{
-				getResult( ).add( new ResultObject( e.getMessage( ), ResultObject.LEVEL_ERROR ) );
+				getResult( ).add( new ResultObject( e.getClass( ).getName( ).concat( e.getMessage( ) ), ResultObject.LEVEL_ERROR ) );
 			}
 		}
 	}
@@ -184,7 +207,12 @@ public class XpLRParser
 
 	private XpgActionEntry fetchVSymbol(XpgParsingTableState next) throws UnparsedInputException
 	{
-		if ( next.getNextEntry( ).getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
+
+		if ( next.getNextEntry( ).getDriverRelation( ) == null ) // ???????
+		{
+			return null;
+		}
+		else if ( next.getNextEntry( ).getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
 		{
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
@@ -207,12 +235,19 @@ public class XpLRParser
 				return null;
 			}
 		}
+		else
+		{
+			System.out.println( next.toString( ) );
+			return new XpgActionEntry( );
+		}
+
 		return null;
 
 	}
 
-	private void test()
+	private boolean test(Object o)
 	{
+		return true;
 	}
 
 	public ArrayList< XpgParsingTableRow > getParsingtable()

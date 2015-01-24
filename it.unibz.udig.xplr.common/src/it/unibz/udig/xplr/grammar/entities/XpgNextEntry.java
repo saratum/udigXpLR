@@ -8,8 +8,8 @@ public class XpgNextEntry
 
 	public XpgNextEntry()
 	{
-		this.driverRelation = new XpgElem( );
-		this.x = new XpgElem( );
+		this.driverRelation = null; //new XpgElem( );
+		this.x = null; //new XpgElem( );
 	}
 
 	public XpgElem getDriverRelation()
@@ -36,7 +36,7 @@ public class XpgNextEntry
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder( );
-		sb.append( this.driverRelation.toString( ) );
+		sb.append( this.driverRelation );
 		sb.append( "," );
 		sb.append( this.x );
 

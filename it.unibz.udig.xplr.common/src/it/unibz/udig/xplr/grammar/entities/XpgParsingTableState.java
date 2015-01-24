@@ -15,7 +15,7 @@ public class XpgParsingTableState
 		this.state = 0;
 		this.actionEntry = new ArrayList<HashMap<XpgElem, XpgActionEntry>>();
 		this.gotoEntry = new ArrayList<HashMap<XpgElem, XpgGotoEntry>>();
-		this.nextEntry = new XpgNextEntry();
+		this.nextEntry = null;
 	}
 
 	public Integer getState()

@@ -103,7 +103,9 @@ public class ParsingTableConstructor
 				XpgParsingTableState substate = new XpgParsingTableState( );
 				substate.setState( its.indexOf( it ) + 1 );
 				ArrayList< HashMap< XpgElem, XpgActionEntry >> actions = substate.getActionEntry( );
-				XpgNextEntry next = substate.getNextEntry( );
+				XpgNextEntry next = new XpgNextEntry( );
+
+				substate.setNextEntry( next );
 
 				for ( XpgItem item : it )
 				{
@@ -234,7 +236,7 @@ public class ParsingTableConstructor
 								entry.put( elem, ae );
 
 							}
-							if (! actions.contains( entry ))
+							if ( ! actions.contains( entry ) )
 								actions.add( entry );
 						}
 					}
@@ -302,7 +304,7 @@ public class ParsingTableConstructor
 					}
 				}
 
-				if (! row.getSubstates( ).contains( substate ))
+				if ( ! row.getSubstates( ).contains( substate ) )
 					row.getSubstates( ).add( substate );
 
 			}
