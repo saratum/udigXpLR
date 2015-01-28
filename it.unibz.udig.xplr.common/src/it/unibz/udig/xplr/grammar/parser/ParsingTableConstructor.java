@@ -1,16 +1,16 @@
 package it.unibz.udig.xplr.grammar.parser;
 
-import it.unibz.udig.xplr.grammar.entities.XpgActionContent;
-import it.unibz.udig.xplr.grammar.entities.XpgActionEntry;
 import it.unibz.udig.xplr.grammar.entities.XpgElem;
-import it.unibz.udig.xplr.grammar.entities.XpgGotoEntry;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
-import it.unibz.udig.xplr.grammar.entities.XpgNextEntry;
 import it.unibz.udig.xplr.grammar.entities.XpgNonTerminal;
-import it.unibz.udig.xplr.grammar.entities.XpgParsingTableRow;
-import it.unibz.udig.xplr.grammar.entities.XpgParsingTableState;
 import it.unibz.udig.xplr.grammar.entities.XpgRelation;
 import it.unibz.udig.xplr.grammar.entities.XpgTerminal;
+import it.unibz.udig.xplr.grammar.entities.table.XpgActionContent;
+import it.unibz.udig.xplr.grammar.entities.table.XpgActionEntry;
+import it.unibz.udig.xplr.grammar.entities.table.XpgGotoEntry;
+import it.unibz.udig.xplr.grammar.entities.table.XpgNextEntry;
+import it.unibz.udig.xplr.grammar.entities.table.XpgParsingTableRow;
+import it.unibz.udig.xplr.grammar.entities.table.XpgParsingTableState;
 import it.unibz.udig.xplr.grammar.exceptions.BadItemException;
 
 import java.util.ArrayList;

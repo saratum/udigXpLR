@@ -69,19 +69,6 @@ public class XpgBaseListener implements XpgListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterSemanticrule(@NotNull XpgParser.SemanticruleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterTester(@NotNull XpgParser.TesterContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -89,19 +76,6 @@ public class XpgBaseListener implements XpgListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitTester(@NotNull XpgParser.TesterContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterIdrel(@NotNull XpgParser.IdrelContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitIdrel(@NotNull XpgParser.IdrelContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -134,13 +108,13 @@ public class XpgBaseListener implements XpgListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterTerminal(@NotNull XpgParser.TerminalContext ctx) { }
+	@Override public void enterDbmapping(@NotNull XpgParser.DbmappingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitTerminal(@NotNull XpgParser.TerminalContext ctx) { }
+	@Override public void exitDbmapping(@NotNull XpgParser.DbmappingContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -173,19 +147,6 @@ public class XpgBaseListener implements XpgListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterSomething(@NotNull XpgParser.SomethingContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitSomething(@NotNull XpgParser.SomethingContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterLinearRepresentation(@NotNull XpgParser.LinearRepresentationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -206,45 +167,6 @@ public class XpgBaseListener implements XpgListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitRelation(@NotNull XpgParser.RelationContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterCondition(@NotNull XpgParser.ConditionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitCondition(@NotNull XpgParser.ConditionContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterTriple(@NotNull XpgParser.TripleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitTriple(@NotNull XpgParser.TripleContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterDriver(@NotNull XpgParser.DriverContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitDriver(@NotNull XpgParser.DriverContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -284,6 +206,97 @@ public class XpgBaseListener implements XpgListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitIdrelation(@NotNull XpgParser.IdrelationContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterSemanticrule(@NotNull XpgParser.SemanticruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterIdrel(@NotNull XpgParser.IdrelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitIdrel(@NotNull XpgParser.IdrelContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterTerminal(@NotNull XpgParser.TerminalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitTerminal(@NotNull XpgParser.TerminalContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterSomething(@NotNull XpgParser.SomethingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSomething(@NotNull XpgParser.SomethingContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterCondition(@NotNull XpgParser.ConditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitCondition(@NotNull XpgParser.ConditionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterTriple(@NotNull XpgParser.TripleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitTriple(@NotNull XpgParser.TripleContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterDriver(@NotNull XpgParser.DriverContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitDriver(@NotNull XpgParser.DriverContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

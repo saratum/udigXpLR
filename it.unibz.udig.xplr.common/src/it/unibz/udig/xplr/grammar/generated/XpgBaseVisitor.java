@@ -50,23 +50,7 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitTester(@NotNull XpgParser.TesterContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitIdrel(@NotNull XpgParser.IdrelContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -90,7 +74,7 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitTerminal(@NotNull XpgParser.TerminalContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDbmapping(@NotNull XpgParser.DbmappingContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -114,14 +98,6 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitSomething(@NotNull XpgParser.SomethingContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitLinearRepresentation(@NotNull XpgParser.LinearRepresentationContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -131,30 +107,6 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitRelation(@NotNull XpgParser.RelationContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitCondition(@NotNull XpgParser.ConditionContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitTriple(@NotNull XpgParser.TripleContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitDriver(@NotNull XpgParser.DriverContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -179,6 +131,62 @@ public class XpgBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Xp
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitIdrelation(@NotNull XpgParser.IdrelationContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitIdrel(@NotNull XpgParser.IdrelContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitTerminal(@NotNull XpgParser.TerminalContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitSomething(@NotNull XpgParser.SomethingContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitCondition(@NotNull XpgParser.ConditionContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitTriple(@NotNull XpgParser.TripleContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitDriver(@NotNull XpgParser.DriverContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

@@ -5,15 +5,19 @@ import java.util.ArrayList;
 public class XpgItem
 {
 
-	private XpgNonTerminal		leftelem;
-	private ArrayList< Object >	rightelem;
-	private Integer				dot			= 0;
-	private Integer				gotoitem	= 0;
+	private XpgNonTerminal			leftelem;
+	private ArrayList< Object >		rightelem;
+	private Integer					dot			= 0;
+	private Integer					gotoitem	= 0;
+	private Object					deltaRules;
+	private ArrayList< XpgTriple >	triples;			//gamma
+	private Object					semanticRules;
 
 	public XpgItem()
 	{
 
 		this.rightelem = new ArrayList< Object >( );
+		this.triples = new ArrayList< XpgTriple >( );
 		this.leftelem = null;
 	}
 
@@ -25,6 +29,16 @@ public class XpgItem
 	public XpgNonTerminal getLeftelem()
 	{
 		return leftelem;
+	}
+
+	public ArrayList< XpgTriple > getTriples()
+	{
+		return triples;
+	}
+
+	public void setTriples(ArrayList< XpgTriple > triples)
+	{
+		this.triples = triples;
 	}
 
 	public void setRightelem(ArrayList< Object > rightelem)
@@ -64,7 +78,7 @@ public class XpgItem
 		if ( this.rightelem.size( ) == this.dot )
 			re.append( "." );
 
-		return this.leftelem.getContent( ).concat( "->" ).concat( re.toString( ) );
+		return this.leftelem.getContent( ).concat( "->" ).concat( re.toString( ) ).concat( triples.toString( ) );
 	}
 
 	public void setGotoitem(Integer gotoitem)

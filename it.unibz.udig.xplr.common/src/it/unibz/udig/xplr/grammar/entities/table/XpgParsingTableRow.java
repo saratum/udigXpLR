@@ -1,4 +1,4 @@
-package it.unibz.udig.xplr.grammar.entities;
+package it.unibz.udig.xplr.grammar.entities.table;
 
 import java.util.ArrayList;
 

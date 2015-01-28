@@ -1,13 +1,13 @@
 package it.unibz.udig.xplr.grammar.parser;
 
-import it.unibz.udig.xplr.grammar.entities.XpgActionContent;
-import it.unibz.udig.xplr.grammar.entities.XpgActionContent.Value;
-import it.unibz.udig.xplr.grammar.entities.XpgActionEntry;
+import it.unibz.udig.xplr.grammar.entities.table.XpgActionContent;
+import it.unibz.udig.xplr.grammar.entities.table.XpgActionEntry;
+import it.unibz.udig.xplr.grammar.entities.table.XpgNextEntry;
+import it.unibz.udig.xplr.grammar.entities.table.XpgParsingTableRow;
+import it.unibz.udig.xplr.grammar.entities.table.XpgParsingTableState;
+import it.unibz.udig.xplr.grammar.entities.table.XpgActionContent.Value;
 import it.unibz.udig.xplr.grammar.entities.XpgElem;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
-import it.unibz.udig.xplr.grammar.entities.XpgNextEntry;
-import it.unibz.udig.xplr.grammar.entities.XpgParsingTableRow;
-import it.unibz.udig.xplr.grammar.entities.XpgParsingTableState;
 import it.unibz.udig.xplr.grammar.entities.XpgTerminal;
 import it.unibz.udig.xplr.grammar.exceptions.SyntaxErrorException;
 import it.unibz.udig.xplr.grammar.exceptions.UnparsedInputException;
@@ -73,8 +73,13 @@ public class XpLRParser
 		ParsingTableConstructor constructor = new ParsingTableConstructor( loader );
 		CopyOnWriteArrayList< CopyOnWriteArrayList< CopyOnWriteArrayList< XpgItem >>> items = ItemConstructor.items( loader, result );
 
-		// ItemConstructor.outItems(items);
+		//		ItemConstructor.outItems(items);
 
+		for ( String l : loader.getLayers( ) )
+		{
+			System.out.println( l );
+		}
+		
 		setParsingtable( constructor.createTable( items, result ) );
 
 		//ParsingTableConstructor.outTable( parsingtable );
@@ -96,9 +101,9 @@ public class XpLRParser
 						for ( XpgParsingTableState substate : row.getSubstates( ) )
 						{
 							XpgNextEntry next = substate.getNextEntry( );
-							if ( next == null  )
+							if ( next == null )
 							{
-								theStack.remove( theStack.size( )-1 );
+								theStack.remove( theStack.size( ) - 1 );
 							}
 							else
 							{
@@ -116,9 +121,9 @@ public class XpLRParser
 											case ERROR:
 												getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
 												return;
-												//case REDUCE:
-												//getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_INFO ) );
-												//return;
+											case REDUCE:
+												getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
+												return;
 											case SHIFT:
 												getResult( ).add( new ResultObject( action.toString( ), ResultObject.LEVEL_INFO ) );
 												XpgElem tester = action.getRelTester( );
@@ -131,8 +136,8 @@ public class XpLRParser
 												else if ( test( null ) )
 												{
 													System.out.println( "WRONG OPINION OF ME" );
-													//												theStack.add( next.getX( ) );
-													//												theStack.add( action.getState( ) );
+													//	theStack.add( next.getX( ) );
+													//	theStack.add( action.getState( ) );
 													// TODO verificare se i miei tester sono sempre T o se va implementata anche questa parte
 												}
 												else
@@ -150,7 +155,6 @@ public class XpLRParser
 									throw new SyntaxErrorException( "Error by parsing substate" );
 							}
 
-													
 						}
 					}
 					else

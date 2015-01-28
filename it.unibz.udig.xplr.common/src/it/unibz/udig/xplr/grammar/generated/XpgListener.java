@@ -53,17 +53,6 @@ public interface XpgListener extends ParseTreeListener {
 	void exitDeltarule(@NotNull XpgParser.DeltaruleContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link XpgParser#semanticrule}.
-	 * @param ctx the parse tree
-	 */
-	void enterSemanticrule(@NotNull XpgParser.SemanticruleContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link XpgParser#semanticrule}.
-	 * @param ctx the parse tree
-	 */
-	void exitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link XpgParser#tester}.
 	 * @param ctx the parse tree
 	 */
@@ -73,17 +62,6 @@ public interface XpgListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTester(@NotNull XpgParser.TesterContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link XpgParser#idrel}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdrel(@NotNull XpgParser.IdrelContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link XpgParser#idrel}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdrel(@NotNull XpgParser.IdrelContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link XpgParser#layername}.
@@ -108,15 +86,15 @@ public interface XpgListener extends ParseTreeListener {
 	void exitRules(@NotNull XpgParser.RulesContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link XpgParser#terminal}.
+	 * Enter a parse tree produced by {@link XpgParser#dbmapping}.
 	 * @param ctx the parse tree
 	 */
-	void enterTerminal(@NotNull XpgParser.TerminalContext ctx);
+	void enterDbmapping(@NotNull XpgParser.DbmappingContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link XpgParser#terminal}.
+	 * Exit a parse tree produced by {@link XpgParser#dbmapping}.
 	 * @param ctx the parse tree
 	 */
-	void exitTerminal(@NotNull XpgParser.TerminalContext ctx);
+	void exitDbmapping(@NotNull XpgParser.DbmappingContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link XpgParser#xpgfile}.
@@ -141,17 +119,6 @@ public interface XpgListener extends ParseTreeListener {
 	void exitLayer(@NotNull XpgParser.LayerContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link XpgParser#something}.
-	 * @param ctx the parse tree
-	 */
-	void enterSomething(@NotNull XpgParser.SomethingContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link XpgParser#something}.
-	 * @param ctx the parse tree
-	 */
-	void exitSomething(@NotNull XpgParser.SomethingContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link XpgParser#linearRepresentation}.
 	 * @param ctx the parse tree
 	 */
@@ -172,39 +139,6 @@ public interface XpgListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRelation(@NotNull XpgParser.RelationContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link XpgParser#condition}.
-	 * @param ctx the parse tree
-	 */
-	void enterCondition(@NotNull XpgParser.ConditionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link XpgParser#condition}.
-	 * @param ctx the parse tree
-	 */
-	void exitCondition(@NotNull XpgParser.ConditionContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link XpgParser#triple}.
-	 * @param ctx the parse tree
-	 */
-	void enterTriple(@NotNull XpgParser.TripleContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link XpgParser#triple}.
-	 * @param ctx the parse tree
-	 */
-	void exitTriple(@NotNull XpgParser.TripleContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link XpgParser#driver}.
-	 * @param ctx the parse tree
-	 */
-	void enterDriver(@NotNull XpgParser.DriverContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link XpgParser#driver}.
-	 * @param ctx the parse tree
-	 */
-	void exitDriver(@NotNull XpgParser.DriverContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link XpgParser#nonterminal}.
@@ -238,6 +172,83 @@ public interface XpgListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdrelation(@NotNull XpgParser.IdrelationContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#semanticrule}.
+	 * @param ctx the parse tree
+	 */
+	void enterSemanticrule(@NotNull XpgParser.SemanticruleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#semanticrule}.
+	 * @param ctx the parse tree
+	 */
+	void exitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#idrel}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdrel(@NotNull XpgParser.IdrelContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#idrel}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdrel(@NotNull XpgParser.IdrelContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#terminal}.
+	 * @param ctx the parse tree
+	 */
+	void enterTerminal(@NotNull XpgParser.TerminalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#terminal}.
+	 * @param ctx the parse tree
+	 */
+	void exitTerminal(@NotNull XpgParser.TerminalContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#something}.
+	 * @param ctx the parse tree
+	 */
+	void enterSomething(@NotNull XpgParser.SomethingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#something}.
+	 * @param ctx the parse tree
+	 */
+	void exitSomething(@NotNull XpgParser.SomethingContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(@NotNull XpgParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(@NotNull XpgParser.ConditionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#triple}.
+	 * @param ctx the parse tree
+	 */
+	void enterTriple(@NotNull XpgParser.TripleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#triple}.
+	 * @param ctx the parse tree
+	 */
+	void exitTriple(@NotNull XpgParser.TripleContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link XpgParser#driver}.
+	 * @param ctx the parse tree
+	 */
+	void enterDriver(@NotNull XpgParser.DriverContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XpgParser#driver}.
+	 * @param ctx the parse tree
+	 */
+	void exitDriver(@NotNull XpgParser.DriverContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link XpgParser#deltarules}.

@@ -4,7 +4,8 @@ lamp_castel=LAMP;
 
 lamp -> LAMP
 DELTA: (
-layer=lamp_castel,
+DB layer=lamp_castel,
+DR lamp = LAMP
 )
 SEMANTICRULE: {"
 void onCreate(){

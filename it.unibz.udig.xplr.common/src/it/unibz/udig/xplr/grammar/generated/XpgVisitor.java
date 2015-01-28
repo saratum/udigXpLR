@@ -40,25 +40,11 @@ public interface XpgVisitor<T> extends ParseTreeVisitor<T> {
 	T visitDeltarule(@NotNull XpgParser.DeltaruleContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link XpgParser#semanticrule}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link XpgParser#tester}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTester(@NotNull XpgParser.TesterContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link XpgParser#idrel}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIdrel(@NotNull XpgParser.IdrelContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link XpgParser#layername}.
@@ -75,11 +61,11 @@ public interface XpgVisitor<T> extends ParseTreeVisitor<T> {
 	T visitRules(@NotNull XpgParser.RulesContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link XpgParser#terminal}.
+	 * Visit a parse tree produced by {@link XpgParser#dbmapping}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTerminal(@NotNull XpgParser.TerminalContext ctx);
+	T visitDbmapping(@NotNull XpgParser.DbmappingContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link XpgParser#xpgfile}.
@@ -96,13 +82,6 @@ public interface XpgVisitor<T> extends ParseTreeVisitor<T> {
 	T visitLayer(@NotNull XpgParser.LayerContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link XpgParser#something}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSomething(@NotNull XpgParser.SomethingContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link XpgParser#linearRepresentation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -115,27 +94,6 @@ public interface XpgVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRelation(@NotNull XpgParser.RelationContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link XpgParser#condition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCondition(@NotNull XpgParser.ConditionContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link XpgParser#triple}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTriple(@NotNull XpgParser.TripleContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link XpgParser#driver}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDriver(@NotNull XpgParser.DriverContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link XpgParser#nonterminal}.
@@ -157,6 +115,55 @@ public interface XpgVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdrelation(@NotNull XpgParser.IdrelationContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#semanticrule}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSemanticrule(@NotNull XpgParser.SemanticruleContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#idrel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdrel(@NotNull XpgParser.IdrelContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#terminal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTerminal(@NotNull XpgParser.TerminalContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#something}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSomething(@NotNull XpgParser.SomethingContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#condition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondition(@NotNull XpgParser.ConditionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#triple}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTriple(@NotNull XpgParser.TripleContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link XpgParser#driver}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDriver(@NotNull XpgParser.DriverContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link XpgParser#deltarules}.

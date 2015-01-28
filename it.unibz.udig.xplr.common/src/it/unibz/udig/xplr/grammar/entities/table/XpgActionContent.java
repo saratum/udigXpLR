@@ -1,4 +1,7 @@
-package it.unibz.udig.xplr.grammar.entities;
+package it.unibz.udig.xplr.grammar.entities.table;
+
+import it.unibz.udig.xplr.grammar.entities.XpgElem;
+import it.unibz.udig.xplr.grammar.entities.XpgItem;
 
 public class XpgActionContent
 {

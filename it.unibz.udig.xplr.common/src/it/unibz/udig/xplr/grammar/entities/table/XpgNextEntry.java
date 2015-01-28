@@ -1,4 +1,6 @@
-package it.unibz.udig.xplr.grammar.entities;
+package it.unibz.udig.xplr.grammar.entities.table;
+
+import it.unibz.udig.xplr.grammar.entities.XpgElem;
 
 public class XpgNextEntry
 {

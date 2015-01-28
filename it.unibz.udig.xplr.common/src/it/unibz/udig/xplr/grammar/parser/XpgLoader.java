@@ -1,10 +1,14 @@
 package it.unibz.udig.xplr.grammar.parser;
 
+import it.unibz.udig.xplr.grammar.entities.XpgDelta;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
 import it.unibz.udig.xplr.grammar.entities.XpgNonTerminal;
 import it.unibz.udig.xplr.grammar.entities.XpgRelation;
 import it.unibz.udig.xplr.grammar.entities.XpgTerminal;
+import it.unibz.udig.xplr.grammar.entities.XpgTriple;
 import it.unibz.udig.xplr.grammar.generated.XpgBaseListener;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.ConditionContext;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.DbmappingContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.DeltaruleContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.DeltarulesContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.IdrelationContext;
@@ -20,6 +24,7 @@ import it.unibz.udig.xplr.grammar.generated.XpgParser.SemanticrulesContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.SomethingContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TerminalContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TesterContext;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.TripleContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TriplesContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.XpgfileContext;
 
@@ -46,12 +51,11 @@ public class XpgLoader extends XpgBaseListener
 		this.layersMapping = new HashMap< String, String >( );
 	}
 
-	
 	public HashMap< String, String > getLayersMapping()
 	{
 		return layersMapping;
 	}
-	
+
 	public ArrayList< XpgItem > buildCombinations(XpgItem itemToBeCombined)
 	{
 		XpgItem combination;
@@ -192,16 +196,44 @@ public class XpgLoader extends XpgBaseListener
 					}
 				}
 			}
-			else if ( rulectx.getClass( ).isAssignableFrom( RulesContext.class ) )
+			else if ( rulectx.getClass( ).isAssignableFrom( DeltarulesContext.class ) )
 			{
+				//				System.out.println("DeltarulesContext");
 			}
 			else if ( rulectx.getClass( ).isAssignableFrom( TriplesContext.class ) )
 			{
+				TriplesContext tc = ( TriplesContext ) rulectx;
+
+				for ( int j = 0; j < tc.getChildCount( ); j ++ )
+				{
+					if ( tc.getChild( j ).getClass( ).isAssignableFrom( TripleContext.class ) )
+					{
+						TripleContext tctx = ( TripleContext ) tc.getChild( j );
+						XpgTriple triple = new XpgTriple( );
+						triple.setT( buildTerminal( tctx.terminal( ) ) );
+
+						triple.setCondition( buildCondition( tctx.condition( ) ) );
+
+						for ( RulesContext rc : tctx.rules( ) )
+						{
+							for ( int k = 0; k < rc.getChildCount( ); k ++ )
+							{
+								if ( rc.getChild( k ).getClass( ).isAssignableFrom( DeltaruleContext.class ) )
+								{
+									XpgDelta d = buildDeltaRule( ( DeltaruleContext ) rc.getChild( k ) );
+									triple.setD( d );
+								}
+								//								else
+								//									System.out.println( rc.getChild( k ).getClass( ).getName( ) );
+							}
+						}
+						if ( triple.getD( ) != null )
+							item.getTriples( ).add( triple );
+
+					}
+				}
 			}
 			else if ( rulectx.getClass( ).isAssignableFrom( SemanticrulesContext.class ) )
-			{
-			}
-			else if ( rulectx.getClass( ).isAssignableFrom( DeltarulesContext.class ) )
 			{
 			}
 			else
@@ -263,22 +295,36 @@ public class XpgLoader extends XpgBaseListener
 		// TODO Auto-generated method stub
 		super.enterSomething( ctx );
 	}
+	
+	@Override
+	public void enterDbmapping(DbmappingContext ctx)
+	{
+		StringBuilder sb = new StringBuilder( );
+
+		if ( ctx.getChild( 0 ).getText( ).equals( "DB" ) )
+		{
+			// db mapping o layer
+
+			for ( int i = 1; i < ctx.getChildCount( ); i ++ )
+			{
+				sb.append( ctx.getChild( i ) );
+			}
+
+			String[ ] output = sb.toString( ).split( "=" );
+
+			if ( output[ 0 ].equalsIgnoreCase( "layer" ) )
+				layers.add( output[ 1 ] );
+			else
+				dbMapping.put( output[ 0 ], output[ 1 ] );
+		}
+	}
 
 	@Override
 	public void enterDeltarule(DeltaruleContext ctx)
 	{
-		StringBuilder sb = new StringBuilder( );
-		for ( int i = 0; i < ctx.getChildCount( ); i ++ )
-		{
-			sb.append( ctx.getChild( i ) );
-		}
 
-		String[ ] output = sb.toString( ).split( "=" );
-
-		if ( output[ 0 ].equalsIgnoreCase( "layer" ) )
-			layers.add( output[ 1 ] );
-		else
-			dbMapping.put( output[ 0 ], output[ 1 ] );
+		
+		//	 
 
 	}
 
@@ -366,12 +412,61 @@ public class XpgLoader extends XpgBaseListener
 		return new XpgNonTerminal( sb.toString( ) ); // a.concat(b);
 	}
 
+	private XpgDelta buildDeltaRule(DeltaruleContext ctx)
+	{
+
+		StringBuilder sb = new StringBuilder( );
+
+		if ( ctx.getChild( 0 ).getText( ).equals( "DR" ) )
+		{
+			for ( int i = 1; i < ctx.getChildCount( ); i ++ )
+			{
+				sb.append( ctx.getChild( i ) );
+			}
+
+			String[ ] output = sb.toString( ).split( "=" );
+			return new XpgDelta( output[ 0 ], output[ 1 ] );
+
+		}
+		else
+
+		if ( ctx.getChild( 0 ).getText( ).equals( "DB" ) )
+		{
+			// db mapping o layer
+
+			for ( int i = 1; i < ctx.getChildCount( ); i ++ )
+			{
+				sb.append( ctx.getChild( i ) );
+			}
+
+			String[ ] output = sb.toString( ).split( "=" );
+
+			if ( output[ 0 ].equalsIgnoreCase( "layer" ) )
+				layers.add( output[ 1 ] );
+			else
+				dbMapping.put( output[ 0 ], output[ 1 ] );
+		}
+
+		return null;
+	}
+
+	private String buildCondition(ConditionContext ctx)
+	{
+		StringBuilder sb = new StringBuilder( );
+		for ( int i = 0; i < ctx.getChildCount( ); i ++ )
+		{
+			sb.append( ctx.getChild( i ) );
+		}
+
+		return sb.toString( );
+	}
+
 	// private String buildGenericContent(ParserRuleContext ctx)
 	// {
 	// StringBuilder sb = new StringBuilder();
 	// for (int i = 0; i < ctx.getChildCount(); i++)
 	// {
-	// sb.append(ctx.getChild(i));
+	// 
 	//
 	// }
 	// return sb.toString();
