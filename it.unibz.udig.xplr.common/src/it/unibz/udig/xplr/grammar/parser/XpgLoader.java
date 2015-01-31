@@ -71,6 +71,8 @@ public class XpgLoader extends XpgBaseListener
 			combination.setDot( i );
 			combination.setLeftelem( itemToBeCombined.getLeftelem( ) );
 			combination.setRightelem( itemToBeCombined.getRightelem( ) );
+			combination.getTriples( ).addAll( itemToBeCombined.getTriples( ) );
+			combination.getDeltaRules( ).addAll( itemToBeCombined.getDeltaRules( ) );
 
 			combinedItems.add( combination );
 
@@ -84,10 +86,169 @@ public class XpgLoader extends XpgBaseListener
 		combination.setDot( rightelems.size( ) );
 		combination.setLeftelem( itemToBeCombined.getLeftelem( ) );
 		combination.setRightelem( itemToBeCombined.getRightelem( ) );
+		combination.getTriples( ).addAll( itemToBeCombined.getTriples( ) );
+		combination.getDeltaRules( ).addAll( itemToBeCombined.getDeltaRules( ) );
 
 		combinedItems.add( combination );
 
 		return combinedItems;
+	}
+
+	@Override
+	public void enterProduction(ProductionContext ctx)
+	{
+
+		XpgItem item = new XpgItem( );
+
+		// parte sx di ARROW
+		item.setLeftelem( buildNonterminal( ctx.nonterminal( ) ) );
+
+		// parte dx della ARROW
+		for ( int i = 0; i < ctx.linearRepresentation( ).getChildCount( ); i ++ )
+		{
+			Object rulectx = ctx.linearRepresentation( ).getChild( i );
+
+			if ( rulectx.getClass( ).isAssignableFrom( TerminalContext.class ) )
+			{
+				TerminalContext tctx = ( TerminalContext ) rulectx;
+				XpgTerminal telem = buildTerminal( tctx );
+				item.getRightelem( ).add( telem );
+			}
+			else if ( rulectx.getClass( ).isAssignableFrom( NonterminalContext.class ) )
+			{
+				NonterminalContext tctx = ( NonterminalContext ) rulectx;
+				XpgNonTerminal nelem = buildNonterminal( tctx );
+				item.getRightelem( ).add( nelem );
+			}
+			else if ( rulectx.getClass( ).isAssignableFrom( RelationsContext.class ) )
+			{
+
+				RelationsContext rctx = ( RelationsContext ) rulectx;
+
+				for ( int j = 0; j < rctx.getChildCount( ); j ++ )
+				{
+					if ( rctx.getChild( j ).getClass( ).isAssignableFrom( RelationContext.class ) )
+					{
+						RelationContext relctx = ( RelationContext ) rctx.getChild( j );
+						item.getRightelem( ).add( buildRelation( relctx ) );
+					}
+					else if ( rctx.getChild( j ).getClass( ).isAssignableFrom( TerminalContext.class ) )
+					{
+						TerminalContext tctx = ( TerminalContext ) rctx.getChild( j );
+						item.getRightelem( ).add( buildTerminal( tctx ) );
+					}
+					else if ( rctx.getChild( j ).getClass( ).isAssignableFrom( NonterminalContext.class ) )
+					{
+						NonterminalContext nctx = ( NonterminalContext ) rctx.getChild( j );
+						item.getRightelem( ).add( buildNonterminal( nctx ) );
+					}
+				}
+			}
+			else if ( rulectx.getClass( ).isAssignableFrom( DeltarulesContext.class ) )
+			{
+				DeltarulesContext drc = ( DeltarulesContext ) rulectx;
+				for ( int j = 0; j < drc.getChildCount( ); j ++ )
+				{
+					if ( drc.getChild( j ).getClass( ).isAssignableFrom( RulesContext.class ) )
+					{
+						RulesContext rctx = ( RulesContext ) drc.getChild( j );
+
+						if ( rctx.deltarule( ) != null )
+						{
+							XpgDelta d = buildDeltaRule( rctx.deltarule( ) );
+							item.getDeltaRules( ).add( d );
+						}
+					} //else System.out.println("drc" + drc.getChild( j ).getClass( ).getName( ));
+				}
+
+			}
+			else if ( rulectx.getClass( ).isAssignableFrom( TriplesContext.class ) )
+			{
+				TriplesContext tc = ( TriplesContext ) rulectx;
+
+				for ( int j = 0; j < tc.getChildCount( ); j ++ )
+				{
+					if ( tc.getChild( j ).getClass( ).isAssignableFrom( TripleContext.class ) )
+					{
+						TripleContext tctx = ( TripleContext ) tc.getChild( j );
+						XpgTriple triple = new XpgTriple( );
+						triple.setT( buildTerminal( tctx.terminal( ) ) );
+
+						triple.setCondition( buildCondition( tctx.condition( ) ) );
+
+						for ( RulesContext rc : tctx.rules( ) )
+						{
+							for ( int k = 0; k < rc.getChildCount( ); k ++ )
+							{
+								if ( rc.getChild( k ).getClass( ).isAssignableFrom( DeltaruleContext.class ) )
+								{
+									XpgDelta d = buildDeltaRule( ( DeltaruleContext ) rc.getChild( k ) );
+									triple.setD( d );
+								}
+								//else
+								//System.out.println( rc.getChild( k ).getClass( ).getName( ) );
+							}
+						}
+						item.getTriples( ).add( triple );
+					}
+				}
+			}
+			else if ( rulectx.getClass( ).isAssignableFrom( SemanticrulesContext.class ) )
+			{
+			}
+			else
+				System.out.println( rulectx.getClass( ).toString( ) );
+		}
+
+		items.add( item );
+
+		combinedItems.addAll( buildCombinations( item ) );
+	}
+
+	@Override
+	public void enterRelations(RelationsContext ctx)
+	{
+		// relations: (relation (nonterminal | terminal));
+		super.enterRelations( ctx );
+	}
+
+	@Override
+	public void enterRelation(RelationContext ctx)
+	{
+		// relation: LT LOWER (LOWER|UPPER|UNDERSCORE)* GT;
+		ctx.toString( );
+	}
+
+	@Override
+	public void enterLayers(LayersContext ctx)
+	{
+		for ( LayerContext layer : ctx.layer( ) )
+		{
+			layersMapping.put( layer.layername( ).getText( ), layer.something( ).getText( ) );
+		}
+	}
+
+	@Override
+	public void enterDbmapping(DbmappingContext ctx)
+	{
+		StringBuilder sb = new StringBuilder( );
+
+		if ( ctx.getChild( 0 ).getText( ).equals( "DB" ) )
+		{
+			// db mapping o layer
+
+			for ( int i = 1; i < ctx.getChildCount( ); i ++ )
+			{
+				sb.append( ctx.getChild( i ) );
+			}
+
+			String[ ] output = sb.toString( ).split( "=" );
+
+			if ( output[ 0 ].equalsIgnoreCase( "layer" ) )
+				layers.add( output[ 1 ] );
+			else
+				dbMapping.put( output[ 0 ], output[ 1 ] );
+		}
 	}
 
 	public ArrayList< XpgItem > getItems()
@@ -144,188 +305,6 @@ public class XpgLoader extends XpgBaseListener
 	public void enterXpgfile(XpgfileContext ctx)
 	{
 		super.enterXpgfile( ctx );
-	}
-
-	@Override
-	public void enterProduction(ProductionContext ctx)
-	{
-
-		XpgItem item = new XpgItem( );
-
-		// parte sx di ARROW
-		item.setLeftelem( buildNonterminal( ctx.nonterminal( ) ) );
-
-		// parte dx della ARROW
-		for ( int i = 0; i < ctx.linearRepresentation( ).getChildCount( ); i ++ )
-		{
-			Object rulectx = ctx.linearRepresentation( ).getChild( i );
-
-			if ( rulectx.getClass( ).isAssignableFrom( TerminalContext.class ) )
-			{
-				TerminalContext tctx = ( TerminalContext ) rulectx;
-				XpgTerminal telem = buildTerminal( tctx );
-				item.getRightelem( ).add( telem );
-			}
-			else if ( rulectx.getClass( ).isAssignableFrom( NonterminalContext.class ) )
-			{
-				NonterminalContext tctx = ( NonterminalContext ) rulectx;
-				XpgNonTerminal nelem = buildNonterminal( tctx );
-				item.getRightelem( ).add( nelem );
-			}
-			else if ( rulectx.getClass( ).isAssignableFrom( RelationsContext.class ) )
-			{
-
-				RelationsContext rctx = ( RelationsContext ) rulectx;
-
-				for ( int j = 0; j < rctx.getChildCount( ); j ++ )
-				{
-					if ( rctx.getChild( j ).getClass( ).isAssignableFrom( RelationContext.class ) )
-					{
-						RelationContext relctx = ( RelationContext ) rctx.getChild( j );
-						item.getRightelem( ).add( buildRelation( relctx ) );
-					}
-					else if ( rctx.getChild( j ).getClass( ).isAssignableFrom( TerminalContext.class ) )
-					{
-						TerminalContext tctx = ( TerminalContext ) rctx.getChild( j );
-						item.getRightelem( ).add( buildTerminal( tctx ) );
-					}
-					else if ( rctx.getChild( j ).getClass( ).isAssignableFrom( NonterminalContext.class ) )
-					{
-						NonterminalContext nctx = ( NonterminalContext ) rctx.getChild( j );
-						item.getRightelem( ).add( buildNonterminal( nctx ) );
-					}
-				}
-			}
-			else if ( rulectx.getClass( ).isAssignableFrom( DeltarulesContext.class ) )
-			{
-				//				System.out.println("DeltarulesContext");
-			}
-			else if ( rulectx.getClass( ).isAssignableFrom( TriplesContext.class ) )
-			{
-				TriplesContext tc = ( TriplesContext ) rulectx;
-
-				for ( int j = 0; j < tc.getChildCount( ); j ++ )
-				{
-					if ( tc.getChild( j ).getClass( ).isAssignableFrom( TripleContext.class ) )
-					{
-						TripleContext tctx = ( TripleContext ) tc.getChild( j );
-						XpgTriple triple = new XpgTriple( );
-						triple.setT( buildTerminal( tctx.terminal( ) ) );
-
-						triple.setCondition( buildCondition( tctx.condition( ) ) );
-
-						for ( RulesContext rc : tctx.rules( ) )
-						{
-							for ( int k = 0; k < rc.getChildCount( ); k ++ )
-							{
-								if ( rc.getChild( k ).getClass( ).isAssignableFrom( DeltaruleContext.class ) )
-								{
-									XpgDelta d = buildDeltaRule( ( DeltaruleContext ) rc.getChild( k ) );
-									triple.setD( d );
-								}
-								//								else
-								//									System.out.println( rc.getChild( k ).getClass( ).getName( ) );
-							}
-						}
-						if ( triple.getD( ) != null )
-							item.getTriples( ).add( triple );
-
-					}
-				}
-			}
-			else if ( rulectx.getClass( ).isAssignableFrom( SemanticrulesContext.class ) )
-			{
-			}
-			else
-				System.out.println( rulectx.getClass( ).toString( ) );
-		}
-
-		items.add( item );
-
-		combinedItems.addAll( buildCombinations( item ) );
-	}
-
-	@Override
-	public void enterRelations(RelationsContext ctx)
-	{
-		// relations: (relation (nonterminal | terminal));
-		super.enterRelations( ctx );
-	}
-
-	@Override
-	public void enterRelation(RelationContext ctx)
-	{
-		// relation: LT LOWER (LOWER|UPPER|UNDERSCORE)* GT;
-		ctx.toString( );
-	}
-
-	@Override
-	public void enterLayers(LayersContext ctx)
-	{
-		for ( LayerContext layer : ctx.layer( ) )
-		{
-			layersMapping.put( layer.layername( ).getText( ), layer.something( ).getText( ) );
-		}
-		//super.enterLayers( ctx );
-	}
-
-	//	@Override
-	//	public void enterLayername(LayernameContext ctx)
-	//	{
-	//		StringBuilder sb = new StringBuilder( );
-	//		for ( int i = 0; i < ctx.getChildCount( ); i ++ )
-	//		{
-	//			sb.append( ctx.getChild( i ) );
-	//		}
-	//
-	//		if ( ! layers.contains( sb.toString( ) ) )
-	//			layers.add( sb.toString( ) );
-	//	}
-
-	//
-	//	@Override
-	//	public void enterLayer(LayerContext ctx)
-	//	{
-	//		super.enterLayer(ctx);
-	//	}
-
-	@Override
-	public void enterSomething(SomethingContext ctx)
-	{
-		// TODO Auto-generated method stub
-		super.enterSomething( ctx );
-	}
-	
-	@Override
-	public void enterDbmapping(DbmappingContext ctx)
-	{
-		StringBuilder sb = new StringBuilder( );
-
-		if ( ctx.getChild( 0 ).getText( ).equals( "DB" ) )
-		{
-			// db mapping o layer
-
-			for ( int i = 1; i < ctx.getChildCount( ); i ++ )
-			{
-				sb.append( ctx.getChild( i ) );
-			}
-
-			String[ ] output = sb.toString( ).split( "=" );
-
-			if ( output[ 0 ].equalsIgnoreCase( "layer" ) )
-				layers.add( output[ 1 ] );
-			else
-				dbMapping.put( output[ 0 ], output[ 1 ] );
-		}
-	}
-
-	@Override
-	public void enterDeltarule(DeltaruleContext ctx)
-	{
-
-		
-		//	 
-
 	}
 
 	private XpgTerminal buildTerminal(TerminalContext ctx)

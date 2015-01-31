@@ -9,7 +9,7 @@ public class XpgItem
 	private ArrayList< Object >		rightelem;
 	private Integer					dot			= 0;
 	private Integer					gotoitem	= 0;
-	private Object					deltaRules;
+	private ArrayList< XpgDelta >	deltaRules;
 	private ArrayList< XpgTriple >	triples;			//gamma
 	private Object					semanticRules;
 
@@ -18,6 +18,7 @@ public class XpgItem
 
 		this.rightelem = new ArrayList< Object >( );
 		this.triples = new ArrayList< XpgTriple >( );
+		this.deltaRules = new ArrayList< XpgDelta >( );
 		this.leftelem = null;
 	}
 
@@ -61,6 +62,16 @@ public class XpgItem
 		this.dot = dot;
 	}
 
+	public ArrayList< XpgDelta > getDeltaRules()
+	{
+		return deltaRules;
+	}
+
+	public void setDeltaRules(ArrayList< XpgDelta > deltaRules)
+	{
+		this.deltaRules = deltaRules;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -78,7 +89,22 @@ public class XpgItem
 		if ( this.rightelem.size( ) == this.dot )
 			re.append( "." );
 
-		return this.leftelem.getContent( ).concat( "->" ).concat( re.toString( ) ).concat( triples.toString( ) );
+		StringBuilder drb = new StringBuilder( );
+		for ( XpgDelta d : deltaRules )
+		{
+			drb.append( d.getLeftElem( ).concat( "=" ).concat( d.getRightElem( ) ) );
+			drb.append( "; " );
+		}
+
+		StringBuilder tr = new StringBuilder( );
+		for ( XpgTriple t : triples )
+		{
+			System.out.println("yeye");
+			tr.append( t.toString( ));
+			tr.append( "; " );
+		}
+
+		return this.leftelem.getContent( ).concat( "->" ).concat( re.toString( ) ).concat( " Delta:" ).concat( drb.toString( ) ).concat(" Gamma: ").concat( tr.toString( ) );
 	}
 
 	public void setGotoitem(Integer gotoitem)

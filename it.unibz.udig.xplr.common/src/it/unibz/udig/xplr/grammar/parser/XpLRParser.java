@@ -73,7 +73,7 @@ public class XpLRParser
 		ParsingTableConstructor constructor = new ParsingTableConstructor( loader );
 		CopyOnWriteArrayList< CopyOnWriteArrayList< CopyOnWriteArrayList< XpgItem >>> items = ItemConstructor.items( loader, result );
 
-		//		ItemConstructor.outItems(items);
+		ItemConstructor.outItems(items);
 
 		for ( String l : loader.getLayers( ) )
 		{
