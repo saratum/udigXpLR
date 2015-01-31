@@ -73,13 +73,13 @@ public class XpLRParser
 		ParsingTableConstructor constructor = new ParsingTableConstructor( loader );
 		CopyOnWriteArrayList< CopyOnWriteArrayList< CopyOnWriteArrayList< XpgItem >>> items = ItemConstructor.items( loader, result );
 
-		ItemConstructor.outItems(items);
+		ItemConstructor.outItems( items );
 
 		for ( String l : loader.getLayers( ) )
 		{
 			System.out.println( l );
 		}
-		
+
 		setParsingtable( constructor.createTable( items, result ) );
 
 		//ParsingTableConstructor.outTable( parsingtable );
@@ -111,6 +111,9 @@ public class XpLRParser
 								if ( fetch != null )
 								{
 									ArrayList< XpgActionContent > c = fetch.getContent( );
+									if (c.get( 0 ).getState( ) == -1)
+										return;
+									
 									for ( XpgActionContent action : c )
 									{
 										switch ( action.getOperation( ) )
@@ -157,7 +160,7 @@ public class XpLRParser
 
 						}
 					}
-					else
+					else 
 						getResult( ).add( new ResultObject( "if ( s instanceof Integer )", ResultObject.LEVEL_ERROR ) );
 				}
 			}
@@ -224,7 +227,7 @@ public class XpLRParser
 					if ( entry.getTerminalName( ) != null )
 						for ( HashMap< XpgElem, XpgActionEntry > e : next.getActionEntry( ) )
 							if ( e.get( entry.getTerminalName( ) ) != null )
-								return e.get( entry.getTerminalName( ) ); //getDictionary( ).getEntries( ).indexOf( entry );
+								return e.get( entry.getTerminalName( ) ); 
 			}
 		}
 		else if ( next.getNextEntry( ).getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
@@ -232,11 +235,11 @@ public class XpLRParser
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
 				if ( ! entry.isVisited( ) )
-				{
 					throw new UnparsedInputException( );
-				}
-
-				return null;
+				
+				XpgActionEntry rv = new XpgActionEntry( );
+				rv.getContent( ).add( new XpgActionContent( - 1, new XpgElem( "EOI" ) ) );
+				return rv;
 			}
 		}
 		else
