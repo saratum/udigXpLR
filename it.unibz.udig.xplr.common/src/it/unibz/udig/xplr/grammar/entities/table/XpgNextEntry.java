@@ -60,4 +60,12 @@ public class XpgNextEntry
 	{
 		return this.toString( ).hashCode( );
 	}
+
+	public boolean isEmpty()
+	{
+		if ( ( this.driverRelation == null && this.x == null ) || ( this.driverRelation.getContent( ).isEmpty( ) && this.x.getContent( ).isEmpty( ) ) )
+			return true;
+		else
+			return false;
+	}
 }

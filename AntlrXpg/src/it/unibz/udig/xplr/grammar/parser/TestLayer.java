@@ -29,10 +29,6 @@ public class TestLayer
 		//final String filename = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
 		final String filename = "/Users/sara/git/udigXpLR/AntlrXpg/xpg_tester3.txt";
 		XpLRParser p = new XpLRParser( filename );
-
-//		for ( ResultObject r : p.getResult( ) )
-//		{
-//			System.out.println( r );
-//		}
+		
 	}
 }

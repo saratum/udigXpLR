@@ -5,8 +5,8 @@ import java.io.IOException;
 public class Test
 {
 
-//	final String filename = "/Users/sara/git/udigXpLR/AntlrXpg/xpg_tester4.txt";
-	final String filename = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
+//final String filename = "/Users/sara/git/udigXpLR/AntlrXpg/xpg_tester1.txt";
+final String filename = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
 
 	public static void main(String[] args)
 	{

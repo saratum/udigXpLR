@@ -1,0 +1,5 @@
+S -> aBSc
+S -> aBc
+Bc -> bc
+Ba -> aB
+Bb -> bb

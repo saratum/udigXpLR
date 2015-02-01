@@ -8,11 +8,13 @@ import it.unibz.udig.xplr.grammar.entities.table.XpgParsingTableState;
 import it.unibz.udig.xplr.grammar.entities.table.XpgActionContent.Value;
 import it.unibz.udig.xplr.grammar.entities.XpgElem;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
+import it.unibz.udig.xplr.grammar.entities.XpgNonTerminal;
 import it.unibz.udig.xplr.grammar.entities.XpgTerminal;
 import it.unibz.udig.xplr.grammar.exceptions.SyntaxErrorException;
 import it.unibz.udig.xplr.grammar.exceptions.UnparsedInputException;
 import it.unibz.udig.xplr.grammar.generated.XpgLexer;
 import it.unibz.udig.xplr.grammar.generated.XpgParser;
+import it.unibz.udig.xplr.grammar.generated.XpgParser.NonterminalContext;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -73,12 +75,12 @@ public class XpLRParser
 		ParsingTableConstructor constructor = new ParsingTableConstructor( loader );
 		CopyOnWriteArrayList< CopyOnWriteArrayList< CopyOnWriteArrayList< XpgItem >>> items = ItemConstructor.items( loader, result );
 
-		ItemConstructor.outItems( items );
+		//ItemConstructor.outItems( items );
 
-		for ( String l : loader.getLayers( ) )
-		{
-			System.out.println( l );
-		}
+		//		for ( String l : loader.getLayers( ) )
+		//		{
+		//			System.out.println( l );
+		//		}
 
 		setParsingtable( constructor.createTable( items, result ) );
 
@@ -105,15 +107,20 @@ public class XpLRParser
 							{
 								theStack.remove( theStack.size( ) - 1 );
 							}
+							//							else if ( next.isEmpty( ) )
+							//							{
+							//								getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_INFO ) );
+							//								theStack.remove( theStack.size( ) - 1 );
+							//							}
 							else
 							{
 								XpgActionEntry fetch = fetchVSymbol( substate );
 								if ( fetch != null )
 								{
 									ArrayList< XpgActionContent > c = fetch.getContent( );
-									if (c.get( 0 ).getState( ) == -1)
+									if ( c.get( 0 ).getState( ) == - 1 )
 										return;
-									
+
 									for ( XpgActionContent action : c )
 									{
 										switch ( action.getOperation( ) )
@@ -125,7 +132,7 @@ public class XpLRParser
 												getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
 												return;
 											case REDUCE:
-												getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
+												getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_WARNING ) );
 												return;
 											case SHIFT:
 												getResult( ).add( new ResultObject( action.toString( ), ResultObject.LEVEL_INFO ) );
@@ -160,7 +167,7 @@ public class XpLRParser
 
 						}
 					}
-					else 
+					else
 						getResult( ).add( new ResultObject( "if ( s instanceof Integer )", ResultObject.LEVEL_ERROR ) );
 				}
 			}
@@ -227,7 +234,7 @@ public class XpLRParser
 					if ( entry.getTerminalName( ) != null )
 						for ( HashMap< XpgElem, XpgActionEntry > e : next.getActionEntry( ) )
 							if ( e.get( entry.getTerminalName( ) ) != null )
-								return e.get( entry.getTerminalName( ) ); 
+								return e.get( entry.getTerminalName( ) );
 			}
 		}
 		else if ( next.getNextEntry( ).getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
@@ -236,7 +243,7 @@ public class XpLRParser
 			{
 				if ( ! entry.isVisited( ) )
 					throw new UnparsedInputException( );
-				
+
 				XpgActionEntry rv = new XpgActionEntry( );
 				rv.getContent( ).add( new XpgActionContent( - 1, new XpgElem( "EOI" ) ) );
 				return rv;
@@ -244,7 +251,34 @@ public class XpLRParser
 		}
 		else
 		{
-			System.out.println( next.toString( ) );
+			if (theStack.get( theStack.size( )-2 ).getClass( ).isAssignableFrom( XpgElem.class ))
+					{
+				XpgElem e = ( XpgElem ) theStack.get( theStack.size( )-2 );
+				
+					}
+			
+			
+			
+			
+			if ( next.getNextEntry( ).getX( ).getClass( ).isAssignableFrom( XpgNonTerminal.class ) )
+			{
+
+			}
+			else if ( next.getNextEntry( ).getX( ).getClass( ).isAssignableFrom( XpgTerminal.class ) )
+			{
+				for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
+				{
+					if ( ! entry.isVisited( ) )
+					{
+						if entry.
+					}
+						
+
+				}
+
+			}
+
+			System.out.println( "NEXT " + next.toString( ) );
 			return new XpgActionEntry( );
 		}
 
