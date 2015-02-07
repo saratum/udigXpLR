@@ -2,6 +2,7 @@ package it.unibz.udig.xplr.grammar.parser;
 
 import it.unibz.udig.xplr.grammar.entities.table.XpgActionContent;
 import it.unibz.udig.xplr.grammar.entities.table.XpgActionEntry;
+import it.unibz.udig.xplr.grammar.entities.table.XpgGotoEntry;
 import it.unibz.udig.xplr.grammar.entities.table.XpgNextEntry;
 import it.unibz.udig.xplr.grammar.entities.table.XpgParsingTableRow;
 import it.unibz.udig.xplr.grammar.entities.table.XpgParsingTableState;
@@ -75,7 +76,7 @@ public class XpLRParser
 		ParsingTableConstructor constructor = new ParsingTableConstructor( loader );
 		CopyOnWriteArrayList< CopyOnWriteArrayList< CopyOnWriteArrayList< XpgItem >>> items = ItemConstructor.items( loader, result );
 
-		//ItemConstructor.outItems( items );
+		ItemConstructor.outItems( items );
 
 		//		for ( String l : loader.getLayers( ) )
 		//		{
@@ -84,7 +85,7 @@ public class XpLRParser
 
 		setParsingtable( constructor.createTable( items, result ) );
 
-		//ParsingTableConstructor.outTable( parsingtable );
+		ParsingTableConstructor.outTable( parsingtable );
 
 	}
 
@@ -94,86 +95,90 @@ public class XpLRParser
 		{
 			try
 			{
+
 				while ( theStack.size( ) > 0 )
 				{
 					Object s = theStack.get( theStack.size( ) - 1 );
 					if ( s instanceof Integer )
 					{
-						XpgParsingTableRow row = getParsingtable( ).get( ( Integer ) s );
+						Integer stackTop = ( Integer ) s;
+						XpgParsingTableRow row = getParsingtable( ).get( stackTop );
+
 						for ( XpgParsingTableState substate : row.getSubstates( ) )
 						{
-							XpgNextEntry next = substate.getNextEntry( );
-							if ( next == null )
+							int ip = fetchVSymbol( substate );
+							if ( ip != 999 )
 							{
-								theStack.remove( theStack.size( ) - 1 );
-							}
-							//							else if ( next.isEmpty( ) )
-							//							{
-							//								getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_INFO ) );
-							//								theStack.remove( theStack.size( ) - 1 );
-							//							}
-							else
-							{
-								XpgActionEntry fetch = fetchVSymbol( substate );
-								if ( fetch != null )
+								if ( ip == - 1 )
 								{
-									ArrayList< XpgActionContent > c = fetch.getContent( );
-									if ( c.get( 0 ).getState( ) == - 1 )
-										return;
-
-									for ( XpgActionContent action : c )
+									getResult( ).add( new ResultObject( "SUCCESS", ResultObject.LEVEL_INFO ) );
+								}
+								else
+								{
+									DictionaryEntry b = getDictionary( ).getEntries( ).get( ip );
+									for ( HashMap< XpgElem, XpgActionEntry > action : substate.getActionEntry( ) )
 									{
-										switch ( action.getOperation( ) )
+										XpgActionEntry ae = action.get( b.getTerminalName( ) );
+										if ( ae != null )
 										{
-											case ACCEPT:
-												getResult( ).add( new ResultObject( "SUCCESS", ResultObject.LEVEL_INFO ) );
-												return;
-											case ERROR:
-												getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
-												return;
-											case REDUCE:
-												getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_WARNING ) );
-												return;
-											case SHIFT:
-												getResult( ).add( new ResultObject( action.toString( ), ResultObject.LEVEL_INFO ) );
-												XpgElem tester = action.getRelTester( );
+											for ( XpgActionContent ac : ae.getContent( ) )
+											{
 
-												if ( tester.getContent( ) == null || tester.getContent( ).equals( "T" ) )
+												switch ( ac.getOperation( ) )
 												{
-													theStack.add( next.getX( ) );
-													theStack.add( action.getState( ) );
-												}
-												else if ( test( null ) )
-												{
-													System.out.println( "WRONG OPINION OF ME" );
-													//	theStack.add( next.getX( ) );
-													//	theStack.add( action.getState( ) );
-													// TODO verificare se i miei tester sono sempre T o se va implementata anche questa parte
-												}
-												else
-												{
-													throw new SyntaxErrorException( "if ( tester.getContent( ) == null || tester.getContent( ).equals( \"T\" ) )" );
+													case ACCEPT:
+														getResult( ).add( new ResultObject( "SUCCESS", ResultObject.LEVEL_INFO ) );
+														return;
+													case ERROR:
+														getResult( ).add( new ResultObject( "ERROR", ResultObject.LEVEL_ERROR ) );
+														return;
+													case REDUCE:
+														getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_WARNING ) );
+														return;
+													case SHIFT:
+														getResult( ).add( new ResultObject( "Shift action: ".concat( action.toString( ) ), ResultObject.LEVEL_INFO ) );
+														XpgElem tester = ac.getRelTester( );
+
+														if ( tester.getContent( ) == null || tester.getContent( ).equals( "T" ) )
+														{
+															theStack.add( b.getTerminalName( ) );
+															theStack.add( ac.getState( ) );
+														}
+														else if ( test( null ) )
+														{
+															System.out.println( "WRONG OPINION OF ME" );
+															//	theStack.add( next.getX( ) );
+															//	theStack.add( action.getState( ) );
+															// TODO verificare se i miei tester sono sempre T o se va implementata anche questa parte
+														}
+														else
+														{
+															throw new SyntaxErrorException( "if ( tester.getContent( ) == null || tester.getContent( ).equals( \"T\" ) )" );
+														}
+
+														break;
+													default:
+														throw new SyntaxErrorException( "switch ( action.getOperation( ) )" );
 												}
 
-												break;
-											default:
-												throw new SyntaxErrorException( "switch ( action.getOperation( ) )" );
+											}
 										}
 									}
 								}
-								else
-									throw new SyntaxErrorException( "Error by parsing substate" );
 							}
-
+							else
+								throw new SyntaxErrorException( "999" );
 						}
 					}
-					else
-						getResult( ).add( new ResultObject( "if ( s instanceof Integer )", ResultObject.LEVEL_ERROR ) );
 				}
 			}
-			catch ( SyntaxErrorException | UnparsedInputException | NullPointerException e )
+			catch ( SyntaxErrorException | UnparsedInputException e )
 			{
-				getResult( ).add( new ResultObject( e.getClass( ).getName( ).concat( e.getMessage( ) ), ResultObject.LEVEL_ERROR ) );
+				getResult( ).add( new ResultObject( e.getClass( ).getName( ).concat( ( e.getMessage( ) == null ) ? "" : e.getMessage( ) ), ResultObject.LEVEL_ERROR ) );
+			}
+			catch ( NullPointerException e )
+			{
+				e.printStackTrace( );
 			}
 		}
 	}
@@ -183,6 +188,7 @@ public class XpLRParser
 		if ( d != null )
 		{
 			setDictionary( d );
+			getResult( ).add( new ResultObject( "\n", ResultObject.LEVEL_NONE ) );
 			result.add( new ResultObject( "Dictionary ready, here the entries:", ResultObject.LEVEL_INFO ) );
 
 			for ( DictionaryEntry e : getDictionary( ).getEntries( ) )
@@ -211,6 +217,7 @@ public class XpLRParser
 		}
 		else
 		{
+			getResult( ).add( new ResultObject( "\n", ResultObject.LEVEL_NONE ) );
 			result.add( new ResultObject( "Dictionary is null, can't go any further", ResultObject.LEVEL_ERROR ) );
 			return false;
 		}
@@ -219,71 +226,52 @@ public class XpLRParser
 
 	}
 
-	private XpgActionEntry fetchVSymbol(XpgParsingTableState next) throws UnparsedInputException
+	private int fetchVSymbol(XpgParsingTableState s) throws UnparsedInputException, SyntaxErrorException
 	{
+		XpgNextEntry next = s.getNextEntry( );
 
-		if ( next.getNextEntry( ).getDriverRelation( ) == null ) // ???????
+		if ( next.getDriverRelation( ) == null )
 		{
-			return null;
+			return 999;
 		}
-		else if ( next.getNextEntry( ).getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
+		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "start" ) )
 		{
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
 				if ( ! entry.isVisited( ) )
 					if ( entry.getTerminalName( ) != null )
-						for ( HashMap< XpgElem, XpgActionEntry > e : next.getActionEntry( ) )
+						for ( HashMap< XpgElem, XpgActionEntry > e : s.getActionEntry( ) )
 							if ( e.get( entry.getTerminalName( ) ) != null )
-								return e.get( entry.getTerminalName( ) );
+								return getDictionary( ).getEntries( ).indexOf( entry );
 			}
 		}
-		else if ( next.getNextEntry( ).getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
+		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
 		{
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
-				if ( ! entry.isVisited( ) )
+				if ( ! entry.getName( ).equals( "EOI" ) && ! entry.isVisited( ) )
 					throw new UnparsedInputException( );
 
-				XpgActionEntry rv = new XpgActionEntry( );
-				rv.getContent( ).add( new XpgActionContent( - 1, new XpgElem( "EOI" ) ) );
-				return rv;
+				return - 1;
 			}
 		}
 		else
 		{
-			if (theStack.get( theStack.size( )-2 ).getClass( ).isAssignableFrom( XpgElem.class ))
-					{
-				XpgElem e = ( XpgElem ) theStack.get( theStack.size( )-2 );
-				
-					}
-			
-			
-			
-			
-			if ( next.getNextEntry( ).getX( ).getClass( ).isAssignableFrom( XpgNonTerminal.class ) )
+			int manyTimes = 0;
+			XpgElem z = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
+			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
-
-			}
-			else if ( next.getNextEntry( ).getX( ).getClass( ).isAssignableFrom( XpgTerminal.class ) )
-			{
-				for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
+				if ( ! entry.isVisited( ) )
 				{
-					if ( ! entry.isVisited( ) )
-					{
-						if entry.
-					}
-						
-
+					manyTimes ++ ;
 				}
-
 			}
+			if ( manyTimes > 1 )
+				throw new SyntaxErrorException( );
 
-			System.out.println( "NEXT " + next.toString( ) );
-			return new XpgActionEntry( );
+			return 999;
 		}
-
-		return null;
-
+		return 999;
 	}
 
 	private boolean test(Object o)

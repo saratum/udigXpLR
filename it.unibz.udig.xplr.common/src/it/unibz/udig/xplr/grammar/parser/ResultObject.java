@@ -6,6 +6,7 @@ public class ResultObject
 	public static final Integer	LEVEL_INFO		= 0;
 	public static final Integer	LEVEL_WARNING	= 1;
 	public static final Integer	LEVEL_ERROR		= 2;
+	public static final Integer	LEVEL_NONE		= 99;
 
 	String						message;
 	Integer						level;
@@ -45,7 +46,7 @@ public class ResultObject
 				break;
 
 			default:
-				level = "Info: ";
+				level = "";
 				break;
 		}
 		return level.concat(this.message);

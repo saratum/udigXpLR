@@ -2,6 +2,9 @@ LAYERS(
 lamp_castel=LAMP;
 )
 
+lamps -> lamps<contains>lamp;
+lamps -> lamp;
+
 lamp -> LAMP
 DELTA: (
 DB layer=lamp_castel,
