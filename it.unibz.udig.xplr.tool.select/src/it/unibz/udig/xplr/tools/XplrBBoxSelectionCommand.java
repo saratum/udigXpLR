@@ -1,4 +1,4 @@
-package it.unibz.udig.xplr.tool.select;
+package it.unibz.udig.xplr.tools;
 
 import java.util.HashMap;
 import java.util.List;

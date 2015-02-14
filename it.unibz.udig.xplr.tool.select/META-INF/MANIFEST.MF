@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: it.unibz.udig.xplr.tool.select
-Bundle-SymbolicName: it.unibz.udig.xplr.tool.select;singleton:=true
+Bundle-Name: it.unibz.udig.xplr.tools
+Bundle-SymbolicName: it.unibz.udig.xplr.tools;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: it.unibz.udig.xplr.tool.select.Activator
+Bundle-Activator: it.unibz.udig.xplr.tools.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  net.refractions.udig.libs,

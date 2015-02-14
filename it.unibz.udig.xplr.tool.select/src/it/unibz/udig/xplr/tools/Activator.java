@@ -1,4 +1,4 @@
-package it.unibz.udig.xplr.tool.select;
+package it.unibz.udig.xplr.tools;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

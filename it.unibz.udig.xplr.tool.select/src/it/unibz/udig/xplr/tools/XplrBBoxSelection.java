@@ -1,4 +1,4 @@
-package it.unibz.udig.xplr.tool.select;
+package it.unibz.udig.xplr.tools;
 
 import it.unibz.udig.xplr.grammar.exceptions.SyntaxErrorException;
 import it.unibz.udig.xplr.grammar.parser.Attribute;

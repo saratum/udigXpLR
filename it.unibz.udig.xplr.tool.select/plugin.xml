@@ -4,19 +4,13 @@
    <extension
          point="net.refractions.udig.project.ui.tool">
       <modalTool
-            categoryId="it.unibz.udig.xplr.tool.select.grammar"
-            class="it.unibz.udig.xplr.tool.select.XplrBBoxSelection"
+            categoryId="it.unibz.udig.xplr.tools.grammar"
+            class="it.unibz.udig.xplr.tools.XplrBBoxSelection"
             icon="icons/etool16/selection_mode.gif"
             id="it.unibz.udig.xplr.tool.select.selectfeatures"
             name="Select feature set"
             onToolbar="true"
             toolCursorId="bboxCursor">
-         <cursor
-               hotspotX="10"
-               hotspotY="10"
-               id="bbox_cursor"
-               image="icons/pointers/select_source.png">
-         </cursor>
          <enablement>
             <property
                   expectedValue="SELECT"
@@ -24,24 +18,51 @@
             </property>
          </enablement>
       </modalTool>
+      <modalTool
+            categoryId="it.unibz.udig.xplr.tools.grammar"
+            icon="icons/etool16/new_point_mode.gif"
+            id="it.unibz.udig.xplr.tool.edit.newfeature"
+            name="New feature"
+            onToolbar="true"
+            toolCursorId="newCursor">
+      </modalTool>
+      <modalTool
+            categoryId="it.unibz.udig.xplr.tools.grammar"
+            icon="icons/etool16/edit_mode.gif"
+            id="it.unibz.udig.xplr.tools.modalTool2"
+            name="Edit feature"
+            onToolbar="true"
+            toolCursorId="editCursor">
+      </modalTool>
       <toolCursor
             hotspotX="10"
             hotspotY="10"
             id="bboxCursor"
             image="icons/pointers/select_source.png">
       </toolCursor>
+      <toolCursor
+            hotspotX="10"
+            hotspotY="10"
+            id="newCursor"
+            image="icons/pointers/edit_remove_source.gif">
+      </toolCursor>
+      <toolCursor
+            hotspotX="10"
+            id="editCursor"
+            image="icons/pointers/edit_source.gif">
+      </toolCursor>
       <category
-            id="it.unibz.udig.xplr.tool.select.grammar"
-            name="Grammar">
+            id="it.unibz.udig.xplr.tools.grammar"
+            name="Editing using grammar">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
-            class="it.unibz.udig.xplr.tool.select.XpLRViewPart"
+            class="it.unibz.udig.xplr.tools.XpLRViewPart"
             icon="icons/eview16/select_view.gif"
-            id="it.unibz.udig.xplr.tool.select.xplrView"
+            id="it.unibz.udig.xplr.tools.xplrView"
             name="grammar view"
             restorable="true">
       </view>

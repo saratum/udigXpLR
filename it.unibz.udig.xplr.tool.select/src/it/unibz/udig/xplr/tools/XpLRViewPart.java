@@ -1,4 +1,4 @@
-package it.unibz.udig.xplr.tool.select;
+package it.unibz.udig.xplr.tools;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -10,7 +10,7 @@ import org.eclipse.ui.part.ViewPart;
 public class XpLRViewPart extends ViewPart
 {
 
-	public static final String VIEW_ID = "it.unibz.udig.xplr.tool.select.xplrView";
+	public static final String VIEW_ID = "it.unibz.udig.xplr.tools.xplrView";
 	private Text text;
 
 	@Override
