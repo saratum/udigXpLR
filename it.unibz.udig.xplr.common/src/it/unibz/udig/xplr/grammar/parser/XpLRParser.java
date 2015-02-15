@@ -91,6 +91,7 @@ public class XpLRParser
 
 	public void theAlg(Dictionary dict)
 	{
+		int ip = 999;
 		if ( completeLexicalAnalisys( dict ) )
 		{
 			try
@@ -114,25 +115,45 @@ public class XpLRParser
 							else if ( next.isEmpty( ) )
 							{
 								getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_INFO ) );
-//								int idx = theStack.size( ) - 3;
-//								Object o = theStack.get( idx );
-//
-//								XpgParsingTableRow r = getParsingtable( ).get( ( int ) o );
-//								theStack.set( theStack.size( ) - 2, r.getSubstates( ).get( 0 ).getNextEntry( ).getX( ) );
-//								ArrayList< HashMap< XpgElem, XpgGotoEntry > > gtEntries = r.getSubstates( ).get( 0 ).getGotoEntry( );
-//								for ( HashMap< XpgElem, XpgGotoEntry > gotoEntry : gtEntries )
-//								{
-//									if ( gotoEntry.containsKey( r.getSubstates( ).get( 0 ).getNextEntry( ).getX( ) ) )
-//									{
-//										theStack.set( theStack.size( ) - 1, gotoEntry.get( r.getSubstates( ).get( 0 ).getNextEntry( ).getX( ) ).getState( ) );
-//									}
-//								}
+								XpgElem b = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
+								ArrayList< HashMap< XpgElem, XpgActionEntry >> aEntries = substate.getActionEntry( );
+								for ( HashMap< XpgElem, XpgActionEntry > action : aEntries )
+								{
+									if ( action.containsKey( b ) )
+									{
 
-								return;
+										// calculate the syntactic attribute of A as specified by delta
+										// apply the gamma rule
+
+										// pop 2*m (2) out of the stack
+										int toIndex = theStack.size( );
+										int m = 1;
+										int fromIndex = theStack.size( ) - ( 2 * m );
+
+										theStack.removeAll( theStack.subList( fromIndex, toIndex ) );
+
+										int s2 = ( int ) theStack.get( theStack.size( ) - 1 );
+										XpgParsingTableRow r2 = getParsingtable( ).get( s2 );
+										for ( XpgParsingTableState sr2 : r2.getSubstates( ) )
+										{
+											for ( HashMap< XpgElem, XpgGotoEntry > gotoEntry : sr2.getGotoEntry( ) )
+											{
+												if ( gotoEntry.containsKey( sr2.getNextEntry( ).getX( ) ) )
+												{
+													theStack.add( sr2.getNextEntry( ).getX( ) );
+													theStack.add( gotoEntry.get( sr2.getNextEntry( ).getX( )  ).getState( ));
+
+													break;
+												}
+											}
+										}
+
+									}
+								}
 							}
 							else
 							{
-								int ip = fetchVSymbol( substate );
+								ip = fetchVSymbol( substate );
 								if ( ip != 999 )
 								{
 									if ( ip == - 1 )
