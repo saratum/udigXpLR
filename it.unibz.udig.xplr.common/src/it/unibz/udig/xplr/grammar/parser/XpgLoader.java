@@ -1,6 +1,7 @@
 package it.unibz.udig.xplr.grammar.parser;
 
 import it.unibz.udig.xplr.grammar.entities.XpgDelta;
+import it.unibz.udig.xplr.grammar.entities.XpgDeltaRightElem;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
 import it.unibz.udig.xplr.grammar.entities.XpgNonTerminal;
 import it.unibz.udig.xplr.grammar.entities.XpgRelation;
@@ -13,7 +14,6 @@ import it.unibz.udig.xplr.grammar.generated.XpgParser.DeltaruleContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.DeltarulesContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.IdrelationContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.LayerContext;
-import it.unibz.udig.xplr.grammar.generated.XpgParser.LayernameContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.LayersContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.NonterminalContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.ProductionContext;
@@ -21,7 +21,6 @@ import it.unibz.udig.xplr.grammar.generated.XpgParser.RelationContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.RelationsContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.RulesContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.SemanticrulesContext;
-import it.unibz.udig.xplr.grammar.generated.XpgParser.SomethingContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TerminalContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TesterContext;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.TripleContext;
@@ -404,7 +403,18 @@ public class XpgLoader extends XpgBaseListener
 			}
 
 			String[ ] output = sb.toString( ).split( "=" );
-			return new XpgDelta( output[ 0 ], output[ 1 ] );
+			if ( output[ 1 ].indexOf( "+" ) > 0 )
+			{
+				String[ ] rightelems = output[ 1 ].split( "\\+" );
+				return new XpgDelta( output[ 0 ], new XpgDeltaRightElem( rightelems[ 0 ], "PLUS", rightelems[ 1 ] ) );
+			}
+			else if ( output[ 1 ].indexOf( "-" ) > 0 )
+			{
+				String[ ] rightelems = output[ 1 ].split( "\\-" );
+				return new XpgDelta( output[ 0 ], new XpgDeltaRightElem( rightelems[ 0 ], "MINUS", rightelems[ 1 ] ) );
+			}
+			else
+				return new XpgDelta( output[ 0 ], new XpgDeltaRightElem( output[ 1 ] ) );
 
 		}
 		else

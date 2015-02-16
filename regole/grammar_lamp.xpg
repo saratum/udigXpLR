@@ -2,16 +2,20 @@ LAYERS(
 	lamp_castel=LAMP;
 )
 
-pip -> lamps;
-lamps -> lamps<contains>lamp;
-lamps -> lamp;
+pip -> lamps<contains>lamp;
+lamps -> lamp
+DELTA: (
+	DR lamps = lamps + lamp,
+)
+;
 
 lamp -> LAMP
 DELTA: (
-  DB layer=lamp_castel,
-  DR lamp = LAMP
+	DB layer=lamp_castel,
+	DR lamp = LAMP
 )
 SEMANTICRULE: {"
-  void onCreate(){
-  }
+	void onCreate(){
+	}
 "};
+

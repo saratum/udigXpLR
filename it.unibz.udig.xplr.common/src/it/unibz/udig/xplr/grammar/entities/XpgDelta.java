@@ -1,17 +1,18 @@
 package it.unibz.udig.xplr.grammar.entities;
 
+
 public class XpgDelta
 {
 
-	private String	leftElem;
-	private String	rightElem;
+	private String				leftElem;
+	private XpgDeltaRightElem	rightElem;
 
 	public XpgDelta()
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	public XpgDelta( String l, String r)
+	public XpgDelta( String l, XpgDeltaRightElem r)
 	{
 		this.leftElem = l;
 		this.rightElem = r;
@@ -22,7 +23,7 @@ public class XpgDelta
 		return leftElem;
 	}
 
-	public String getRightElem()
+	public XpgDeltaRightElem getRightElem()
 	{
 		return rightElem;
 	}
@@ -32,7 +33,7 @@ public class XpgDelta
 		this.leftElem = leftElem;
 	}
 
-	public void setRightElem(String rightElem)
+	public void setRightElem(XpgDeltaRightElem rightElem)
 	{
 		this.rightElem = rightElem;
 	}
@@ -40,6 +41,6 @@ public class XpgDelta
 	@Override
 	public String toString()
 	{
-		return this.leftElem.concat( "=" ).concat( this.rightElem );
+		return this.leftElem.concat( "=" ).concat( this.rightElem.toString( ) );
 	}
 }

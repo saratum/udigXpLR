@@ -26,8 +26,8 @@ public class TestLayer
 
 	public TestLayer() throws IOException
 	{
-		//final String filename = "/Users/sara/git/udigXpLR/regole/lamp.xpg";
-		final String filename = "/Users/sara/git/udigXpLR/AntlrXpg/xpg_tester3.txt";
+		final String filename = "/Users/sara/git/udigXpLR/regole/grammar_lamp.xpg";
+//		final String filename = "/Users/sara/git/udigXpLR/AntlrXpg/xpg_tester3.txt";
 		XpLRParser p = new XpLRParser( filename );
 		
 	}

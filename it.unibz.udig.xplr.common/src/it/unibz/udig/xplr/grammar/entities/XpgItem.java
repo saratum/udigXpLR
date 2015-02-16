@@ -92,7 +92,7 @@ public class XpgItem
 		StringBuilder drb = new StringBuilder( );
 		for ( XpgDelta d : deltaRules )
 		{
-			drb.append( d.getLeftElem( ).concat( "=" ).concat( d.getRightElem( ) ) );
+			drb.append( d.getLeftElem( ).concat( "=" ).concat( d.getRightElem( ).toString( ) ) );
 			drb.append( "; " );
 		}
 

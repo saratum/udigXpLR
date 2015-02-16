@@ -1,3 +1,0 @@
-lamp_castel ::=  {
-				  id = lamtyp;
-				 };
