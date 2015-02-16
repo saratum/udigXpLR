@@ -141,7 +141,7 @@ public class XpLRParser
 												if ( gotoEntry.containsKey( sr2.getNextEntry( ).getX( ) ) )
 												{
 													theStack.add( sr2.getNextEntry( ).getX( ) );
-													theStack.add( gotoEntry.get( sr2.getNextEntry( ).getX( )  ).getState( ));
+													theStack.add( gotoEntry.get( sr2.getNextEntry( ).getX( ) ).getState( ) );
 
 													break;
 												}
@@ -159,6 +159,7 @@ public class XpLRParser
 									if ( ip == - 1 )
 									{
 										getResult( ).add( new ResultObject( "SUCCESS", ResultObject.LEVEL_INFO ) );
+										return;
 									}
 									else
 									{
@@ -294,7 +295,7 @@ public class XpLRParser
 								return getDictionary( ).getEntries( ).indexOf( entry );
 			}
 		}
-		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "EOI" ) )
+		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "end" ) )
 		{
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
@@ -306,23 +307,39 @@ public class XpLRParser
 		}
 		else
 		{
+			int manyTimes = 0;
+			// for i = 1 to n
+			XpgElem z = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
+			int next_set = -1;
+
 			XpgElem h_k = next.getDriverRelation( );
 			XpgElem x = next.getX( );
-			XpgElem z = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
-
-			int manyTimes = 0;
 
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
-				if ( ! entry.isVisited( ) )
+				if ( ! entry.getName( ).equals( "EOI" ) && ! entry.isVisited( ) )
 				{
-					manyTimes ++ ;
+					
+					manyTimes++;
+
+					if ( z.getClass( ).isAssignableFrom( XpgNonTerminal.class ) )
+					{
+					}
+
+					
+					next_set = getDictionary( ).getEntries( ).indexOf( entry);
 				}
 			}
-			if ( manyTimes > 1 )
-				throw new SyntaxErrorException( );
 
-			return 999;
+			if ( manyTimes > 1 )
+				throw new  SyntaxErrorException( " runtime conflicy " );
+			else
+			{
+				getDictionary( ).getEntries( ).get( next_set ).setVisited( true );
+				return next_set;
+			}
+
+			
 		}
 		return 999;
 	}
