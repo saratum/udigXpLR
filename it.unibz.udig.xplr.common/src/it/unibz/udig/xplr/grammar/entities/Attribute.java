@@ -1,4 +1,4 @@
-package it.unibz.udig.xplr.grammar.parser;
+package it.unibz.udig.xplr.grammar.entities;
 
 public class Attribute
 {

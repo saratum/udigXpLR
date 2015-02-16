@@ -1,10 +1,9 @@
 package it.unibz.udig.xplr.tools;
 
-import it.unibz.udig.xplr.grammar.exceptions.SyntaxErrorException;
-import it.unibz.udig.xplr.grammar.parser.Attribute;
-import it.unibz.udig.xplr.grammar.parser.Dictionary;
-import it.unibz.udig.xplr.grammar.parser.DictionaryEntry;
-import it.unibz.udig.xplr.grammar.parser.ResultObject;
+import it.unibz.udig.xplr.grammar.entities.Attribute;
+import it.unibz.udig.xplr.grammar.entities.Dictionary;
+import it.unibz.udig.xplr.grammar.entities.DictionaryEntry;
+import it.unibz.udig.xplr.grammar.entities.ResultObject;
 import it.unibz.udig.xplr.grammar.parser.XpLRParser;
 
 import java.awt.Point;
@@ -25,8 +24,6 @@ import net.refractions.udig.project.ui.render.displayAdapter.MapMouseEvent;
 import net.refractions.udig.project.ui.tool.ModalTool;
 import net.refractions.udig.project.ui.tool.SimpleTool;
 
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;

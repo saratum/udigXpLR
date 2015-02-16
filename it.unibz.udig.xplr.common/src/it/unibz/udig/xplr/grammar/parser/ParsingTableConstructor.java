@@ -1,5 +1,6 @@
 package it.unibz.udig.xplr.grammar.parser;
 
+import it.unibz.udig.xplr.grammar.entities.ResultObject;
 import it.unibz.udig.xplr.grammar.entities.XpgElem;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
 import it.unibz.udig.xplr.grammar.entities.XpgNonTerminal;

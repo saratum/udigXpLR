@@ -1,6 +1,4 @@
-package it.unibz.udig.xplr.grammar.parser;
-
-import it.unibz.udig.xplr.grammar.entities.XpgTerminal;
+package it.unibz.udig.xplr.grammar.entities;
 
 import java.util.ArrayList;
 

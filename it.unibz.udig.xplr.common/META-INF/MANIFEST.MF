@@ -4,7 +4,8 @@ Bundle-Name: Common
 Bundle-SymbolicName: it.unibz.udig.xplr.common
 Bundle-Version: 0.1
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: it.unibz.udig.xplr.grammar.exceptions,
+Export-Package: it.unibz.udig.xplr.grammar.entities,
+ it.unibz.udig.xplr.grammar.exceptions,
  it.unibz.udig.xplr.grammar.generated;uses:="org.antlr.v4.runtime,org.antlr.v4.runtime.atn,org.antlr.v4.runtime.tree",
  it.unibz.udig.xplr.grammar.parser;uses:="it.unibz.udig.xplr.grammar.generated,it.unibz.udig.xplr.grammar.entities",
  org.abego.treelayout,
