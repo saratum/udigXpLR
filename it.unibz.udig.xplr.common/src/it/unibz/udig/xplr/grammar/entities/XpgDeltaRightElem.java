@@ -52,7 +52,7 @@ public class XpgDeltaRightElem
 	public String toString()
 	{
 		if ( this.rightAssignment != null )
-			return this.leftAssignment.concat( this.operator ).concat( this.rightAssignment );
+			return this.leftAssignment.concat( " " ).concat( this.operator ).concat( " " ).concat( this.rightAssignment );
 		else
 			return this.leftAssignment;
 	}

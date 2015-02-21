@@ -2,8 +2,8 @@ LAYERS(
 	lamp_castel=LAMP;
 )
 
-pip -> lamps<contains>lamp;
-lamps -> lamp
+
+lamps -> lamp<union>lamps
 DELTA: (
 	DR lamps = lamps + lamp,
 )

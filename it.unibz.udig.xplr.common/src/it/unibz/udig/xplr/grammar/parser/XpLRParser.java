@@ -11,6 +11,7 @@ import it.unibz.udig.xplr.grammar.entities.Attribute;
 import it.unibz.udig.xplr.grammar.entities.Dictionary;
 import it.unibz.udig.xplr.grammar.entities.DictionaryEntry;
 import it.unibz.udig.xplr.grammar.entities.ResultObject;
+import it.unibz.udig.xplr.grammar.entities.XpgDelta;
 import it.unibz.udig.xplr.grammar.entities.XpgElem;
 import it.unibz.udig.xplr.grammar.entities.XpgItem;
 import it.unibz.udig.xplr.grammar.entities.XpgNonTerminal;
@@ -21,6 +22,7 @@ import it.unibz.udig.xplr.grammar.generated.XpgLexer;
 import it.unibz.udig.xplr.grammar.generated.XpgParser;
 import it.unibz.udig.xplr.grammar.generated.XpgParser.NonterminalContext;
 
+import java.util.List;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,6 +30,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -67,30 +70,27 @@ public class XpLRParser
 		try
 		{
 			walker.walk( loader, tree ); // walk parse tree
-			result.add( new ResultObject( "walked the tree - loader ready", 0 ) );
+			result.add( new ResultObject( "walked the tree - loader ready", ResultObject.LEVEL_INFO ) );
 		}
 		catch ( Exception ex )
 		{
 			ex.printStackTrace( );
-			result.add( new ResultObject( "walked the tree - error ".concat( ex.getMessage( ) ), 1 ) );
+			result.add( new ResultObject( "walked the tree - error ".concat( ex.getMessage( ) ), ResultObject.LEVEL_ERROR ) );
 			return;
+		}
+
+		// itemset
+		for ( XpgItem item : loader.getAugmentedItems( ) )
+		{
+			System.out.println( item.toString( ) );
 		}
 
 		// the parsing table
 		ParsingTableConstructor constructor = new ParsingTableConstructor( loader );
 		CopyOnWriteArrayList< CopyOnWriteArrayList< CopyOnWriteArrayList< XpgItem >>> items = ItemConstructor.items( loader, result );
-
 		ItemConstructor.outItems( items );
-
-		//		for ( String l : loader.getLayers( ) )
-		//		{
-		//			System.out.println( l );
-		//		}
-
 		setParsingtable( constructor.createTable( items, result ) );
-
 		ParsingTableConstructor.outTable( parsingtable );
-
 	}
 
 	public void theAlg(Dictionary dict)
@@ -118,34 +118,44 @@ public class XpLRParser
 							}
 							else if ( next.isEmpty( ) )
 							{
-								getResult( ).add( new ResultObject( "REDUCE", ResultObject.LEVEL_INFO ) );
 								XpgElem b = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
 								ArrayList< HashMap< XpgElem, XpgActionEntry >> aEntries = substate.getActionEntry( );
 								for ( HashMap< XpgElem, XpgActionEntry > action : aEntries )
 								{
 									if ( action.containsKey( b ) )
 									{
-
+										int m = 0;
+										XpgItem itemTop = getLoader( ).getAugmentedItems( ).get( stackTop-1);
+										getResult( ).add( new ResultObject( "REDUCE ".concat(itemTop.toString( )), ResultObject.LEVEL_INFO ) );
+										
 										// calculate the syntactic attribute of A as specified by delta
+										itemTop.getDeltaRules( );
 										// apply the gamma rule
-
-										// pop 2*m (2) out of the stack
+										itemTop.getTriples( );
+										
+										// pop 2*m out of the stack
+										for ( Object objR : itemTop.getRightelem( ) )
+										{
+											if ( objR instanceof XpgElem )
+												m ++ ;
+										}
 										int toIndex = theStack.size( );
-										int m = 1;
 										int fromIndex = theStack.size( ) - ( 2 * m );
-
+										
+										List< Object > saveList = theStack.subList( fromIndex, toIndex );
 										theStack.removeAll( theStack.subList( fromIndex, toIndex ) );
 
+										
 										int s2 = ( int ) theStack.get( theStack.size( ) - 1 );
 										XpgParsingTableRow r2 = getParsingtable( ).get( s2 );
 										for ( XpgParsingTableState sr2 : r2.getSubstates( ) )
 										{
 											for ( HashMap< XpgElem, XpgGotoEntry > gotoEntry : sr2.getGotoEntry( ) )
 											{
-												if ( gotoEntry.containsKey( sr2.getNextEntry( ).getX( ) ) )
+												if ( gotoEntry.containsKey( itemTop.getLeftelem( ) ) )
 												{
-													theStack.add( sr2.getNextEntry( ).getX( ) );
-													theStack.add( gotoEntry.get( sr2.getNextEntry( ).getX( ) ).getState( ) );
+													theStack.add( itemTop.getLeftelem( )  );
+													theStack.add( gotoEntry.get( itemTop.getLeftelem( ) ).getState( ));
 
 													break;
 												}
@@ -314,7 +324,7 @@ public class XpLRParser
 			int manyTimes = 0;
 			// for i = 1 to n
 			XpgElem z = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
-			int next_set = -1;
+			int next_set = - 1;
 
 			XpgElem h_k = next.getDriverRelation( );
 			XpgElem x = next.getX( );
@@ -323,27 +333,25 @@ public class XpLRParser
 			{
 				if ( ! entry.getName( ).equals( "EOI" ) && ! entry.isVisited( ) )
 				{
-					
-					manyTimes++;
+
+					manyTimes ++ ;
 
 					if ( z.getClass( ).isAssignableFrom( XpgNonTerminal.class ) )
 					{
 					}
 
-					
-					next_set = getDictionary( ).getEntries( ).indexOf( entry);
+					next_set = getDictionary( ).getEntries( ).indexOf( entry );
 				}
 			}
 
 			if ( manyTimes > 1 )
-				throw new  SyntaxErrorException( " runtime conflicy " );
+				throw new SyntaxErrorException( " runtime conflicy " );
 			else
 			{
 				getDictionary( ).getEntries( ).get( next_set ).setVisited( true );
 				return next_set;
 			}
 
-			
 		}
 		return 999;
 	}
