@@ -125,14 +125,14 @@ public class XpLRParser
 									if ( action.containsKey( b ) )
 									{
 										int m = 0;
-										XpgItem itemTop = getLoader( ).getAugmentedItems( ).get( stackTop-1);
-										getResult( ).add( new ResultObject( "REDUCE ".concat(itemTop.toString( )), ResultObject.LEVEL_INFO ) );
-										
+										XpgItem itemTop = getLoader( ).getAugmentedItems( ).get( stackTop - 1 );
+										getResult( ).add( new ResultObject( "REDUCE ".concat( itemTop.toString( ) ), ResultObject.LEVEL_INFO ) );
+
 										// calculate the syntactic attribute of A as specified by delta
 										itemTop.getDeltaRules( );
 										// apply the gamma rule
 										itemTop.getTriples( );
-										
+
 										// pop 2*m out of the stack
 										for ( Object objR : itemTop.getRightelem( ) )
 										{
@@ -141,11 +141,10 @@ public class XpLRParser
 										}
 										int toIndex = theStack.size( );
 										int fromIndex = theStack.size( ) - ( 2 * m );
-										
-										List< Object > saveList = theStack.subList( fromIndex, toIndex );
-										theStack.removeAll( theStack.subList( fromIndex, toIndex ) );
 
-										
+										List< Object > saveList = theStack.subList( fromIndex, toIndex );
+										theStack.removeAll( saveList );
+
 										int s2 = ( int ) theStack.get( theStack.size( ) - 1 );
 										XpgParsingTableRow r2 = getParsingtable( ).get( s2 );
 										for ( XpgParsingTableState sr2 : r2.getSubstates( ) )
@@ -154,8 +153,8 @@ public class XpLRParser
 											{
 												if ( gotoEntry.containsKey( itemTop.getLeftelem( ) ) )
 												{
-													theStack.add( itemTop.getLeftelem( )  );
-													theStack.add( gotoEntry.get( itemTop.getLeftelem( ) ).getState( ));
+													theStack.add( itemTop.getLeftelem( ) );
+													theStack.add( gotoEntry.get( itemTop.getLeftelem( ) ).getState( ) );
 
 													break;
 												}
@@ -178,6 +177,7 @@ public class XpLRParser
 									else
 									{
 										DictionaryEntry b = getDictionary( ).getEntries( ).get( ip );
+
 										for ( HashMap< XpgElem, XpgActionEntry > action : substate.getActionEntry( ) )
 										{
 											XpgActionEntry ae = action.get( b.getTerminalName( ) );
@@ -224,6 +224,7 @@ public class XpLRParser
 													}
 
 												}
+
 											}
 										}
 									}
@@ -302,7 +303,7 @@ public class XpLRParser
 		{
 			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
-				if ( ! entry.isVisited( ) )
+				if ( ! entry.getName( ).equals( "EOI" ) && ! entry.isVisited( ) )
 					if ( entry.getTerminalName( ) != null )
 						for ( HashMap< XpgElem, XpgActionEntry > e : s.getActionEntry( ) )
 							if ( e.get( entry.getTerminalName( ) ) != null )
@@ -321,36 +322,47 @@ public class XpLRParser
 		}
 		else
 		{
-			int manyTimes = 0;
-			// for i = 1 to n
-			XpgElem z = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
-			int next_set = - 1;
-
-			XpgElem h_k = next.getDriverRelation( );
-			XpgElem x = next.getX( );
-
-			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
+			int ip = 999;
+			toBreak: for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
-				if ( ! entry.getName( ).equals( "EOI" ) && ! entry.isVisited( ) )
-				{
-
-					manyTimes ++ ;
-
-					if ( z.getClass( ).isAssignableFrom( XpgNonTerminal.class ) )
-					{
-					}
-
-					next_set = getDictionary( ).getEntries( ).indexOf( entry );
-				}
+				if (  ! entry.isVisited( ) )
+					if ( entry.getTerminalName( ) != null )
+						for ( HashMap< XpgElem, XpgActionEntry > e : s.getActionEntry( ) )
+							if ( e.get( entry.getTerminalName( ) ) != null )
+							{
+								ip = getDictionary( ).getEntries( ).indexOf( entry );
+								break toBreak;
+							}
 			}
 
-			if ( manyTimes > 1 )
-				throw new SyntaxErrorException( " runtime conflicy " );
-			else
-			{
-				getDictionary( ).getEntries( ).get( next_set ).setVisited( true );
-				return next_set;
-			}
+			getDictionary( ).getEntries( ).get( ip ).setVisited( true );
+			return ip;
+
+			//			int manyTimes = 0;
+			//			// for i = 1 to n
+			//			XpgElem z = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
+			//			int next_set = - 1;
+			//
+			//			XpgElem h_k = next.getDriverRelation( );
+			//			XpgElem x = next.getX( );
+			//
+			//			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
+			//			{
+			//				if ( ! entry.getName( ).equals( "EOI" ) && ! entry.isVisited( ) )
+			//				{
+			//					manyTimes ++ ;
+			//
+			//					next_set = getDictionary( ).getEntries( ).indexOf( entry );
+			//				}
+			//			}
+			//
+			//			if ( manyTimes > 1 )
+			//				throw new SyntaxErrorException( " runtime conflicy " );
+			//			else
+			//			{
+			//			//	getDictionary( ).getEntries( ).get( next_set ).setVisited( true );
+			//				return next_set;
+			//			}
 
 		}
 		return 999;
