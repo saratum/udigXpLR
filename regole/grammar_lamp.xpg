@@ -3,9 +3,17 @@ LAYERS(
 )
 
 
+map -> lamps;
+
 lamps -> lamp<union>lamps
 DELTA: (
-	DR lamps = lamps + lamp,
+	DR lamps = lamps + lamp
+)
+;
+
+lamps -> lamp
+DELTA: (
+	DR lamps = lamp
 )
 ;
 

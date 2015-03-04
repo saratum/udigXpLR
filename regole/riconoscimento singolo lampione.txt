@@ -14,8 +14,7 @@ SEMANTICRULE: {"
 "};
 
 INFO: Dictionary ready, here the entries:
-INFO: EOI(0) - null - false
-INFO: lamp_castel.199(0) - LAMP - false
+INFO: lamp_castel.210(0) - LAMP - false
 INFO: layer -  - lamp_castel
 INFO: Shift action: {LAMP=action[T:sh2] }
 INFO: REDUCE lamp->.LAMP Delta:lamp=LAMP;  Gamma: 
@@ -28,5 +27,5 @@ STATE: 1 - ACTION: [{LAMP=action[T:sh2] }] - GOTO: [{lamp=T:1}] - NEXT: Start,la
 STATE: 1 - ACTION: [{EOI=ACC}] - GOTO: [] - NEXT: end,EOI
 --------------------------------------------------------------------------------------------
 2
-STATE: 1 - ACTION: [{EOI=action[r: 1] , LAMP=action[r: 1] }] - GOTO: [] - NEXT: null,null
+STATE: 1 - ACTION: [{EOI=action[r: 0] , LAMP=action[r: 0] }] - GOTO: [] - NEXT: null,null
 --------------------------------------------------------------------------------------------

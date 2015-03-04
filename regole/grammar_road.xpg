@@ -1,0 +1,28 @@
+LAYERS (
+	cart_castel_class5=ROAD;
+)
+
+map -> roads;
+
+roads -> road<touches>roads
+DELTA: (
+	DR roads = roads_boundary + road_boundary	
+)
+;
+
+roads -> road
+DELTA: (
+	DR roads = road
+)
+;
+
+road -> ROAD
+DELTA: (
+  DB layer = cart_castel_class5,
+  DR road = ROAD
+)
+SEMANTICRULE: {"
+  void onCreate(){
+  }
+"};
+

@@ -1,0 +1,51 @@
+LAYERS(
+	lamp_castel=LAMP;
+)
+
+
+map -> lamps;
+
+lamps -> lamp<union>lamps
+DELTA: (
+	DR lamps = lamps + lamp
+)
+;
+
+lamps -> lamp
+DELTA: (
+	DR lamps = lamp
+)
+;
+
+lamp -> LAMP
+DELTA: (
+	DB layer=lamp_castel,
+	DR lamp = LAMP
+)
+SEMANTICRULE: {"
+	void onCreate(){
+	}
+"};
+
+
+
+0
+STATE: 1 - ACTION: [{LAMP=action[T:sh4] }] - GOTO: [{map=T:1}, {lamps=T:2}, {lamp=T:3}] - NEXT: Start,map
+--------------------------------------------------------------------------------------------
+1
+STATE: 1 - ACTION: [{EOI=ACC}] - GOTO: [] - NEXT: end,EOI
+--------------------------------------------------------------------------------------------
+2
+STATE: 1 - ACTION: [{EOI=action[r: 0] , LAMP=action[r: 0] }] - GOTO: [] - NEXT: null,null
+--------------------------------------------------------------------------------------------
+3
+STATE: 1 - ACTION: [{LAMP=action[T:sh4] }] - GOTO: [{lamps=T:5}, {lamp=T:3}] - NEXT: union,lamps
+--------------------------------------------------------------------------------------------
+STATE: 2 - ACTION: [{EOI=action[r: 2] , LAMP=action[r: 2] }] - GOTO: [] - NEXT: null,null
+--------------------------------------------------------------------------------------------
+4
+STATE: 1 - ACTION: [{EOI=action[r: 3] , LAMP=action[r: 3] }] - GOTO: [] - NEXT: null,null
+--------------------------------------------------------------------------------------------
+5
+STATE: 1 - ACTION: [{EOI=action[r: 1] , LAMP=action[r: 1] }] - GOTO: [] - NEXT: null,null
+--------------------------------------------------------------------------------------------

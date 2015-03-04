@@ -1,0 +1,49 @@
+LAYERS (
+	cart_castel_class5=ROAD;
+)
+
+map -> roads;
+
+roads -> road<touches>roads
+DELTA: (
+	DR roads = roads_boundary + road_boundary	
+)
+;
+
+roads -> road
+DELTA: (
+	DR roads = road
+)
+;
+
+road -> ROAD
+DELTA: (
+  DB layer = cart_castel_class5,
+  DR road = ROAD
+)
+SEMANTICRULE: {"
+  void onCreate(){
+  }
+"};
+
+
+0
+STATE: 1 - ACTION: [{ROAD=action[T:sh4] }] - GOTO: [{map=T:1}, {roads=T:2}, {road=T:3}] - NEXT: Start,map
+--------------------------------------------------------------------------------------------
+1
+STATE: 1 - ACTION: [{EOI=ACC}] - GOTO: [] - NEXT: end,EOI
+--------------------------------------------------------------------------------------------
+2
+STATE: 1 - ACTION: [{EOI=action[r: 0] , ROAD=action[r: 0] }] - GOTO: [] - NEXT: null,null
+--------------------------------------------------------------------------------------------
+3
+STATE: 1 - ACTION: [{ROAD=action[T:sh4] }] - GOTO: [{roads=T:5}, {road=T:3}] - NEXT: touches,roads
+--------------------------------------------------------------------------------------------
+STATE: 2 - ACTION: [{EOI=action[r: 2] , ROAD=action[r: 2] }] - GOTO: [] - NEXT: null,null
+--------------------------------------------------------------------------------------------
+4
+STATE: 1 - ACTION: [{EOI=action[r: 3] , ROAD=action[r: 3] }] - GOTO: [] - NEXT: null,null
+--------------------------------------------------------------------------------------------
+5
+STATE: 1 - ACTION: [{EOI=action[r: 1] , ROAD=action[r: 1] }] - GOTO: [] - NEXT: null,null
+--------------------------------------------------------------------------------------------
