@@ -3,15 +3,20 @@ LAYERS (
 	cart_castel_class5;
 )
 
-municipality -> MUNICIPALITY <contains> pip;
-municipality -> MUNICIPALITY <contains> roadNetwork;
-
-pip -> lamps;
+map -> MUNICIPALITY <contains> pip;
+pip -> lamps <union> roads;
 
 lamps -> lamp<union>lamps
 DELTA: (
 	DR lamps = lamps + lamp
 )
+SEMANTICRULE: {"
+	// routine that checks if the two lamps are
+	// correctly placed one near the other
+	// Beware! The object LAMP in Dp does not have 
+	// to be checked as visited until all the related 
+	// objects are examined
+"}
 ;
 
 lamps -> lamp
@@ -26,13 +31,11 @@ DELTA: (
 	DR lamp = LAMP
 )
 SEMANTICRULE: {"
-  	public boolean docheck()
+  	public boolean onCreate()
 	{
-		// routine that checks if a lamp is correctly configured
 	}	
 "};
 
-roadNetwork -> roads;
 
 roads -> road<touches>roads
 DELTA: (
@@ -52,14 +55,20 @@ DELTA: (
   DR road = ROAD
 )
 SEMANTICRULE: {"
-  void onCreate(){
-  }
+ public boolean onCreate()
+	{
+	}	
 "};
 
         
-lamp -> LAMP <place_on> ROAD
+lamp -> LAMP <close_to> ROAD
 DELTA (
   DR LAMP_bound = ROAD_bound
 )
-
-
+SEMANTICRULE: {"
+	// routine that checks if the terminal LAMP 
+	// is correctly placed on the right road type
+	// Beware! The objects LAMP and ROAD in Dp do not have 
+	// to be checked as visited until all the related 
+	// objects are examined
+"};
