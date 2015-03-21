@@ -11,7 +11,6 @@ public class Dictionary
 	public Dictionary()
 	{
 		this.entries = new ArrayList<DictionaryEntry>();
-		this.entries.add(new DictionaryEntry("EOI", null));
 	}
 
 	public ArrayList<DictionaryEntry> getEntries()

@@ -108,7 +108,8 @@ public class XpLRParser
 						Integer stackTop = ( Integer ) s;
 						XpgParsingTableRow row = getParsingtable( ).get( stackTop );
 
-						for ( XpgParsingTableState substate : row.getSubstates( ) )
+						// come prendere la riga giusta??
+						for ( XpgParsingTableState substate : row.getSubstates( ))
 						{
 							XpgNextEntry next = substate.getNextEntry( );
 							if ( next == null )
@@ -118,15 +119,17 @@ public class XpLRParser
 							}
 							else if ( next.isEmpty( ) )
 							{
+								
 								XpgElem b = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
 								ArrayList< HashMap< XpgElem, XpgActionEntry >> aEntries = substate.getActionEntry( );
 								for ( HashMap< XpgElem, XpgActionEntry > action : aEntries )
 								{
 									if ( action.containsKey( b ) )
 									{
-										int m = 0;
-										XpgItem itemTop = getLoader( ).getAugmentedItems( ).get( stackTop - 1 );
+										XpgItem itemTop = getLoader( ).getItems( ).get( action.get( b ).getContent( ).get( 0 ).getReduceTo( ) );
 										getResult( ).add( new ResultObject( "REDUCE ".concat( itemTop.toString( ) ), ResultObject.LEVEL_INFO ) );
+										
+										int m = 0;
 
 										// calculate the syntactic attribute of A as specified by delta
 										itemTop.getDeltaRules( );
@@ -307,7 +310,10 @@ public class XpLRParser
 					if ( entry.getTerminalName( ) != null )
 						for ( HashMap< XpgElem, XpgActionEntry > e : s.getActionEntry( ) )
 							if ( e.get( entry.getTerminalName( ) ) != null )
+							{
+								getDictionary( ).getEntries( ).get(getDictionary( ).getEntries( ).indexOf( entry )).setVisited( true );
 								return getDictionary( ).getEntries( ).indexOf( entry );
+							}
 			}
 		}
 		else if ( next.getDriverRelation( ).toString( ).equalsIgnoreCase( "end" ) )
@@ -325,7 +331,7 @@ public class XpLRParser
 			int ip = 999;
 			toBreak: for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
 			{
-				if (  ! entry.isVisited( ) )
+				if ( ! entry.isVisited( ) )
 					if ( entry.getTerminalName( ) != null )
 						for ( HashMap< XpgElem, XpgActionEntry > e : s.getActionEntry( ) )
 							if ( e.get( entry.getTerminalName( ) ) != null )
@@ -337,32 +343,6 @@ public class XpLRParser
 
 			getDictionary( ).getEntries( ).get( ip ).setVisited( true );
 			return ip;
-
-			//			int manyTimes = 0;
-			//			// for i = 1 to n
-			//			XpgElem z = ( XpgElem ) theStack.get( theStack.size( ) - 2 );
-			//			int next_set = - 1;
-			//
-			//			XpgElem h_k = next.getDriverRelation( );
-			//			XpgElem x = next.getX( );
-			//
-			//			for ( DictionaryEntry entry : getDictionary( ).getEntries( ) )
-			//			{
-			//				if ( ! entry.getName( ).equals( "EOI" ) && ! entry.isVisited( ) )
-			//				{
-			//					manyTimes ++ ;
-			//
-			//					next_set = getDictionary( ).getEntries( ).indexOf( entry );
-			//				}
-			//			}
-			//
-			//			if ( manyTimes > 1 )
-			//				throw new SyntaxErrorException( " runtime conflicy " );
-			//			else
-			//			{
-			//			//	getDictionary( ).getEntries( ).get( next_set ).setVisited( true );
-			//				return next_set;
-			//			}
 
 		}
 		return 999;
